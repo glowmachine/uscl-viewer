@@ -8,8 +8,14 @@ export default function DataTableRow({ member }: DataTableRowProps) {
     const currentTerm = member.terms[member.terms.length - 1];
     return <>
         <tr className='even:bg-gray-100 hover:bg-gray-200 *:p-1 *:whitespace-nowrap'
-            key={member.id.govtrack ? member.id.govtrack : member.id.bioguide}>
-            <td>{member.name.first} {member.name.last}</td>
+            key={member.id.bioguide ? member.id.bioguide : member.id.govtrack}
+        >
+            <td><a href='' className='hover:underline'>
+                {member.name.first}
+            </a></td>
+            <td><a href='' className='hover:underline'>
+                {member.name.last}
+            </a></td>
             <td>{member.bio.birthday ? getDateDiff(new Date(member.bio.birthday)).years : null}</td>
             <td>{member.bio.gender}</td>
             <td>{`${currentTerm.type == 'rep' ? 'Rep' : 'Sen'}`}</td>
