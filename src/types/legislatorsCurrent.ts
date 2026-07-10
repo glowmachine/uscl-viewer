@@ -8,7 +8,7 @@ export interface LegislatorsCurrent {
 }
 
 export interface Bio {
-    birthday: Date;
+    birthday: string;
     gender: Gender;
 }
 
@@ -41,8 +41,8 @@ export interface ID {
 export interface LeadershipRole {
     title: string;
     chamber: Chamber;
-    start: Date;
-    end?: Date;
+    start: string;
+    end?: string;
 }
 
 export type Chamber = 'house' | 'senate';
@@ -58,8 +58,8 @@ export interface Name {
 
 export interface Term {
     type: Type;
-    start: Date;
-    end: Date;
+    start: string;
+    end: string;
     state: string;
     district?: number;
     party: Caucus;
@@ -83,8 +83,8 @@ export type Caucus = 'Democrat' | 'Independent' | 'Republican';
 export type EndType = 'appointment' | 'special-election';
 
 export interface PartyAffiliation {
-    start: Date;
-    end: Date;
+    start: string;
+    end: string;
     party: Caucus;
     caucus?: Caucus;
 }
