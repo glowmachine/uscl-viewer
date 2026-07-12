@@ -1,48 +1,35 @@
 import { useDataContext } from "../contexts/DataContext";
-import { useTableContext } from "../contexts/TableContext";
-import DataTableRow, { type RowDataType } from "./DataTableRow";
+import { useTableContext, type ColumnKey } from "../contexts/TableContext";
+import DataTableRow from "./DataTableRow";
 import { useMemo } from "react";
-import { states } from "../types/states";
-import getDateDiff from "../util/getDateDiff";
+import { getDisplayData, type RowData } from "./getDisplayData";
 
 export default function DataTable() {
     const { data, isLoading, error } = useDataContext();
     const { columns, setColumns, sortBy, setSortBy } = useTableContext();
 
-    const displayData = useMemo<RowDataType[]>(() => {
+    const tableData = useMemo<RowData[]>(() => {
         if (!data) return [];
-        const reducedData: RowDataType[] = data.map((member) => {
-            const currentTerm = member.terms[member.terms.length - 1];
-            return {
-                id: member.id.bioguide,
-                first: member.name.first,
-                last: member.name.last,
-                age: getDateDiff(new Date(member.bio.birthday)).years,
-                gender: member.bio.gender,
-                type: currentTerm.type,
-                state: states[currentTerm.state],
-                district: currentTerm.district,
-                party: String(currentTerm.party),
-                terms: member.terms.length,
-                start: currentTerm.start,
-                end: currentTerm.end,
-            }
+        const displayData: RowData[] = getDisplayData(data);
+
+        return displayData.sort((a, b) => {
+            const key: ColumnKey = sortBy.key;
+            const aVal = a[key];
+            const bVal = b[key];
+
+            let compareVal = 0;
+            if (aVal == null && bVal == null) return compareVal;
+
+            if (!aVal) compareVal = 1;
+            if (!bVal) compareVal = -1;
+
+            if (typeof aVal === 'string' && typeof bVal === 'string')
+                compareVal = aVal.localeCompare(bVal);
+            if (typeof aVal === 'number' && typeof bVal === 'number')
+                compareVal = aVal - bVal;
+
+            return sortBy.asc ? compareVal : -compareVal;
         });
-        const orderedData: RowDataType[] = [...reducedData].sort((a, b) => {
-            const aValue = String(a[sortBy.key]);
-            const bValue = String(b[sortBy.key]);
-            if (aValue == null && bValue == null) return 0;
-            if (sortBy.asc) {
-                if (!aValue) return 1;
-                if (!bValue) return -1;
-                return aValue.localeCompare(bValue);
-            } else {
-                if (!bValue) return 1;
-                if (!aValue) return -1;
-                return bValue.localeCompare(aValue);
-            }
-        });
-        return orderedData;
     }, [data, columns, sortBy]);
 
 
@@ -51,19 +38,18 @@ export default function DataTable() {
             <table>
                 <thead>
                     <tr className='text-left bg-gray-400'>
-                        {columns.filter((c) => (c.visible)).map((column) =>
-                            <th key={column.key}><button
+                        {columns.filter((c) => (c.visible)).map((col) =>
+                            <th key={col.key}><button
                                 className='flex gap-1 justify-between whitespace-nowrap w-full px-1 hover:bg-gray-500'
                                 onClick={() => setSortBy((prev) => {
-                                    return (column.key == prev.key)
+                                    return (col.key == prev.key)
                                         ? { ...prev, asc: !prev.asc }
-                                        : { key: column.key, asc: true }
+                                        : { key: col.key as ColumnKey, asc: true }
                                 })}
                             >
-                                <span>{column.label}</span>
-                                <span className={column.key !== sortBy.key ? 'invisible' : ''}>
+                                <span>{col.label}</span>
+                                <span className={col.key !== sortBy.key ? 'invisible' : ''}>
                                     {sortBy.asc ? '▲' : '▼'}</span>
-
                             </button></th>
                         )}
                     </tr>
@@ -71,9 +57,9 @@ export default function DataTable() {
                 <tbody>
                     {isLoading && <tr><td>Loading Database</td></tr>}
                     {error && <tr><td>{error.message}</td></tr>}
-                    {displayData && <>
-                        {displayData.map((member) =>
-                            <DataTableRow member={member} key={member.id} />
+                    {tableData && <>
+                        {tableData.map((row) =>
+                            <DataTableRow row={row} key={row.id} />
                         )}
                     </>}
                 </tbody>
