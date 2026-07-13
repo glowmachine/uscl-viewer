@@ -3,6 +3,8 @@ import { useTableContext, type ColumnKey } from "../contexts/TableContext";
 import DataTableRow from "./DataTableRow";
 import { useMemo } from "react";
 import { getDisplayData, type RowData } from "./getDisplayData";
+import sortDisplayData from "./sortDisplayData";
+// import filterDisplayData from "./filterDisplayData";
 
 export default function DataTable() {
     const { data, isLoading, error } = useDataContext();
@@ -10,26 +12,10 @@ export default function DataTable() {
 
     const tableData = useMemo<RowData[]>(() => {
         if (!data) return [];
-        const displayData: RowData[] = getDisplayData(data);
 
-        return displayData.sort((a, b) => {
-            const key: ColumnKey = sortBy.key;
-            const aVal = a[key];
-            const bVal = b[key];
-
-            let compareVal = 0;
-            if (aVal == null && bVal == null) return compareVal;
-
-            if (!aVal) compareVal = 1;
-            if (!bVal) compareVal = -1;
-
-            if (typeof aVal === 'string' && typeof bVal === 'string')
-                compareVal = aVal.localeCompare(bVal);
-            if (typeof aVal === 'number' && typeof bVal === 'number')
-                compareVal = aVal - bVal;
-
-            return sortBy.asc ? compareVal : -compareVal;
-        });
+        let displayData: RowData[] = getDisplayData(data);
+        displayData = sortDisplayData(displayData, sortBy.key, sortBy.asc);
+        return displayData;
     }, [data, columns, sortBy]);
 
 
