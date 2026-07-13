@@ -44,6 +44,8 @@ type TableContextValue = {
     setSortBy: React.Dispatch<React.SetStateAction<SortByOptions>>,
     filterOptions: FilterOptions,
     setFilterOptions: React.Dispatch<React.SetStateAction<FilterOptions>>,
+    searchInput: string,
+    setSearchInput: React.Dispatch<React.SetStateAction<string>>,
 }
 const TableContext = createContext<TableContextValue | undefined>(undefined);
 
@@ -65,12 +67,14 @@ export function TableProvider({ children }: PropsWithChildren) {
             Representatives: true,
         }
     })
+    const [searchInput, setSearchInput] = useState('');
 
     return (
         <TableContext value={{
             columns, setColumns,
             sortBy, setSortBy,
-            filterOptions, setFilterOptions
+            filterOptions, setFilterOptions,
+            searchInput, setSearchInput
         }}>
             {children}
         </TableContext>

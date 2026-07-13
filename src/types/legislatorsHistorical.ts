@@ -9,7 +9,7 @@ export interface LegislatorsHistorical {
 }
 
 export interface Bio {
-    birthday?: Date;
+    birthday: string;
     gender: Gender;
 }
 
@@ -44,8 +44,8 @@ export interface ID {
 export interface LeadershipRole {
     title: string;
     chamber: Chamber;
-    start: Date;
-    end: Date;
+    start: string;
+    end: string;
 }
 
 export type Chamber = 'house' | 'senate';
@@ -62,15 +62,15 @@ export interface Name {
 export type Suffix = "II" | "III" | "IV" | "Jr." | "Sr.";
 
 export interface OtherName {
-    end?: Date;
+    end?: string;
     middle?: null;
     last: string;
 }
 
 export interface Term {
     type: Type;
-    start: Date;
-    end: Date;
+    start: string;
+    end: string;
     state: State;
     class?: number;
     party?: Caucus;

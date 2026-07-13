@@ -5,20 +5,26 @@ export default function filterDisplayData(data: RowData[], filterOptions: Filter
     let rows = data;
 
     if (filterOptions.search) {
-        rows = data.filter((row) =>
-            (row.first.toLowerCase().includes(filterOptions.search.toLowerCase())));
+        const searchTerms = filterOptions.search
+            .trim().toLowerCase().split(/\s+/).filter(term => term.length > 0);
+
+        rows = data.filter((row) => {
+            const first = row.first.toLowerCase();
+            const last = row.last.toLowerCase();
+            return searchTerms.every(term => first.includes(term) || last.includes(term));
+        });
     }
 
     if (!filterOptions.filters.Democrats)
-        rows = rows.filter((r) => (r.party !== 'Democrat'));
+        rows = rows.filter(row => row.party !== 'Democrat');
     if (!filterOptions.filters.Independents)
-        rows = rows.filter((r) => (r.party !== 'Independent'));
+        rows = rows.filter(row => row.party !== 'Independent');
     if (!filterOptions.filters.Republicans)
-        rows = rows.filter((r) => (r.party !== 'Republican'));
+        rows = rows.filter(row => row.party !== 'Republican');
     if (!filterOptions.filters.Representatives)
-        rows = rows.filter((r) => (r.type !== 'Representative'));
+        rows = rows.filter(row => row.type !== 'Representative');
     if (!filterOptions.filters.Senators)
-        rows = rows.filter((r) => (r.type !== 'Senator'));
+        rows = rows.filter(row => row.type !== 'Senator');
 
     return rows;
 }

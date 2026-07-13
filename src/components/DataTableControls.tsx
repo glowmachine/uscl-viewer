@@ -1,7 +1,13 @@
 import { useTableContext } from "../contexts/TableContext";
+import { districts, states, territories } from "../types/states";
+import debounce from "../util/debounce";
+
+
 
 export default function DataTableControls() {
-    const { filterOptions, setFilterOptions } = useTableContext();
+    const { filterOptions, setFilterOptions, searchInput, setSearchInput } = useTableContext();
+    const debouncedSearch = debounce((value) =>
+        setFilterOptions((prev) => ({ ...prev, search: value })), 300);
 
     return (
         <div id='controls_container'
@@ -12,45 +18,50 @@ export default function DataTableControls() {
                     type='text'
                     className='border rounded px-1'
                     placeholder='Jane Doe'
-                    value={filterOptions.search}
+                    value={searchInput}
                     onChange={(e) => {
-                        setFilterOptions((prev) => (
-                            { ...prev, search: e.target.value }))
+                        setSearchInput(e.target.value);
+                        debouncedSearch(e.target.value);
                     }}
                 />
             </label>
-            <label htmlFor='filterState'>State</label>
-            <select id='filterState'
-                className='border rounded px-1'>
-                <optgroup label='States'>
-                    <option value='ME'>Maine</option>
-                    <option value='MA'>Massachusetts</option>
-                    <option value='MI'>Michigan</option>
-                </optgroup>
-                <optgroup label='Territories'>
-                    <option value='VI'>US Virgin Islands</option>
-                    <option value='GU'>Guam</option>
-                </optgroup>
-                <optgroup label='Capitol'>
-                    <option value='DC'>District of Columbia</option>
-                </optgroup>
-            </select>
             <div>
-                <label htmlFor='filterDem'>Democrats </label>
+                <label htmlFor='filterState'>State</label>
+                <select id='filterState'
+                    className='border rounded px-1'>
+                    <optgroup label='States'>
+                        {Object.entries(states).map(([abbr, fullName]) =>
+                            <option value={abbr} key={abbr}>{fullName}</option>
+                        )}
+                    </optgroup>
+                    <optgroup label='Territories'>
+                        {Object.entries(territories).map(([abbr, fullName]) =>
+                            <option value={abbr} key={abbr}>{fullName}</option>
+                        )}
+                    </optgroup>
+                    <optgroup label='Capitol'>
+                        {Object.entries(districts).map(([abbr, fullName]) =>
+                            <option value={abbr} key={abbr}>{fullName}</option>
+                        )}
+                    </optgroup>
+                </select>
+            </div>
+            <div>
+                <label htmlFor='filterDem'>Democrats</label>
                 <input id='filterDem' type='checkbox'
                     checked={filterOptions.filters.Democrats}
                     onChange={(e) => setFilterOptions((prev) =>
                         ({ ...prev, filters: { ...prev.filters, Democrats: e.target.checked } }))
                     }
                 />
-                <label htmlFor='filterInd'>Independents </label>
+                <label htmlFor='filterInd'>Independents</label>
                 <input id='filterInd' type='checkbox'
                     checked={filterOptions.filters.Independents}
                     onChange={(e) => setFilterOptions((prev) =>
                         ({ ...prev, filters: { ...prev.filters, Independents: e.target.checked } }))
                     }
                 />
-                <label htmlFor='filterRep'>Republicans </label>
+                <label htmlFor='filterRep'>Republicans</label>
                 <input id='filterRep' type='checkbox'
                     checked={filterOptions.filters.Republicans}
                     onChange={(e) => setFilterOptions((prev) =>
@@ -59,14 +70,14 @@ export default function DataTableControls() {
                 />
             </div>
             <div>
-                <label htmlFor='filterReps'>Representatives </label>
+                <label htmlFor='filterReps'>Representatives</label>
                 <input id='filterReps' type='checkbox'
                     checked={filterOptions.filters.Representatives}
                     onChange={(e) => setFilterOptions((prev) =>
                         ({ ...prev, filters: { ...prev.filters, Representatives: e.target.checked } }))
                     }
                 />
-                <label htmlFor='filterSens'>Senators </label>
+                <label htmlFor='filterSens'>Senators</label>
                 <input id='filterSens' type='checkbox'
                     checked={filterOptions.filters.Senators}
                     onChange={(e) => setFilterOptions((prev) =>

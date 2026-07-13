@@ -1,12 +1,4 @@
 export const states: Record<string, string> = {
-    // Other
-    DC: 'District of Columbia',
-    AS: 'American Samoa',
-    GU: 'Guam',
-    MP: 'Northern Mariana Islands',
-    PR: 'Puerto Rico',
-    VI: 'Virgin Islands',
-
     // A
     AK: 'Alaska',
     AL: 'Alabama',
@@ -94,4 +86,15 @@ export const states: Record<string, string> = {
     WI: 'Wisconsin',
     WV: 'West Virginia',
     WY: 'Wyoming',
-};
+}
+export const territories: Record<string, string> = {
+    AS: 'American Samoa',
+    GU: 'Guam',
+    MP: 'Northern Mariana Islands',
+    PR: 'Puerto Rico',
+    VI: 'Virgin Islands',
+}
+
+export const districts: Record<string, string> = {
+    DC: 'District of Columbia',
+}
