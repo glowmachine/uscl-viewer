@@ -4,19 +4,21 @@ import DataTableRow from "./DataTableRow";
 import { useMemo } from "react";
 import { getDisplayData, type RowData } from "./getDisplayData";
 import sortDisplayData from "./sortDisplayData";
+import filterDisplayData from "./filterDisplayData";
 // import filterDisplayData from "./filterDisplayData";
 
 export default function DataTable() {
     const { data, isLoading, error } = useDataContext();
-    const { columns, setColumns, sortBy, setSortBy } = useTableContext();
+    const { columns, setColumns, sortBy, setSortBy, filterOptions } = useTableContext();
 
     const tableData = useMemo<RowData[]>(() => {
         if (!data) return [];
 
         let displayData: RowData[] = getDisplayData(data);
         displayData = sortDisplayData(displayData, sortBy.key, sortBy.asc);
+        displayData = filterDisplayData(displayData, filterOptions);
         return displayData;
-    }, [data, columns, sortBy]);
+    }, [data, columns, sortBy, filterOptions]);
 
 
     return (<>

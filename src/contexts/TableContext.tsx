@@ -1,6 +1,5 @@
 import { createContext, useContext, useState, type PropsWithChildren } from "react";
 
-
 type Column = {
     key: string,
     label: string,
@@ -26,31 +25,53 @@ export type SortByOptions = {
     key: typeof initialColumns[number]['key'],
     asc: boolean,
 };
-// export type FilterOptions = {
-//     search: string[]
-//     hiddenCat: string[] // should be typed with legislatorsCurrent.ts
-// };
+
+export type FilterKey =
+    | 'Democrats'
+    | 'Independents'
+    | 'Republicans'
+    | 'Representatives'
+    | 'Senators';
+export type FilterOptions = {
+    search: string,
+    filters: Record<FilterKey, boolean>
+}
 
 type TableContextValue = {
     columns: Column[],
     setColumns: React.Dispatch<React.SetStateAction<Column[]>>,
     sortBy: SortByOptions,
     setSortBy: React.Dispatch<React.SetStateAction<SortByOptions>>,
+    filterOptions: FilterOptions,
+    setFilterOptions: React.Dispatch<React.SetStateAction<FilterOptions>>,
 }
-
-
 const TableContext = createContext<TableContextValue | undefined>(undefined);
 
 export function TableProvider({ children }: PropsWithChildren) {
-    const [columns, setColumns] =
-        useState<Column[]>(initialColumns);
+    const [columns, setColumns] = useState<Column[]>(
+        initialColumns
+    );
     const [sortBy, setSortBy] = useState<SortByOptions>({
         key: 'last',
         asc: true,
     });
+    const [filterOptions, setFilterOptions] = useState<FilterOptions>({
+        search: '',
+        filters: {
+            Democrats: true,
+            Independents: true,
+            Republicans: true,
+            Senators: true,
+            Representatives: true,
+        }
+    })
 
     return (
-        <TableContext value={{ columns, setColumns, sortBy, setSortBy }}>
+        <TableContext value={{
+            columns, setColumns,
+            sortBy, setSortBy,
+            filterOptions, setFilterOptions
+        }}>
             {children}
         </TableContext>
     );
