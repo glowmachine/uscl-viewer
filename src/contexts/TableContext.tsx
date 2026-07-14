@@ -1,4 +1,5 @@
 import { createContext, useContext, useState, type PropsWithChildren } from "react";
+import type { Gender } from "../types/legislatorsCurrent";
 
 const initialColumns = [
     { key: 'id', label: 'Bioguide', visible: false },
@@ -21,6 +22,21 @@ type Column = {
 };
 export type ColumnKey = typeof initialColumns[number]['key'];
 
+type ColumnTypeMap = {
+    id: string,
+    first: string,
+    last: string,
+    age: number,
+    gender: Gender,
+    type: string,
+    state: string,
+    district: number | undefined,
+    party: string,
+    terms: number,
+    start: string,
+    end: string,
+};
+export type Row = { [K in ColumnKey]: ColumnTypeMap[K] };
 
 export type FilterOptions = {
     search: string,
@@ -34,7 +50,7 @@ export type FilterOptions = {
         senator: boolean,
         representative: boolean,
     }
-}
+};
 
 export type SortByOptions = {
     key: typeof initialColumns[number]['key'],

@@ -1,17 +1,16 @@
 import { useDataContext } from "../contexts/DataContext";
-import { useTableContext, type ColumnKey } from "../contexts/TableContext";
-import DataTableRow from "./DataTableRow";
+import { useTableContext, type ColumnKey, type Row } from "../contexts/TableContext";
 import { useMemo } from "react";
-import { getDisplayData, type RowData } from "./getDisplayData";
-import sortDisplayData from "./sortDisplayData";
-import filterDisplayData from "./filterDisplayData";
-// import filterDisplayData from "./filterDisplayData";
+import DataTableRow from "./DataTableRow";
+import selectData from "./selectData";
+import sortRows from "./sortRows";
+import filterRows from "./filterRows";
 
 export default function DataTable() {
     const { data, isLoading, error } = useDataContext();
     const { columns, setColumns, sortBy, setSortBy, filterOptions } = useTableContext();
 
-    const tableData = useMemo<RowData[]>(() => {
+    const visibleRows = useMemo<Row[]>(() => {
         if (!data) return [];
         let results: Row[] = selectData(data);
         results = sortRows(results, sortBy.key, sortBy.asc);
@@ -44,8 +43,8 @@ export default function DataTable() {
                 <tbody>
                     {isLoading && <tr><td>Loading Database</td></tr>}
                     {error && <tr><td>{error.message}</td></tr>}
-                    {tableData && <>
-                        {tableData.map((row) =>
+                    {visibleRows && <>
+                        {visibleRows.map((row) =>
                             <DataTableRow row={row} key={row.id} />
                         )}
                     </>}

@@ -1,7 +1,6 @@
-import { useTableContext, type ColumnKey } from "../contexts/TableContext";
-import type { RowData } from "./getDisplayData";
+import { useTableContext, type ColumnKey, type Row } from "../contexts/TableContext";
 
-interface DataTableRowProps { row: RowData }
+interface DataTableRowProps { row: Row }
 export default function DataTableRow({ row }: DataTableRowProps) {
     const { columns } = useTableContext();
 
