@@ -1,0 +1,29 @@
+import type { FilterOptions, Row } from "../contexts/TableContext";
+
+export default function filterRows(rows: Row[], filterOptions: FilterOptions): Row[] {
+    let filteredRows = rows;
+
+    if (filterOptions.search) {
+        const searchTerms = filterOptions.search
+            .trim().toLowerCase().split(/\s+/).filter(term => term.length > 0);
+
+        filteredRows = filteredRows.filter((row) => {
+            const first = row.first.toLowerCase();
+            const last = row.last.toLowerCase();
+            return searchTerms.every(term => first.includes(term) || last.includes(term));
+        });
+    }
+
+    Object.entries(filterOptions.parties).forEach(([party, isChecked]) => {
+        if (!isChecked) filteredRows = rows.filter(row =>
+            (row.party !== (party[0].toUpperCase() + party.slice(1)))
+        )
+    });
+    Object.entries(filterOptions.types).forEach(([type, isChecked]) => {
+        if (!isChecked) filteredRows = rows.filter(row =>
+            (row.type !== (type[0].toUpperCase() + type.slice(1)))
+        )
+    });
+
+    return filteredRows;
+}

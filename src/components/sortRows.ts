@@ -1,9 +1,7 @@
-import type { ColumnKey } from "../contexts/TableContext";
-import type { RowData } from "./getDisplayData";
+import type { ColumnKey, Row } from "../contexts/TableContext";
 
-export default function sortDisplayData(data: RowData[], key: ColumnKey, asc: boolean): RowData[] {
-
-    return data.sort((a, b) => {
+export default function sortRows(rows: Row[], key: ColumnKey, asc: boolean): Row[] {
+    return rows.sort((a, b) => {
         const aVal = a[key];
         const bVal = b[key];
         let compareVal = 0;

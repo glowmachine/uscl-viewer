@@ -13,11 +13,10 @@ export default function DataTable() {
 
     const tableData = useMemo<RowData[]>(() => {
         if (!data) return [];
-
-        let displayData: RowData[] = getDisplayData(data);
-        displayData = sortDisplayData(displayData, sortBy.key, sortBy.asc);
-        displayData = filterDisplayData(displayData, filterOptions);
-        return displayData;
+        let results: Row[] = selectData(data);
+        results = sortRows(results, sortBy.key, sortBy.asc);
+        results = filterRows(results, filterOptions);
+        return results;
     }, [data, columns, sortBy, filterOptions]);
 
 

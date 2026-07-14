@@ -1,24 +1,10 @@
 import type { DataType } from "../api/fetchData";
+import type { Row } from "../contexts/TableContext";
 import { states } from "../types/states";
 import getDateDiff from "../util/getDateDiff";
 
-export type RowData = {
-    id: string,
-    first: string,
-    last: string,
-    age: number,
-    gender: 'F' | 'M',
-    type: 'Representative' | 'Senator',
-    state: string,
-    district: number | undefined,
-    party: string,
-    terms: number,
-    start: string,
-    end: string,
-}
-
-export function getDisplayData(data: DataType[]): RowData[] {
-    return data.map((member) => {
+export default function selectData(data: DataType[]): Row[] {
+    const selectedData = data.map(member => {
         const currentTerm = member.terms[member.terms.length - 1];
         return {
             id: member.id.bioguide,
@@ -34,5 +20,6 @@ export function getDisplayData(data: DataType[]): RowData[] {
             start: currentTerm.start,
             end: currentTerm.end,
         };
-    });
+    })
+    return selectedData;
 }
