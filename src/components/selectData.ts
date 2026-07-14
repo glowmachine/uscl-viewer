@@ -1,6 +1,6 @@
 import type { DataType } from "../api/fetchData";
 import type { Row } from "../contexts/TableContext";
-import { states } from "../types/states";
+import { allAreas } from "../types/states";
 import getDateDiff from "../util/getDateDiff";
 
 export default function selectData(data: DataType[]): Row[] {
@@ -13,7 +13,7 @@ export default function selectData(data: DataType[]): Row[] {
             age: getDateDiff(new Date(member.bio.birthday)).years,
             gender: member.bio.gender,
             type: currentTerm.type === 'rep' ? 'Representative' : 'Senator',
-            state: states[currentTerm.state],
+            state: allAreas[currentTerm.state],
             district: currentTerm.district,
             party: String(currentTerm.party),
             terms: member.terms.length,

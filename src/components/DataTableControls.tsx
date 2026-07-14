@@ -22,8 +22,7 @@ export default function DataTableControls() {
     return (
         <div id='controls_container'
             className='flex flex-col gap-1'>
-            <label htmlFor='searchbox' className=''>
-                Search
+            <label htmlFor='searchbox' className='flex'>Search
                 <div className='relative w-50'>
                     <input id='searchbox'
                         type='text'
@@ -44,7 +43,10 @@ export default function DataTableControls() {
             <div>
                 <label htmlFor='filterState'>State</label>
                 <select id='filterState'
-                    className='border rounded px-1'>
+                    className='border rounded px-1'
+                    value={filterOptions.state}
+                    onChange={(e) => setFilterOptions(prev => ({ ...prev, state: e.target.value }))}>
+                    <option value='' key=''>ALL</option>
                     <optgroup label='States'>
                         {Object.entries(states).map(([abbr, fullName]) =>
                             <option value={abbr} key={abbr}>{fullName}</option>

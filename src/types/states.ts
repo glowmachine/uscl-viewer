@@ -98,3 +98,5 @@ export const territories: Record<string, string> = {
 export const districts: Record<string, string> = {
     DC: 'District of Columbia',
 }
+
+export const allAreas = { ...states, ...territories, ...districts };

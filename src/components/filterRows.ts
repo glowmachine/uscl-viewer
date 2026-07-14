@@ -1,4 +1,5 @@
 import type { FilterOptions, Row } from "../contexts/TableContext";
+import { allAreas } from "../types/states";
 
 export default function filterRows(rows: Row[], filterOptions: FilterOptions): Row[] {
     let filteredRows = rows;
@@ -13,6 +14,11 @@ export default function filterRows(rows: Row[], filterOptions: FilterOptions): R
             return searchTerms.every(term => first.includes(term) || last.includes(term));
         });
     }
+
+    if (filterOptions.state)
+        filteredRows = filteredRows.filter(row => (
+            row.state === allAreas[filterOptions.state]
+        ));
 
     Object.entries(filterOptions.parties).forEach(([party, isChecked]) => {
         if (!isChecked) filteredRows = filteredRows.filter(row =>
