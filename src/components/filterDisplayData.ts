@@ -15,16 +15,27 @@ export default function filterDisplayData(data: RowData[], filterOptions: Filter
         });
     }
 
-    if (!filterOptions.filters.Democrats)
-        rows = rows.filter(row => row.party !== 'Democrat');
-    if (!filterOptions.filters.Independents)
-        rows = rows.filter(row => row.party !== 'Independent');
-    if (!filterOptions.filters.Republicans)
-        rows = rows.filter(row => row.party !== 'Republican');
-    if (!filterOptions.filters.Representatives)
-        rows = rows.filter(row => row.type !== 'Representative');
-    if (!filterOptions.filters.Senators)
-        rows = rows.filter(row => row.type !== 'Senator');
+    // if (!filterOptions.parties.democrats)
+    // rows = rows.filter(row => row.party !== 'Democrat');
+    // if (!filterOptions.filters.Independents)
+    //     rows = rows.filter(row => row.party !== 'Independent');
+    // if (!filterOptions.filters.Republicans)
+    //     rows = rows.filter(row => row.party !== 'Republican');
+    // if (!filterOptions.filters.Representatives)
+    //     rows = rows.filter(row => row.type !== 'Representative');
+    // if (!filterOptions.filters.Senators)
+    //     rows = rows.filter(row => row.type !== 'Senator');
+    Object.entries(filterOptions.parties).forEach(([party, isChecked]) => {
+        if (!isChecked) rows = rows.filter(row =>
+            (row.party !== (party[0].toUpperCase() + party.slice(1)))
+        )
+    });
+
+    Object.entries(filterOptions.types).forEach(([type, isChecked]) => {
+        if (!isChecked) rows = rows.filter(row =>
+            (row.type !== (type[0].toUpperCase() + type.slice(1)))
+        )
+    });
 
     return rows;
 }

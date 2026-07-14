@@ -65,39 +65,39 @@ export default function DataTableControls() {
             <fieldset>
                 <label htmlFor='filterDem'>Democrats</label>
                 <input id='filterDem' type='checkbox'
-                    checked={filterOptions.filters.Democrats}
+                    checked={filterOptions.parties.democrat}
                     onChange={(e) => setFilterOptions((prev) =>
-                        ({ ...prev, filters: { ...prev.filters, Democrats: e.target.checked } }))
+                        ({ ...prev, parties: { ...prev.parties, democrat: e.target.checked } }))
                     }
                 />
                 <label htmlFor='filterInd'>Independents</label>
                 <input id='filterInd' type='checkbox'
-                    checked={filterOptions.filters.Independents}
+                    checked={filterOptions.parties.independent}
                     onChange={(e) => setFilterOptions((prev) =>
-                        ({ ...prev, filters: { ...prev.filters, Independents: e.target.checked } }))
+                        ({ ...prev, parties: { ...prev.parties, independent: e.target.checked } }))
                     }
                 />
                 <label htmlFor='filterRep'>Republicans</label>
                 <input id='filterRep' type='checkbox'
-                    checked={filterOptions.filters.Republicans}
+                    checked={filterOptions.parties.republican}
                     onChange={(e) => setFilterOptions((prev) =>
-                        ({ ...prev, filters: { ...prev.filters, Republicans: e.target.checked } }))
+                        ({ ...prev, parties: { ...prev.parties, republican: e.target.checked } }))
                     }
                 />
             </fieldset>
             <fieldset>
                 <label htmlFor='filterReps'>Representatives</label>
                 <input id='filterReps' type='checkbox'
-                    checked={filterOptions.filters.Representatives}
+                    checked={filterOptions.types.representative}
                     onChange={(e) => setFilterOptions((prev) =>
-                        ({ ...prev, filters: { ...prev.filters, Representatives: e.target.checked } }))
+                        ({ ...prev, types: { ...prev.types, representative: e.target.checked } }))
                     }
                 />
                 <label htmlFor='filterSens'>Senators</label>
                 <input id='filterSens' type='checkbox'
-                    checked={filterOptions.filters.Senators}
+                    checked={filterOptions.types.senator}
                     onChange={(e) => setFilterOptions((prev) =>
-                        ({ ...prev, filters: { ...prev.filters, Senators: e.target.checked } }))
+                        ({ ...prev, types: { ...prev.types, senator: e.target.checked } }))
                     }
                 />
             </fieldset>

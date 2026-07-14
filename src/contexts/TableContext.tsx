@@ -1,12 +1,7 @@
 import { createContext, useContext, useState, type PropsWithChildren } from "react";
 
-type Column = {
-    key: string,
-    label: string,
-    visible?: boolean
-};
 const initialColumns = [
-    { key: 'id', label: 'Bioguide', visible: true },
+    { key: 'id', label: 'Bioguide', visible: false },
     { key: 'first', label: 'First Name', visible: true },
     { key: 'last', label: 'Last Name', visible: true },
     { key: 'age', label: 'Age', visible: true },
@@ -19,23 +14,32 @@ const initialColumns = [
     { key: 'start', label: 'Start', visible: true },
     { key: 'end', label: 'End', visible: true },
 ] as const satisfies Column[];
+type Column = {
+    key: string,
+    label: string,
+    visible?: boolean
+};
 export type ColumnKey = typeof initialColumns[number]['key'];
+
+
+export type FilterOptions = {
+    search: string,
+    state: string,
+    parties: {
+        democrat: boolean,
+        independent: boolean,
+        republican: boolean,
+    },
+    types: {
+        senator: boolean,
+        representative: boolean,
+    }
+}
 
 export type SortByOptions = {
     key: typeof initialColumns[number]['key'],
     asc: boolean,
 };
-
-export type FilterKey =
-    | 'Democrats'
-    | 'Independents'
-    | 'Republicans'
-    | 'Representatives'
-    | 'Senators';
-export type FilterOptions = {
-    search: string,
-    filters: Record<FilterKey, boolean>
-}
 
 type TableContextValue = {
     columns: Column[],
@@ -59,12 +63,15 @@ export function TableProvider({ children }: PropsWithChildren) {
     });
     const [filterOptions, setFilterOptions] = useState<FilterOptions>({
         search: '',
-        filters: {
-            Democrats: true,
-            Independents: true,
-            Republicans: true,
-            Senators: true,
-            Representatives: true,
+        state: '',
+        parties: {
+            democrat: true,
+            independent: true,
+            republican: true,
+        },
+        types: {
+            senator: true,
+            representative: true,
         }
     })
     const [searchInput, setSearchInput] = useState('');
