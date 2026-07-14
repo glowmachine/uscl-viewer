@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { useTableContext } from "../contexts/TableContext";
 import { districts, states, territories } from "../types/states";
 import debounce from "../util/debounce";
@@ -6,24 +7,39 @@ import debounce from "../util/debounce";
 
 export default function DataTableControls() {
     const { filterOptions, setFilterOptions, searchInput, setSearchInput } = useTableContext();
-    const debouncedSearch = debounce((value) =>
-        setFilterOptions((prev) => ({ ...prev, search: value })), 300);
+    const [waitingIndicator, setWaitingIndicator] = useState(false);
+    const debouceTimeMs = 300;
+    const debouncedSearch = debounce((value) => {
+        setFilterOptions((prev) => ({ ...prev, search: value }));
+        setWaitingIndicator(false);
+    }, debouceTimeMs);
+    function handleSearch(e: React.ChangeEvent<HTMLInputElement, HTMLInputElement>): void {
+        setSearchInput(e.target.value);
+        setWaitingIndicator(true);
+        debouncedSearch(e.target.value);
+    }
 
     return (
         <div id='controls_container'
             className='flex flex-col gap-1'>
             <label htmlFor='searchbox' className=''>
                 Search
-                <input id='searchbox'
-                    type='text'
-                    className='border rounded px-1'
-                    placeholder='Jane Doe'
-                    value={searchInput}
-                    onChange={(e) => {
-                        setSearchInput(e.target.value);
-                        debouncedSearch(e.target.value);
-                    }}
-                />
+                <div className='relative w-50'>
+                    <input id='searchbox'
+                        type='text'
+                        className='w-full border rounded px-1'
+                        placeholder='Jane Doe'
+                        value={searchInput}
+                        onChange={handleSearch}
+                    />
+                    {waitingIndicator && (
+                        <div className='absolute right-0.5 top-1/2 -translate-y-1/2'>
+                            <div className='h-4 w-4
+                            rounded-full border-2 border-gray-200 border-t-blue-500
+                            animate-spin [animation-duration:300ms]' />
+                        </div>
+                    )}
+                </div>
             </label>
             <div>
                 <label htmlFor='filterState'>State</label>
@@ -46,7 +62,7 @@ export default function DataTableControls() {
                     </optgroup>
                 </select>
             </div>
-            <div>
+            <fieldset>
                 <label htmlFor='filterDem'>Democrats</label>
                 <input id='filterDem' type='checkbox'
                     checked={filterOptions.filters.Democrats}
@@ -68,8 +84,8 @@ export default function DataTableControls() {
                         ({ ...prev, filters: { ...prev.filters, Republicans: e.target.checked } }))
                     }
                 />
-            </div>
-            <div>
+            </fieldset>
+            <fieldset>
                 <label htmlFor='filterReps'>Representatives</label>
                 <input id='filterReps' type='checkbox'
                     checked={filterOptions.filters.Representatives}
@@ -84,7 +100,7 @@ export default function DataTableControls() {
                         ({ ...prev, filters: { ...prev.filters, Senators: e.target.checked } }))
                     }
                 />
-            </div>
+            </fieldset>
         </div >
     );
 }
