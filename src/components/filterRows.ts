@@ -15,12 +15,12 @@ export default function filterRows(rows: Row[], filterOptions: FilterOptions): R
     }
 
     Object.entries(filterOptions.parties).forEach(([party, isChecked]) => {
-        if (!isChecked) filteredRows = rows.filter(row =>
+        if (!isChecked) filteredRows = filteredRows.filter(row =>
             (row.party !== (party[0].toUpperCase() + party.slice(1)))
         )
     });
     Object.entries(filterOptions.types).forEach(([type, isChecked]) => {
-        if (!isChecked) filteredRows = rows.filter(row =>
+        if (!isChecked) filteredRows = filteredRows.filter(row =>
             (row.type !== (type[0].toUpperCase() + type.slice(1)))
         )
     });
