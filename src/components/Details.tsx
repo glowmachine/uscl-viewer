@@ -60,7 +60,7 @@ export default function Details({ bioguide }: DetailsProps) {
                 {termKeys.map(k => <p key={k}>{k}: {`${currentTerm[k] ? currentTerm[k] : ''}`}</p>)}
             </div>
             <div><p>Prior Terms:</p>
-                {info.terms.map(term =>
+                {info.terms.slice(0, -1).map(term =>
                     <details key={term.start}>
                         <summary>{term.start} - {term.end}</summary>
                         {termKeys.map(k => <p key={k}>{k}: {`${term[k] ? term[k] : ''}`}</p>)}
