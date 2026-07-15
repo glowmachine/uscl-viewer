@@ -12,7 +12,6 @@ export default function App() {
       <DataProvider>
         <TableProvider>
           <div className='min-h-0 p-1 flex flex-col gap-1'>
-            <DataTableControls />
             <DataTable />
           </div>
         </TableProvider>

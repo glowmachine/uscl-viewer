@@ -1,6 +1,7 @@
 import { useDataContext } from "../contexts/DataContext";
 import { useTableContext, type ColumnKey, type Row } from "../contexts/TableContext";
 import { useEffect, useMemo, useState } from "react";
+import DataTableControls from "./DataTableControls";
 import DataTableRow from "./DataTableRow";
 import selectData from "./selectData";
 import sortRows from "./sortRows";
@@ -32,6 +33,7 @@ export default function DataTable() {
 
     return (<>
         <div>
+            <DataTableControls />
             <div id='table-settings-container'
                 className='text-right mb-1'>
                 <button
