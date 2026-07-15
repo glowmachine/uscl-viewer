@@ -3,6 +3,7 @@ import { useDataContext } from "../contexts/DataContext";
 import type { Bio, ID, Name, Term } from "../types/legislatorsCurrent";
 import { states } from "../types/states";
 import getDateDiff from "../util/getDateDiff";
+import { NavLink } from "react-router";
 
 const idKeys: Array<keyof ID> = [
     'bioguide', 'thomas', 'lis', 'govtrack', 'opensecrets', 'votesmart', 'fec', 'cspan', 'wikipedia', 'house_history', 'ballotpedia', 'maplight', 'icpsr', 'wikidata', 'google_entity_id', 'pictorial'
@@ -38,6 +39,7 @@ export default function Details({ bioguide }: DetailsProps) {
     const currentTerm = info.terms[info.terms.length - 1];
 
     return <article>
+        <NavLink to='/' className='rounded bg-gray-300 active:bg-gray-400'>🔙</NavLink>
         <div className='border-b p-1 w-full flex gap-2'>
             <img src='/' alt='' className='w-30 h-30' />
             <div>
