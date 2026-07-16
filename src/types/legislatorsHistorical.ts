@@ -1,3 +1,5 @@
+import type { StateAbbreviation } from "./states";
+
 export interface LegislatorsHistorical {
     id: ID;
     name: Name;
@@ -10,10 +12,8 @@ export interface LegislatorsHistorical {
 
 export interface Bio {
     birthday: string;
-    gender: Gender;
+    gender: 'F' | 'M';
 }
-
-export type Gender = 'F' | 'M';
 
 export interface Family {
     name: string;
@@ -55,11 +55,9 @@ export interface Name {
     last: string;
     middle?: string;
     nickname?: string;
-    suffix?: Suffix;
+    suffix?: string;
     official_full?: string;
 }
-
-export type Suffix = "II" | "III" | "IV" | "Jr." | "Sr.";
 
 export interface OtherName {
     end?: string;
@@ -71,7 +69,7 @@ export interface Term {
     type: Type;
     start: string;
     end: string;
-    state: State;
+    state: StateAbbreviation;
     class?: number;
     party?: Caucus;
     district?: number;
@@ -160,32 +158,11 @@ export type Caucus =
 export type EndType = 'appointment' | 'special-election';
 
 export interface PartyAffiliation {
-    start: Date;
-    end: Date;
+    start: string;
+    end: string;
     party: Caucus;
     caucus?: Caucus;
 }
-
-export type State =
-    | 'AK' | 'AL' | 'AR' | 'AS' | 'AZ'
-    | 'CA' | 'CT' | 'CO'
-    | 'DC' | 'DE' | 'DK'
-    | 'FL'
-    | 'GA' | 'GU'
-    | 'HI'
-    | 'ID' | 'IL' | 'IA' | 'IN'
-    | 'KS' | 'KY'
-    | 'LA'
-    | 'MS' | 'MT' | 'MA' | 'MD' | 'ME' | 'MI' | 'MN' | 'MO' | 'MP'
-    | 'NC' | 'ND' | 'NE' | 'NH' | 'NJ' | 'NM' | 'NV' | 'NY'
-    | 'OH' | 'OK' | 'OL' | 'OR'
-    | 'PR' | 'PA' | 'PI'
-    | 'RI'
-    | 'SD' | 'SC'
-    | 'TN' | 'TX'
-    | 'UT'
-    | 'VT' | 'VA' | 'VI'
-    | 'WA' | 'WI' | 'WV' | 'WY';
 
 export type StateRank = 'junior' | 'senior';
 

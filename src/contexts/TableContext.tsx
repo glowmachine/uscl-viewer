@@ -1,5 +1,5 @@
 import { createContext, useContext, useState, type PropsWithChildren } from "react";
-import type { Gender } from "../types/legislatorsCurrent";
+import type { allAreas } from "../types/states";
 
 const initialColumns = [
     { key: 'id', label: 'Bioguide', visible: false },
@@ -27,9 +27,9 @@ type ColumnTypeMap = {
     first: string,
     last: string,
     age: number,
-    gender: Gender,
+    gender: 'F' | 'M',
     type: string,
-    state: string,
+    state: typeof allAreas[keyof typeof allAreas],
     district: number | undefined,
     party: string,
     terms: number,

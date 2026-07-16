@@ -1,5 +1,5 @@
 import type { FilterOptions, Row } from "../contexts/TableContext";
-import { allAreas } from "../types/states";
+import { allAreas, type StateAbbreviation } from "../types/states";
 
 export default function filterRows(rows: Row[], filterOptions: FilterOptions): Row[] {
     let filteredRows = rows;
@@ -17,7 +17,7 @@ export default function filterRows(rows: Row[], filterOptions: FilterOptions): R
 
     if (filterOptions.state)
         filteredRows = filteredRows.filter(row => (
-            row.state === allAreas[filterOptions.state]
+            row.state === allAreas[filterOptions.state as StateAbbreviation]
         ));
 
     Object.entries(filterOptions.parties).forEach(([party, isChecked]) => {

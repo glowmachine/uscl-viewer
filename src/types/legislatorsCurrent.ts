@@ -1,3 +1,5 @@
+import type { StateAbbreviation } from "./states";
+
 export interface LegislatorsCurrent {
     id: ID;
     name: Name;
@@ -9,10 +11,8 @@ export interface LegislatorsCurrent {
 
 export interface Bio {
     birthday: string;
-    gender: Gender;
+    gender: 'F' | 'M';
 }
-
-export type Gender = 'F' | 'M';
 
 export interface Family {
     name: string;
@@ -40,12 +40,10 @@ export interface ID {
 
 export interface LeadershipRole {
     title: string;
-    chamber: Chamber;
+    chamber: 'house' | 'senate';
     start: string;
     end?: string;
 }
-
-export type Chamber = 'house' | 'senate';
 
 export interface Name {
     first: string;
@@ -57,10 +55,10 @@ export interface Name {
 }
 
 export interface Term {
-    type: Type;
+    type: 'rep' | 'sen';
     start: string;
     end: string;
-    state: string;
+    state: StateAbbreviation;
     district?: number;
     party: Caucus;
     class?: number;
@@ -70,17 +68,13 @@ export interface Term {
     fax?: null | string;
     contact_form?: string;
     office?: string;
-    state_rank?: StateRank;
+    state_rank?: 'junior' | 'senior';
     rss_url?: string;
     caucus?: Caucus;
-    how?: EndType;
-    "end-type"?: EndType;
+    how?: 'appointment' | 'special-election';
+    "end-type"?: 'appointment' | 'special-election';
     party_affiliations?: PartyAffiliation[];
 }
-
-export type Caucus = 'Democrat' | 'Independent' | 'Republican';
-
-export type EndType = 'appointment' | 'special-election';
 
 export interface PartyAffiliation {
     start: string;
@@ -89,6 +83,4 @@ export interface PartyAffiliation {
     caucus?: Caucus;
 }
 
-export type StateRank = 'junior' | 'senior';
-
-export type Type = 'rep' | 'sen';
+export type Caucus = 'Democrat' | 'Independent' | 'Republican';

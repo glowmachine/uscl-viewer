@@ -1,4 +1,4 @@
-export const states: Record<string, string> = {
+export const states = {
     // A
     AK: 'Alaska',
     AL: 'Alabama',
@@ -86,17 +86,17 @@ export const states: Record<string, string> = {
     WI: 'Wisconsin',
     WV: 'West Virginia',
     WY: 'Wyoming',
-}
-export const territories: Record<string, string> = {
+} as const;
+export const territories = {
     AS: 'American Samoa',
     GU: 'Guam',
     MP: 'Northern Mariana Islands',
     PR: 'Puerto Rico',
     VI: 'Virgin Islands',
-}
-
-export const districts: Record<string, string> = {
+} as const;
+export const districts = {
     DC: 'District of Columbia',
-}
+} as const;
 
-export const allAreas = { ...states, ...territories, ...districts };
+export const allAreas = { ...states, ...territories, ...districts } as const;
+export type StateAbbreviation = keyof typeof allAreas;
