@@ -11,7 +11,7 @@ const initialColumns = [
     { key: 'state', label: 'State', visible: true },
     { key: 'district', label: 'District', visible: true },
     { key: 'party', label: 'Party', visible: true },
-    { key: 'terms', label: 'Term', visible: true },
+    { key: 'terms', label: 'Terms', visible: true },
     { key: 'start', label: 'Start', visible: true },
     { key: 'end', label: 'End', visible: true },
 ] as const satisfies Column[];
@@ -49,7 +49,7 @@ export type FilterOptions = {
     types: {
         senator: boolean,
         representative: boolean,
-    }
+    },
 };
 
 export type SortByOptions = {
@@ -88,7 +88,7 @@ export function TableProvider({ children }: PropsWithChildren) {
         types: {
             senator: true,
             representative: true,
-        }
+        },
     })
     const [searchInput, setSearchInput] = useState('');
 

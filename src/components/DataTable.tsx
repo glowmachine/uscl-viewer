@@ -15,7 +15,7 @@ export default function DataTable() {
         index: number,
         range: number,
     }
-    const defaultPageSettings = { index: 0, range: 10 };
+    const defaultPageSettings = { index: 0, range: 20 };
     const [pageSettings, setPageSettings] = useState<PaginationSettings>(defaultPageSettings);
 
     useEffect(() => {
@@ -34,25 +34,25 @@ export default function DataTable() {
     return (<>
         <div>
             <DataTableControls />
-            <div id='table-settings-container'
-                className='text-right mb-1'>
-                <button
-                    className='w-5 h-5 border rounded
-                    hover:bg-gray-200 active:bg-gray-400'
-                    disabled={pageSettings.index === 0}
-                    onClick={() => setPageSettings(p => ({ ...p, index: p.index - 10 }))}>←</button>
-                <span>
-                    {` ${pageSettings.index + 1} to ${pageSettings.index + pageSettings.range <= visibleRows.length ?
-                        pageSettings.index + pageSettings.range : visibleRows.length} `}
-                </span>
-                <button
-                    className='w-5 h-5 border rounded
-                    hover:bg-gray-200 active:bg-gray-400'
-                    disabled={pageSettings.index + pageSettings.range >= visibleRows.length}
-                    onClick={() => setPageSettings(p => ({ ...p, index: p.index + 10 }))}>→</button>
-            </div>
             <div id='table-container'
                 className='overflow-auto'>
+                <div id='table-settings-container'
+                    className='mb-1'>
+                    <button
+                        className='w-5 h-5 border rounded
+                    hover:bg-gray-200 active:bg-gray-400'
+                        disabled={pageSettings.index === 0}
+                        onClick={() => setPageSettings(p => ({ ...p, index: p.index - 10 }))}>←</button>
+                    <span>
+                        {` ${visibleRows.length > 0 ? pageSettings.index + 1 : 0} to ${pageSettings.index + pageSettings.range <= visibleRows.length ?
+                            pageSettings.index + pageSettings.range : visibleRows.length} `}
+                    </span>
+                    <button
+                        className='w-5 h-5 border rounded
+                    hover:bg-gray-200 active:bg-gray-400'
+                        disabled={pageSettings.index + pageSettings.range >= visibleRows.length}
+                        onClick={() => setPageSettings(p => ({ ...p, index: p.index + 10 }))}>→</button>
+                </div>
                 <table>
                     <thead>
                         <tr className='text-left bg-gray-400'>

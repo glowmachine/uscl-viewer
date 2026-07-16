@@ -3,8 +3,6 @@ import { useTableContext } from "../contexts/TableContext";
 import { districts, states, territories } from "../types/states";
 import debounce from "../util/debounce";
 
-
-
 export default function DataTableControls() {
     const { filterOptions, setFilterOptions, searchInput, setSearchInput } = useTableContext();
     const [waitingIndicator, setWaitingIndicator] = useState(false);
@@ -103,6 +101,6 @@ export default function DataTableControls() {
                     }
                 />
             </fieldset>
-        </div >
+        </div>
     );
 }
