@@ -9,7 +9,7 @@ export default function DataTableRow({ row }: DataTableRowProps) {
         <tr className='even:bg-gray-100 hover:bg-gray-200 *:p-1 *:whitespace-nowrap'
             key={row.id}>
             <td className='text-center'>
-                <NavLink to={`/${row.id}`}>🔍</NavLink>
+                <NavLink to={`/details/${row.id}`}>🔍</NavLink>
             </td>
             {columns.filter((c) => (c.visible)).map((col) =>
                 <td key={col.key}>{row[col.key as ColumnKey]}</td>
