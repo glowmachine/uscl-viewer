@@ -108,6 +108,18 @@ export function renderLegislatorsCurrent(member: DataType) {
                     ? <li key={key}>{indent(4)}{key}: '{member.bio[key]}'</li>
                     : <li key={key}>{indent(4)}{key}: {member.bio[key]}</li>)}
             </ul>
+            {member.leadership_roles && <ul>
+                <li>{indent(2)}leadership_roles:</li>
+                <li>
+                    {member.leadership_roles.map(term => <ul className={styleHover} key={`leader-${term.start}`}>
+                        <li>{indent(2)}- title: {term.title}</li>
+                        {leadershipKeys.slice(1).map(key => isDateKey(key)
+                            ? <li className={styleMissing(term[key])} key={key}>{indent(4)}{key}: '{term[key]}'</li>
+                            : <li className={styleMissing(term[key])} key={key}>{indent(4)}{key}: {term[key]}</li>
+                        )}
+                    </ul>)}
+                </li>
+            </ul>}
             <ul>
                 <li>{indent(2)}terms:</li>
                 <li>
