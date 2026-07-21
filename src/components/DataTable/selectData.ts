@@ -1,7 +1,7 @@
-import type { DataType } from "../api/fetchData";
-import type { Row } from "../contexts/TableContext";
-import { allAreas, type StateAbbreviation } from "../types/states";
-import getDateDiff from "../util/getDateDiff";
+import type { DataType } from "../../api/fetchData";
+import type { Row } from "../../contexts/TableContext";
+import { allAreas, type StateAbbreviation } from "../../types/states";
+import getDateDiff from "../../util/getDateDiff";
 
 export default function selectData(data: DataType[]): Row[] {
     const selectedData = data.map(member => {

@@ -1,9 +1,9 @@
 import { useState } from "react";
-import { useTableContext } from "../contexts/TableContext";
-import { districts, states, territories } from "../types/states";
-import debounce from "../util/debounce";
+import { useTableContext } from "../../contexts/TableContext";
+import { districts, states, territories } from "../../types/states";
+import debounce from "../../util/debounce";
 
-export default function DataTableControls() {
+export default function TableControls() {
     const { filterOptions, setFilterOptions, searchInput, setSearchInput } = useTableContext();
     const [waitingIndicator, setWaitingIndicator] = useState(false);
     const debouceTimeMs = 300;

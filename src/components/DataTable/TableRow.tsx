@@ -1,8 +1,8 @@
-import { useTableContext, type ColumnKey, type Row } from "../contexts/TableContext";
+import { useTableContext, type ColumnKey, type Row } from "../../contexts/TableContext";
 import { NavLink } from "react-router";
 
-interface DataTableRowProps { row: Row }
-export default function DataTableRow({ row }: DataTableRowProps) {
+interface TableRowProps { row: Row }
+export default function TableRow({ row }: TableRowProps) {
     const { columns } = useTableContext();
 
     return <>

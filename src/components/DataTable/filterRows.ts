@@ -1,5 +1,5 @@
-import type { FilterOptions, Row } from "../contexts/TableContext";
-import { allAreas, type StateAbbreviation } from "../types/states";
+import type { FilterOptions, Row } from "../../contexts/TableContext";
+import { allAreas, type StateAbbreviation } from "../../types/states";
 
 export default function filterRows(rows: Row[], filterOptions: FilterOptions): Row[] {
     let filteredRows = rows;

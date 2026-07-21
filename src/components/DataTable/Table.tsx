@@ -1,13 +1,13 @@
-import { useDataContext } from "../contexts/DataContext";
-import { useTableContext, type ColumnKey, type Row } from "../contexts/TableContext";
+import { useDataContext } from "../../contexts/DataContext";
+import { useTableContext, type ColumnKey, type Row } from "../../contexts/TableContext";
 import { useEffect, useMemo, useState } from "react";
-import DataTableControls from "./DataTableControls";
-import DataTableRow from "./DataTableRow";
+import TableControls from "./TableControls";
+import TableRow from "./TableRow";
 import selectData from "./selectData";
 import sortRows from "./sortRows";
 import filterRows from "./filterRows";
 
-export default function DataTable() {
+export default function Table() {
     const { data, isLoading, error } = useDataContext();
     const { columns, setColumns, sortBy, setSortBy, filterOptions } = useTableContext();
 
@@ -33,7 +33,7 @@ export default function DataTable() {
 
     return (<>
         <div className='flex flex-col'>
-            <DataTableControls />
+            <TableControls />
             <div id='table-container'>
                 <div id='table-settings-container'
                     className='mb-1'>
@@ -79,7 +79,7 @@ export default function DataTable() {
                         {visibleRows && <>
                             {visibleRows.map((row, index) =>
                                 (index >= pageSettings.index && index < pageSettings.index + pageSettings.range)
-                                && <DataTableRow row={row} key={row.id} />
+                                && <TableRow row={row} key={row.id} />
                             )}
                         </>}
                     </tbody>
