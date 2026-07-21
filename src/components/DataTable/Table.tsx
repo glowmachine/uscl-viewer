@@ -31,28 +31,26 @@ export default function Table() {
     }, [data, columns, sortBy, filterOptions, pageSettings]);
 
 
-    return (<>
-        <div className='flex flex-col'>
+    return (
+        <div className='flex flex-col max-w-full max-h-full'>
             <TableControls />
-            <div id='table-container'>
-                <div id='table-settings-container'
-                    className='mb-1'>
-                    <button
-                        className='w-5 h-5 border rounded
+            <div id='page-controls' className='mb-1'>
+                <button
+                    className='w-5 h-5 border rounded
                     hover:bg-gray-200 active:bg-gray-400'
-                        disabled={pageSettings.index === 0}
-                        onClick={() => setPageSettings(p => ({ ...p, index: p.index - 10 }))}>←</button>
-                    <span>
-                        {` ${visibleRows.length > 0 ? pageSettings.index + 1 : 0} to ${pageSettings.index + pageSettings.range <= visibleRows.length ?
-                            pageSettings.index + pageSettings.range : visibleRows.length} `}
-                    </span>
-                    <button
-                        className='w-5 h-5 border rounded
+                    disabled={pageSettings.index === 0}
+                    onClick={() => setPageSettings(p => ({ ...p, index: p.index - 10 }))}>←</button>
+                <span>
+                    {` ${visibleRows.length > 0 ? pageSettings.index + 1 : 0} to ${pageSettings.index + pageSettings.range <= visibleRows.length ?
+                        pageSettings.index + pageSettings.range : visibleRows.length} `}
+                </span>
+                <button
+                    className='w-5 h-5 border rounded
                     hover:bg-gray-200 active:bg-gray-400'
-                        disabled={pageSettings.index + pageSettings.range >= visibleRows.length}
-                        onClick={() => setPageSettings(p => ({ ...p, index: p.index + 10 }))}>→</button>
-                    <span>Results: {visibleRows.length}</span>
-                </div>
+                    disabled={pageSettings.index + pageSettings.range >= visibleRows.length}
+                    onClick={() => setPageSettings(p => ({ ...p, index: p.index + 10 }))}>→</button>
+            </div>
+            <div id='table-container' className='overflow-auto'>
                 <table>
                     <thead>
                         <tr className='text-left bg-gray-400'>
@@ -86,5 +84,5 @@ export default function Table() {
                 </table>
             </div>
         </div>
-    </>);
+    );
 }

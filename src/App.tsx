@@ -8,12 +8,10 @@ export default function App() {
     <div className='h-screen grid grid-cols-4 grid-rows-[auto_1fr_auto]'>
       <header className='row-start col-span-full bg-red-200'>hello world</header>
       <section className='row-start-2 row-span-full bg-blue-200'>placeholder</section>
-      <main className='row-start-2 col-span-3 overflow-auto'>
+      <main className='row-start-2 col-span-3 overflow-hidden'>
         <DataProvider>
           <TableProvider>
-            {/* <div className='flex flex-col gap-1'> */}
             <Outlet />
-            {/* </div> */}
           </TableProvider>
         </DataProvider>
       </main>

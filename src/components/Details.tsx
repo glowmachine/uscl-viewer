@@ -90,7 +90,7 @@ export default function Details({ bioguide }: DetailsProps) {
     const currentTerm = info.terms[info.terms.length - 1];
 
     return (
-        <article>
+        <article className='flex flex-col max-w-full max-h-full'>
             <NavLink to='/' className='rounded bg-gray-300 active:bg-gray-400'>🔙</NavLink>
             <section className='border-b p-1 w-full flex gap-2'>
                 <img alt={`Profile photo for ${info.name.first} ${info.name.last}`}
@@ -109,9 +109,7 @@ export default function Details({ bioguide }: DetailsProps) {
                     {getLeadershipRole(info.leadership_roles)}
                 </div>
             </section>
-            <section>
-            </section>
-            <details open><summary className='font-bold hover:cursor-pointer'>legislatorsCurrent.yaml</summary>
+            <details className='overflow-auto' open><summary className='font-bold hover:cursor-pointer'>legislatorsCurrent.yaml</summary>
                 {renderLegislatorsCurrent(info)}
             </details>
         </article>
