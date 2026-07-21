@@ -15,7 +15,7 @@ export default function DataTable() {
         index: number,
         range: number,
     }
-    const defaultPageSettings = { index: 0, range: 20 };
+    const defaultPageSettings = { index: 0, range: 30 };
     const [pageSettings, setPageSettings] = useState<PaginationSettings>(defaultPageSettings);
 
     useEffect(() => {
@@ -32,10 +32,9 @@ export default function DataTable() {
 
 
     return (<>
-        <div>
+        <div className='flex flex-col'>
             <DataTableControls />
-            <div id='table-container'
-                className='overflow-auto'>
+            <div id='table-container'>
                 <div id='table-settings-container'
                     className='mb-1'>
                     <button
@@ -52,6 +51,7 @@ export default function DataTable() {
                     hover:bg-gray-200 active:bg-gray-400'
                         disabled={pageSettings.index + pageSettings.range >= visibleRows.length}
                         onClick={() => setPageSettings(p => ({ ...p, index: p.index + 10 }))}>→</button>
+                    <span>Results: {visibleRows.length}</span>
                 </div>
                 <table>
                     <thead>
