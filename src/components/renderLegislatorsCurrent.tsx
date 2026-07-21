@@ -79,85 +79,57 @@ function styleMissing(obj: unknown) {
         ? 'text-gray-400'
         : ''
 }
+const styleHover = 'hover:bg-gray-200';
 
 //YAML formatting reconstructed from json data, an absolute mess, needs refactoring
 export function renderLegislatorsCurrent(member: DataType) {
     return (
         <section className='font-mono'>
-            <ul>
+            <ul className={styleHover}>
                 <li>- id:</li>
                 {idKeys.slice(1).map(key => key !== 'fec'
                     ? <li className={styleMissing(member.id[key])} key={key}>{indent(4)}{key}: {member.id[key]}</li>
                     : <li key={key}><ul>
                         <li>{indent(4)}fec:</li>
-                        {member.id[key]?.map(item => <li key={key}>
+                        {member.id[key]?.map(item => <li key={item}>
                             {indent(4)}- {item}
                         </li>)}
                     </ul></li>)}
-                <ul>
-                    <li>{indent(2)}name:</li>
-                    {nameKeys.map(key => <li className={styleMissing(member.name[key])} key={key}>
-                        {indent(4)}{key}: {member.name[key]}
-                    </li>)}
-                </ul>
-                <ul>
-                    <li>{indent(2)}bio:</li>
-                    {bioKeys.map(key => isDateKey(key)
-                        ? <li key={key}>{indent(4)}{key}: '{member.bio[key]}'</li>
-                        : <li key={key}>{indent(4)}{key}: {member.bio[key]}</li>)}
-                </ul>
-
-                {/* <ul>
-                    <li>{indent(2)}leadership_roles:</li>
-                    <li>
-                        {member.terms.map((term, index) => <ul key={index}>
-                            <li>{indent(2)}- type: {term.type}</li>
-                            {termKeys.slice(1).map(key => key !== 'party_affiliations'
-                                ? isDateKey(key)
-                                    ? <li className={styleMissing(term[key])} key={key}>{indent(4)}{key}: '{term[key]}'</li>
-                                    : <li className={styleMissing(term[key])} key={key}>{indent(4)}{key}: {term[key]}</li>
-                                : term['party_affiliations'] && <li key={key}><ul>
-                                    <li>{indent(4)}party_affiliations:</li>
-                                    {term[key]?.map(item =>
-                                        <ul>
-                                            <li>{indent(4)}- start: '{item['start']}'</li>
-                                            {affiliationKeys.slice(1).map(key => isDateKey(key)
-                                                ? <li className={styleMissing(item[key])} key={key}>{indent(6)}{key}: '{item[key]}'</li>
-                                                : <li className={styleMissing(item[key])} key={key}>{indent(6)}{key}: {item[key]}</li>
-                                            )}
-                                        </ul>
+            </ul>
+            <ul className={styleHover}>
+                <li>{indent(2)}name:</li>
+                {nameKeys.map(key => <li className={styleMissing(member.name[key])} key={key}>
+                    {indent(4)}{key}: {member.name[key]}
+                </li>)}
+            </ul>
+            <ul className={styleHover}>
+                <li>{indent(2)}bio:</li>
+                {bioKeys.map(key => isDateKey(key)
+                    ? <li key={key}>{indent(4)}{key}: '{member.bio[key]}'</li>
+                    : <li key={key}>{indent(4)}{key}: {member.bio[key]}</li>)}
+            </ul>
+            <ul>
+                <li>{indent(2)}terms:</li>
+                <li>
+                    {member.terms.map((term, index) => <ul className={styleHover} key={index}>
+                        <li>{indent(2)}- type: {term.type}</li>
+                        {termKeys.slice(1).map(key => key !== 'party_affiliations'
+                            ? isDateKey(key)
+                                ? <li className={styleMissing(term[key])} key={key}>{indent(4)}{key}: '{term[key]}'</li>
+                                : <li className={styleMissing(term[key])} key={key}>{indent(4)}{key}: {term[key]}</li>
+                            : term['party_affiliations'] && <li key={key}><ul>
+                                <li>{indent(4)}party_affiliations:</li>
+                                {term[key]?.map(item => <li key={item.party}><ul>
+                                    <li>{indent(4)}- start: '{item['start']}'</li>
+                                    {affiliationKeys.slice(1).map(key => isDateKey(key)
+                                        ? <li className={styleMissing(item[key])} key={key}>{indent(6)}{key}: '{item[key]}'</li>
+                                        : <li className={styleMissing(item[key])} key={key}>{indent(6)}{key}: {item[key]}</li>
                                     )}
-                                </ul></li>
-                            )}
-                        </ul>)}
-                    </li>
-                </ul> */}
-
-                <ul>
-                    <li>{indent(2)}terms:</li>
-                    <li>
-                        {member.terms.map((term, index) => <ul key={index}>
-                            <li>{indent(2)}- type: {term.type}</li>
-                            {termKeys.slice(1).map(key => key !== 'party_affiliations'
-                                ? isDateKey(key)
-                                    ? <li className={styleMissing(term[key])} key={key}>{indent(4)}{key}: '{term[key]}'</li>
-                                    : <li className={styleMissing(term[key])} key={key}>{indent(4)}{key}: {term[key]}</li>
-                                : term['party_affiliations'] && <li key={key}><ul>
-                                    <li>{indent(4)}party_affiliations:</li>
-                                    {term[key]?.map(item =>
-                                        <ul>
-                                            <li>{indent(4)}- start: '{item['start']}'</li>
-                                            {affiliationKeys.slice(1).map(key => isDateKey(key)
-                                                ? <li className={styleMissing(item[key])} key={key}>{indent(6)}{key}: '{item[key]}'</li>
-                                                : <li className={styleMissing(item[key])} key={key}>{indent(6)}{key}: {item[key]}</li>
-                                            )}
-                                        </ul>
-                                    )}
-                                </ul></li>
-                            )}
-                        </ul>)}
-                    </li>
-                </ul>
+                                </ul></li>)}
+                            </ul></li>
+                        )}
+                    </ul>)}
+                </li>
             </ul>
         </section>
     )
