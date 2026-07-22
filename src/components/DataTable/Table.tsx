@@ -5,17 +5,18 @@ import TableControls from "./TableControls";
 import TableRow from "./TableRow";
 import selectData from "./selectData";
 import sortRows from "./sortRows";
-import filterRows from "./filterRows";
+import type { DataType } from "../../api/fetchData";
+import filterData from "./filterData";
 
 export default function Table() {
     const { data, isLoading, error } = useDataContext();
     const { columns, setColumns, sortBy, setSortBy, filterOptions } = useTableContext();
     const rows = useMemo<Row[]>(() => {
         if (!data) return [];
-        let results: Row[] = selectData(data);
-        results = sortRows(results, sortBy.key, sortBy.asc);
-        results = filterRows(results, filterOptions);
-        return results;
+        const filteredData: DataType[] = filterData(data, filterOptions);
+        let rowData: Row[] = selectData(filteredData);
+        rowData = sortRows(rowData, sortBy.key, sortBy.asc);
+        return rowData;
     }, [data, columns, sortBy, filterOptions]);
 
     // type PaginationSettings = {

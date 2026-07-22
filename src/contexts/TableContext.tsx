@@ -47,8 +47,8 @@ export type FilterOptions = {
         republican: boolean,
     },
     types: {
-        senator: boolean,
-        representative: boolean,
+        sen: boolean,
+        rep: boolean,
     },
 };
 
@@ -86,8 +86,8 @@ export function TableProvider({ children }: PropsWithChildren) {
             republican: true,
         },
         types: {
-            senator: true,
-            representative: true,
+            sen: true,
+            rep: true,
         },
     })
     const [searchInput, setSearchInput] = useState('');

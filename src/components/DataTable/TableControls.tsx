@@ -3,6 +3,13 @@ import { useTableContext } from "../../contexts/TableContext";
 import { districts, states, territories } from "../../types/states";
 import debounce from "../../util/debounce";
 
+const styleCheckboxButton = `rounded-full border
+                            px-2 py-1 transition-colors select-none
+                            border-gray-300 bg-white text-gray-400
+                            peer-checked:bg-blue-600 peer-checked:border-blue-600 peer-checked:text-white
+                            peer-hover:ring-2 peer-hover:ring-blue-500
+                            peer-focus-visible:ring-2 peer-focus-visible:ring-blue-500`;
+
 export default function TableControls() {
     const { filterOptions, setFilterOptions, searchInput, setSearchInput } = useTableContext();
     const [waitingIndicator, setWaitingIndicator] = useState(false);
@@ -38,69 +45,88 @@ export default function TableControls() {
                     )}
                 </div>
             </label>
-            <div>
-                <label htmlFor='filterState'>State</label>
-                <select id='filterState'
-                    className='border rounded px-1'
-                    value={filterOptions.state}
-                    onChange={(e) => setFilterOptions(prev => ({ ...prev, state: e.target.value }))}>
-                    <option value='' key=''>ALL</option>
-                    <optgroup label='States'>
-                        {Object.entries(states).map(([abbr, fullName]) =>
-                            <option value={abbr} key={abbr}>{fullName}</option>
-                        )}
-                    </optgroup>
-                    <optgroup label='Territories'>
-                        {Object.entries(territories).map(([abbr, fullName]) =>
-                            <option value={abbr} key={abbr}>{fullName}</option>
-                        )}
-                    </optgroup>
-                    <optgroup label='Capitol'>
-                        {Object.entries(districts).map(([abbr, fullName]) =>
-                            <option value={abbr} key={abbr}>{fullName}</option>
-                        )}
-                    </optgroup>
-                </select>
+            <div id='filters_container' className='m-1 flex items-center justify-evenly gap-1'>
+                <fieldset className='border px-1 pt-1 pb-3 flex gap-1'>
+                    <legend>State</legend>
+                    <label className='sr-only' htmlFor='filterState'>State</label>
+                    <select id='filterState'
+                        className='border rounded px-1'
+                        value={filterOptions.state}
+                        onChange={(e) => setFilterOptions(prev => ({ ...prev, state: e.target.value }))}>
+                        <option value='' key=''>ALL</option>
+                        <optgroup label='States'>
+                            {Object.entries(states).map(([abbr, fullName]) =>
+                                <option value={abbr} key={abbr}>{fullName}</option>
+                            )}
+                        </optgroup>
+                        <optgroup label='Territories'>
+                            {Object.entries(territories).map(([abbr, fullName]) =>
+                                <option value={abbr} key={abbr}>{fullName}</option>
+                            )}
+                        </optgroup>
+                        <optgroup label='Capitol'>
+                            {Object.entries(districts).map(([abbr, fullName]) =>
+                                <option value={abbr} key={abbr}>{fullName}</option>
+                            )}
+                        </optgroup>
+                    </select>
+                </fieldset>
+                <fieldset className='border px-1 pt-1 pb-3 flex gap-1'>
+                    <legend>Party</legend>
+                    <label>
+                        <input type="checkbox"
+                            className="peer sr-only"
+                            checked={filterOptions.parties.democrat}
+                            onChange={(e) => setFilterOptions((prev) =>
+                                ({ ...prev, parties: { ...prev.parties, democrat: e.target.checked } }))
+                            }
+                        />
+                        <span className={styleCheckboxButton}>Democrats</span>
+                    </label>
+                    <label>
+                        <input type="checkbox"
+                            className="peer sr-only"
+                            checked={filterOptions.parties.independent}
+                            onChange={(e) => setFilterOptions((prev) =>
+                                ({ ...prev, parties: { ...prev.parties, independent: e.target.checked } }))
+                            }
+                        />
+                        <span className={styleCheckboxButton}>Independents</span>
+                    </label>
+                    <label>
+                        <input type="checkbox"
+                            className="peer sr-only"
+                            checked={filterOptions.parties.republican}
+                            onChange={(e) => setFilterOptions((prev) =>
+                                ({ ...prev, parties: { ...prev.parties, republican: e.target.checked } }))
+                            }
+                        />
+                        <span className={styleCheckboxButton}>Republicans</span>
+                    </label>
+                </fieldset>
+                <fieldset className='border px-1 pt-1 pb-3 flex gap-1'>
+                    <legend>Type</legend>
+                    <label>
+                        <input
+                            className='peer sr-only' type='checkbox'
+                            checked={filterOptions.types.rep}
+                            onChange={(e) => setFilterOptions((prev) =>
+                                ({ ...prev, types: { ...prev.types, rep: e.target.checked } }))
+                            }
+                        />
+                        <span className={styleCheckboxButton}>Representatives</span>
+                    </label>
+                    <label>
+                        <input className='peer sr-only' type='checkbox'
+                            checked={filterOptions.types.sen}
+                            onChange={(e) => setFilterOptions((prev) =>
+                                ({ ...prev, types: { ...prev.types, sen: e.target.checked } }))
+                            }
+                        />
+                        <span className={styleCheckboxButton}>Senators</span>
+                    </label>
+                </fieldset>
             </div>
-            <fieldset>
-                <label htmlFor='filterDem'>Democrats</label>
-                <input id='filterDem' type='checkbox'
-                    checked={filterOptions.parties.democrat}
-                    onChange={(e) => setFilterOptions((prev) =>
-                        ({ ...prev, parties: { ...prev.parties, democrat: e.target.checked } }))
-                    }
-                />
-                <label htmlFor='filterInd'>Independents</label>
-                <input id='filterInd' type='checkbox'
-                    checked={filterOptions.parties.independent}
-                    onChange={(e) => setFilterOptions((prev) =>
-                        ({ ...prev, parties: { ...prev.parties, independent: e.target.checked } }))
-                    }
-                />
-                <label htmlFor='filterRep'>Republicans</label>
-                <input id='filterRep' type='checkbox'
-                    checked={filterOptions.parties.republican}
-                    onChange={(e) => setFilterOptions((prev) =>
-                        ({ ...prev, parties: { ...prev.parties, republican: e.target.checked } }))
-                    }
-                />
-            </fieldset>
-            <fieldset>
-                <label htmlFor='filterReps'>Representatives</label>
-                <input id='filterReps' type='checkbox'
-                    checked={filterOptions.types.representative}
-                    onChange={(e) => setFilterOptions((prev) =>
-                        ({ ...prev, types: { ...prev.types, representative: e.target.checked } }))
-                    }
-                />
-                <label htmlFor='filterSens'>Senators</label>
-                <input id='filterSens' type='checkbox'
-                    checked={filterOptions.types.senator}
-                    onChange={(e) => setFilterOptions((prev) =>
-                        ({ ...prev, types: { ...prev.types, senator: e.target.checked } }))
-                    }
-                />
-            </fieldset>
         </div>
     );
 }
