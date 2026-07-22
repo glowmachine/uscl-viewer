@@ -10,49 +10,55 @@ import filterRows from "./filterRows";
 export default function Table() {
     const { data, isLoading, error } = useDataContext();
     const { columns, setColumns, sortBy, setSortBy, filterOptions } = useTableContext();
-
-    type PaginationSettings = {
-        index: number,
-        range: number,
-    }
-    const defaultPageSettings = { index: 0, range: 30 };
-    const [pageSettings, setPageSettings] = useState<PaginationSettings>(defaultPageSettings);
-
-    useEffect(() => {
-        setPageSettings(defaultPageSettings);
-    }, [data, columns, sortBy, filterOptions]);
-
-    const visibleRows = useMemo<Row[]>(() => {
+    const rows = useMemo<Row[]>(() => {
         if (!data) return [];
         let results: Row[] = selectData(data);
         results = sortRows(results, sortBy.key, sortBy.asc);
         results = filterRows(results, filterOptions);
         return results;
-    }, [data, columns, sortBy, filterOptions, pageSettings]);
+    }, [data, columns, sortBy, filterOptions]);
 
+    // type PaginationSettings = {
+    //     rowsPerPage: number,
+    //     index: number,
+    // }
+    // const defaultPageSettings = { rowsPerPage: 25, index: 0 };
+    // const [pageSettings, setPageSettings] = useState<PaginationSettings>(defaultPageSettings);
+    // const pageStart: number = pageSettings.index + 1;
+    // const pageEnd: number = pageSettings.index + pageSettings.rowsPerPage <= rows.length
+    //     ? pageSettings.index + pageSettings.rowsPerPage
+    //     : rows.length;
+    // useEffect(() => {
+    //     setPageSettings(defaultPageSettings);
+    // }, [rows]);
 
     return (
         <div className='flex flex-col max-w-full max-h-full'>
             <TableControls />
-            <div id='page-controls' className='mb-1'>
+            {/* <div id='page-controls' className='self-end m-1 flex items-center gap-1'>
+                {rows.length === 0
+                    ? <span>0-0 of 0</span>
+                    : <span>
+                        {pageStart}-{pageEnd} of {rows.length}
+                    </span>}
                 <button
-                    className='w-5 h-5 border rounded
+                    className='w-5 h-5 border rounded-full
                     hover:bg-gray-200 active:bg-gray-400'
                     disabled={pageSettings.index === 0}
-                    onClick={() => setPageSettings(p => ({ ...p, index: p.index - 10 }))}>←</button>
-                <span>
-                    {` ${visibleRows.length > 0 ? pageSettings.index + 1 : 0} to ${pageSettings.index + pageSettings.range <= visibleRows.length ?
-                        pageSettings.index + pageSettings.range : visibleRows.length} `}
-                </span>
+                    onClick={() => setPageSettings(p =>
+                        ({ ...p, index: p.index - p.rowsPerPage }))}>
+                    ←</button>
                 <button
-                    className='w-5 h-5 border rounded
+                    className='w-5 h-5 border rounded-full
                     hover:bg-gray-200 active:bg-gray-400'
-                    disabled={pageSettings.index + pageSettings.range >= visibleRows.length}
-                    onClick={() => setPageSettings(p => ({ ...p, index: p.index + 10 }))}>→</button>
-            </div>
-            <div id='table-container' className='overflow-auto'>
-                <table>
-                    <thead>
+                    disabled={pageSettings.index + pageSettings.rowsPerPage >= rows.length}
+                    onClick={() => setPageSettings(p =>
+                        ({ ...p, index: p.index + p.rowsPerPage }))}>
+                    →</button>
+            </div> */}
+            <div id='table-container' className='overflow-auto h-screen'>
+                <table className='min-w-full'>
+                    <thead className='sticky top-0'>
                         <tr className='text-left bg-gray-400'>
                             <th>Details</th>
                             {columns.filter((c) => (c.visible)).map((col) =>
@@ -74,12 +80,11 @@ export default function Table() {
                     <tbody>
                         {isLoading && <tr><td>Loading Database</td></tr>}
                         {error && <tr><td>{error.message}</td></tr>}
-                        {visibleRows && <>
-                            {visibleRows.map((row, index) =>
-                                (index >= pageSettings.index && index < pageSettings.index + pageSettings.range)
-                                && <TableRow row={row} key={row.id} />
+                        {rows &&
+                            rows.map(row =>
+                                // (index >= pageSettings.index && index < pageSettings.index + pageSettings.rowsPerPage)
+                                <TableRow row={row} key={row.id} />
                             )}
-                        </>}
                     </tbody>
                 </table>
             </div>
