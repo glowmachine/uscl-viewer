@@ -25,19 +25,18 @@ export default function TableControls() {
     }
 
     return (
-        <div id='controls_container'
-            className='flex flex-col gap-1'>
-            <label htmlFor='searchbox' className='flex'>Search
+        <div id='controls_container' className='m-1 flex flex-col gap-1'>
+            <label className='flex items-center justify-center gap-1'>
+                <span className='sr-only'>Search</span>
                 <div className='relative w-50'>
-                    <input id='searchbox'
+                    <input className='w-full border rounded p-2'
                         type='text'
-                        className='w-full border rounded px-1'
-                        placeholder='Jane Doe'
+                        placeholder='Search'
                         value={searchInput}
                         onChange={handleSearch}
                     />
                     {waitingIndicator && (
-                        <div className='absolute right-0.5 top-1/2 -translate-y-1/2'>
+                        <div className='absolute right-2.5 top-1/2 -translate-y-1/2'>
                             <div className='h-4 w-4
                             rounded-full border-2 border-gray-200 border-t-blue-500
                             animate-spin [animation-duration:300ms]' />
@@ -45,8 +44,10 @@ export default function TableControls() {
                     )}
                 </div>
             </label>
-            <div id='filters_container' className='m-1 flex items-center justify-evenly gap-1'>
-                <fieldset className='border px-1 pt-1 pb-3 flex gap-1'>
+            <div id='filters_container'
+                className='w-full flex flex-row flex-wrap items-center justify-evenly gap-1
+                *:border *:rounded *:px-2 *:pt-2 *:pb-4 *:flex *:gap-1'>
+                <fieldset>
                     <legend>State</legend>
                     <label className='sr-only' htmlFor='filterState'>State</label>
                     <select id='filterState'
@@ -71,7 +72,7 @@ export default function TableControls() {
                         </optgroup>
                     </select>
                 </fieldset>
-                <fieldset className='border px-1 pt-1 pb-3 flex gap-1'>
+                <fieldset>
                     <legend>Party</legend>
                     <label>
                         <input type="checkbox"
@@ -104,7 +105,7 @@ export default function TableControls() {
                         <span className={styleCheckboxButton}>Republicans</span>
                     </label>
                 </fieldset>
-                <fieldset className='border px-1 pt-1 pb-3 flex gap-1'>
+                <fieldset>
                     <legend>Type</legend>
                     <label>
                         <input
