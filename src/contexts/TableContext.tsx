@@ -2,6 +2,7 @@ import { createContext, useContext, useState, type PropsWithChildren } from "rea
 import type { allAreas } from "../types/states";
 
 const initialColumns = [
+    { key: 'full', label: 'Full Name', selected: true },
     { key: 'id', label: 'Bioguide', selected: false },
     { key: 'first', label: 'First Name', selected: true },
     { key: 'last', label: 'Last Name', selected: true },
@@ -23,6 +24,7 @@ type Column = {
 export type ColumnKey = typeof initialColumns[number]['key'];
 
 type ColumnTypeMap = {
+    full: string,
     id: string,
     first: string,
     last: string,
@@ -74,7 +76,7 @@ export function TableProvider({ children }: PropsWithChildren) {
         initialColumns
     );
     const [sortBy, setSortBy] = useState<SortByOptions>({
-        key: 'last',
+        key: 'full',
         asc: true,
     });
     const [filterOptions, setFilterOptions] = useState<FilterOptions>({

@@ -7,6 +7,8 @@ export default function selectData(data: DataType[]): Row[] {
     const selectedData = data.map(member => {
         const currentTerm = member.terms[member.terms.length - 1];
         return {
+            full: member.name.official_full
+                || member.name.first.concat(' ', member.name.last),
             id: member.id.bioguide,
             first: member.name.first,
             last: member.name.last,
