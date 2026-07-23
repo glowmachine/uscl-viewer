@@ -2,23 +2,23 @@ import { createContext, useContext, useState, type PropsWithChildren } from "rea
 import type { allAreas } from "../types/states";
 
 const initialColumns = [
-    { key: 'id', label: 'Bioguide', visible: false },
-    { key: 'first', label: 'First Name', visible: true },
-    { key: 'last', label: 'Last Name', visible: true },
-    { key: 'age', label: 'Age', visible: true },
-    { key: 'gender', label: 'Gender', visible: true },
-    { key: 'type', label: 'Role', visible: true },
-    { key: 'state', label: 'State', visible: true },
-    { key: 'district', label: 'District', visible: true },
-    { key: 'party', label: 'Party', visible: true },
-    { key: 'terms', label: 'Terms', visible: true },
-    { key: 'start', label: 'Start', visible: true },
-    { key: 'end', label: 'End', visible: true },
+    { key: 'id', label: 'Bioguide', selected: false },
+    { key: 'first', label: 'First Name', selected: true },
+    { key: 'last', label: 'Last Name', selected: true },
+    { key: 'age', label: 'Age', selected: true },
+    { key: 'gender', label: 'Gender', selected: true },
+    { key: 'type', label: 'Role', selected: true },
+    { key: 'state', label: 'State', selected: true },
+    { key: 'district', label: 'District', selected: true },
+    { key: 'party', label: 'Party', selected: true },
+    { key: 'terms', label: 'Terms', selected: true },
+    { key: 'start', label: 'Start', selected: true },
+    { key: 'end', label: 'End', selected: true },
 ] as const satisfies Column[];
 type Column = {
     key: string,
     label: string,
-    visible?: boolean
+    selected: boolean
 };
 export type ColumnKey = typeof initialColumns[number]['key'];
 

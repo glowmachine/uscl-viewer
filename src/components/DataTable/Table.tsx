@@ -62,7 +62,7 @@ export default function Table() {
                     <thead className='sticky top-0'>
                         <tr className='text-left bg-gray-400'>
                             <th>Details</th>
-                            {columns.filter((c) => (c.visible)).map((col) =>
+                            {columns.filter((c) => (c.selected)).map((col) =>
                                 <th key={col.key}><button
                                     className='flex gap-1 justify-between whitespace-nowrap w-full px-1 hover:bg-gray-500'
                                     onClick={() => setSortBy((prev) => {

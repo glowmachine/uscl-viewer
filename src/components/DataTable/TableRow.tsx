@@ -11,7 +11,7 @@ export default function TableRow({ row }: TableRowProps) {
             <td className='text-center'>
                 <NavLink to={`/details/${row.id}`}>🔍</NavLink>
             </td>
-            {columns.filter((c) => (c.visible)).map((col) =>
+            {columns.filter((c) => (c.selected)).map((col) =>
                 <td key={col.key}>{row[col.key as ColumnKey]}</td>
             )}
         </tr>
