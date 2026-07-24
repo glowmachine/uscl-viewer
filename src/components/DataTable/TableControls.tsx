@@ -12,18 +12,18 @@ export default function TableControls() {
         setFilterOptions((prev) => ({ ...prev, search: value }));
         setWaitingIndicator(false);
     }, debouceTimeMs);
-    function handleSearch(e: React.ChangeEvent<HTMLInputElement, HTMLInputElement>): void {
+    function handleSearch(e: React.ChangeEvent<HTMLInputElement>): void {
         setSearchInput(e.target.value);
         setWaitingIndicator(true);
         debouncedSearch(e.target.value);
     }
 
     return (
-        <div className='flex flex-col'>
-            <div className='m-1 flex gap-1'>
-                <label className='flex items-center justify-center gap-1'>
+        <div className='m-1 flex flex-col'>
+            <div className='flex gap-1'>
+                <label className='flex-1 flex items-center justify-center gap-1'>
                     <span className='sr-only'>Search</span>
-                    <div className='relative w-50'>
+                    <div className='relative w-full'>
                         <input className='w-full border rounded p-2'
                             type='text'
                             placeholder='Search'
@@ -39,9 +39,13 @@ export default function TableControls() {
                         )}
                     </div>
                 </label>
-                <button className='border rounded w-25'
+                <button className=''
                     onClick={() => setFilterSelectOpen(prev => !prev)}>
-                    {!filterSelectOpen ? 'Show Filters' : 'Hide Filters'}
+                    <span className='material-symbols-outlined'
+                        style={{ fontVariationSettings: `'FILL' ${filterSelectOpen ? 1 : 0}` }}
+                    >
+                        filter_alt
+                    </span>
                 </button>
             </div>
             {filterSelectOpen && <TableFilters />}
