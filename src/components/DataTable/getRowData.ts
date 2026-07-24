@@ -3,7 +3,7 @@ import type { Row } from "../../contexts/TableContext";
 import { allAreas, type StateAbbreviation } from "../../types/states";
 import getDateDiff from "../../util/getDateDiff";
 
-export default function selectData(data: DataType[]): Row[] {
+export default function getRowData(data: DataType[]): Row[] {
     const selectedData = data.map(member => {
         const currentTerm = member.terms[member.terms.length - 1];
         return {

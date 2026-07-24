@@ -3,7 +3,7 @@ import { useTableContext, type ColumnKey, type Row } from "../../contexts/TableC
 import { useEffect, useMemo, useState } from "react";
 import TableControls from "./TableControls";
 import TableRow from "./TableRow";
-import selectData from "./selectData";
+import getRowData from "./getRowData";
 import sortRows from "./sortRows";
 import type { DataType } from "../../api/fetchData";
 import filterData from "./filterData";
@@ -14,7 +14,7 @@ export default function Table() {
     const rows = useMemo<Row[]>(() => {
         if (!data) return [];
         const filteredData: DataType[] = filterData(data, filterOptions);
-        let rowData: Row[] = selectData(filteredData);
+        let rowData: Row[] = getRowData(filteredData);
         rowData = sortRows(rowData, sortBy.key, sortBy.asc);
         return rowData;
     }, [data, columns, sortBy, filterOptions]);
