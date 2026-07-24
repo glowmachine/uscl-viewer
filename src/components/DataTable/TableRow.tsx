@@ -8,11 +8,15 @@ export default function TableRow({ row }: TableRowProps) {
     return <>
         <tr className='even:bg-gray-100 hover:bg-gray-200 *:p-1 *:whitespace-nowrap'
             key={row.id}>
-            <td className='text-center'>
-                <NavLink to={`/details/${row.id}`}>🔍</NavLink>
-            </td>
-            {columns.filter((c) => (c.selected)).map((col) =>
-                <td key={col.key}>{row[col.key as ColumnKey]}</td>
+            {columns.filter((c) => (c.selected)).map((col, index) =>
+                index === 0
+                    ? <td key={col.key}>
+                        <NavLink to={`/details/${row.id}`}
+                            className='hover:underline'>
+                            {row[col.key as ColumnKey]}
+                        </NavLink>
+                    </td>
+                    : <td key={col.key}>{row[col.key as ColumnKey]}</td>
             )}
         </tr>
     </>
