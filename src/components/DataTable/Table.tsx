@@ -7,7 +7,6 @@ import getRowData from "./getRowData";
 import sortRows from "./sortRows";
 import type { DataType } from "../../api/fetchData";
 import filterData from "./filterData";
-import ColumnSelector from "./ColumnSelector";
 
 export default function Table() {
     const { data, isLoading, error } = useDataContext();
@@ -63,10 +62,7 @@ export default function Table() {
                     text-3xl text-gray-400'>Loading Database</div>}
                 {error && <div className='h-full grid place-content-center
                     text-2xl text-red-300'>{error.message}</div>}
-                {(!isLoading && !error) && <>
-                    <div>
-                        <ColumnSelector />
-                    </div>
+                {(!isLoading && !error) &&
                     <table className='min-w-full'>
                         <thead className='sticky top-0'>
                             <tr className='text-left bg-gray-400'>
@@ -94,7 +90,6 @@ export default function Table() {
                                 )}
                         </tbody>
                     </table>
-                </>
                 }
             </div>
         </div>

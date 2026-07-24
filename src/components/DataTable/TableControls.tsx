@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useTableContext } from "../../contexts/TableContext";
 import debounce from "../../util/debounce";
 import TableFilters from "./TableFilters";
+import ColumnSelector from "./ColumnSelector";
 
 export default function TableControls() {
     const { setFilterOptions, searchInput, setSearchInput } = useTableContext();
@@ -47,6 +48,7 @@ export default function TableControls() {
                         filter_alt
                     </span>
                 </button>
+                <ColumnSelector />
             </div>
             {filterSelectOpen && <TableFilters />}
         </div>
