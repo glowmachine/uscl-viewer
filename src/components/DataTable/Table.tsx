@@ -58,36 +58,40 @@ export default function Table() {
                     →</button>
             </div> */}
             <div id='table-container' className='overflow-auto h-screen'>
-                <table className='min-w-full'>
-                    <thead className='sticky top-0'>
-                        <tr className='text-left bg-gray-400'>
-                            <th>Details</th>
-                            {columns.filter((c) => (c.selected)).map((col) =>
-                                <th key={col.key}><button
-                                    className='flex gap-1 justify-between whitespace-nowrap w-full px-1 hover:bg-gray-500'
-                                    onClick={() => setSortBy((prev) => {
-                                        return (col.key == prev.key)
-                                            ? { ...prev, asc: !prev.asc }
-                                            : { key: col.key as ColumnKey, asc: true }
-                                    })}
-                                >
-                                    <span>{col.label}</span>
-                                    <span className={col.key !== sortBy.key ? 'invisible' : ''}>
-                                        {sortBy.asc ? '▲' : '▼'}</span>
-                                </button></th>
-                            )}
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {isLoading && <tr><td>Loading Database</td></tr>}
-                        {error && <tr><td>{error.message}</td></tr>}
-                        {rows &&
-                            rows.map(row =>
-                                // (index >= pageSettings.index && index < pageSettings.index + pageSettings.rowsPerPage)
-                                <TableRow row={row} key={row.id} />
-                            )}
-                    </tbody>
-                </table>
+                {isLoading && <div className='h-full grid place-content-center
+                    text-3xl text-gray-400'>Loading Database</div>}
+                {error && <div className='h-full grid place-content-center
+                    text-2xl text-red-300'>{error.message}</div>}
+                {(!isLoading && !error) &&
+                    <table className='min-w-full'>
+                        <thead className='sticky top-0'>
+                            <tr className='text-left bg-gray-400'>
+                                <th>Details</th>
+                                {columns.filter((c) => (c.selected)).map((col) =>
+                                    <th key={col.key}><button
+                                        className='flex gap-1 justify-between whitespace-nowrap w-full px-1 hover:bg-gray-500'
+                                        onClick={() => setSortBy((prev) => {
+                                            return (col.key == prev.key)
+                                                ? { ...prev, asc: !prev.asc }
+                                                : { key: col.key as ColumnKey, asc: true }
+                                        })}
+                                    >
+                                        <span>{col.label}</span>
+                                        <span className={col.key !== sortBy.key ? 'invisible' : ''}>
+                                            {sortBy.asc ? '▲' : '▼'}</span>
+                                    </button></th>
+                                )}
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {rows &&
+                                rows.map(row =>
+                                    // (index >= pageSettings.index && index < pageSettings.index + pageSettings.rowsPerPage)
+                                    <TableRow row={row} key={row.id} />
+                                )}
+                        </tbody>
+                    </table>
+                }
             </div>
         </div>
     );
