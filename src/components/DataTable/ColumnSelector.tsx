@@ -56,17 +56,28 @@ export default function ColumnSelector() {
     }, [colSelectOpen]);
 
     return (<>
-        <button className='w-5 h-5'
-            onClick={() => setColSelectOpen(prev => !prev)}>⚙️</button>
+        <button
+            onClick={() => setColSelectOpen(prev => !prev)}>
+            <span className='material-symbols-outlined'
+                style={{ fontVariationSettings: `'FILL' ${colSelectOpen ? 1 : 0}` }}
+            >
+                view_column
+            </span>
+        </button>
 
         {colSelectOpen && <div className='fixed inset-0 z-100 bg-gray-500/50
                 grid place-items-center'>
 
             <div ref={selectorPanel}
-                className='w-[max(20rem,25rem)] bg-yellow-300 rounded p-3
+                className='w-[max(20rem,25rem)] bg-yellow-300 rounded p-3 pb-6
                 flex flex-col'>
-                <button className='self-end border rounded w-5 h-5'
-                    onClick={() => setColSelectOpen(false)}>❌</button>
+                <button className='self-end flex place-items-center
+                aspect-square rounded-full hover:bg-white'
+                    onClick={() => setColSelectOpen(false)}>
+                    <span className='material-symbols-outlined'>
+                        close
+                    </span>
+                </button>
                 <h2 className='font-bold text-xl mx-2 mb-2'>Change visible columns</h2>
                 <p className='px-10'>Small screens may need to scroll right to view all columns.</p>
                 <div className='m-5 flex flex-col gap-1'>
@@ -96,6 +107,7 @@ export default function ColumnSelector() {
                     onClick={saveSelection}>
                     Save</button>
             </div>
-        </div>}
+        </div>
+        }
     </>);
 }
