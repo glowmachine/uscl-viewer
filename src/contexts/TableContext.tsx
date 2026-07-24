@@ -62,6 +62,8 @@ export type SortByOptions = {
 type TableContextValue = {
     columns: Column[],
     setColumns: React.Dispatch<React.SetStateAction<Column[]>>,
+    selectedColKeys: string[],
+    setSelectedColKeys: React.Dispatch<React.SetStateAction<string[]>>,
     sortBy: SortByOptions,
     setSortBy: React.Dispatch<React.SetStateAction<SortByOptions>>,
     filterOptions: FilterOptions,
@@ -74,6 +76,9 @@ const TableContext = createContext<TableContextValue | undefined>(undefined);
 export function TableProvider({ children }: PropsWithChildren) {
     const [columns, setColumns] = useState<Column[]>(
         initialColumns
+    );
+    const [selectedColKeys, setSelectedColKeys] = useState<string[]>(
+        Array(8).fill('')
     );
     const [sortBy, setSortBy] = useState<SortByOptions>({
         key: 'full',
@@ -97,6 +102,7 @@ export function TableProvider({ children }: PropsWithChildren) {
     return (
         <TableContext value={{
             columns, setColumns,
+            selectedColKeys, setSelectedColKeys,
             sortBy, setSortBy,
             filterOptions, setFilterOptions,
             searchInput, setSearchInput
