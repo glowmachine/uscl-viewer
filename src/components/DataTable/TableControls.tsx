@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useTableContext } from "../../contexts/TableContext";
 import debounce from "../../util/debounce";
-import TableFilters from "./TableFilters";
+import FilterSelector from "./FilterSelector";
 import ColumnSelector from "./ColumnSelector";
 
 export default function TableControls() {
@@ -50,7 +50,7 @@ export default function TableControls() {
                 </button>
                 <ColumnSelector />
             </div>
-            {filterSelectOpen && <TableFilters />}
+            {filterSelectOpen && <FilterSelector />}
         </div>
     );
 }
