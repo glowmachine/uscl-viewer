@@ -12,7 +12,7 @@ export default function ColumnSelector() {
         ))
     }
 
-    function saveSelection(): void {
+    function handleSaveButton(): void {
         setColumns(prev => {
             const selected = selectedColKeys
                 .map(selectedKey => prev.find(col => col.key === selectedKey))
@@ -23,10 +23,10 @@ export default function ColumnSelector() {
                 .map(col => ({ ...col, selected: false }));
             return [...selected, ...unselected];
         });
-        tidyUpSelector();
+        tidyUpSelectedKeys();
     }
 
-    function tidyUpSelector() {
+    function tidyUpSelectedKeys() {
         setSelectedColKeys(prev => {
             const selected = prev.filter(key => key !== '');
             const empty = prev.filter(key => key === '');;
@@ -104,7 +104,7 @@ export default function ColumnSelector() {
                     )}
                 </div>
                 <button className='self-center w-1/3 border rounded hover:bg-gray-300 active:bg-gray-500'
-                    onClick={saveSelection}>
+                    onClick={handleSaveButton}>
                     Save</button>
             </div>
         </div>
