@@ -76,13 +76,15 @@ export function TableProvider({ children }: PropsWithChildren) {
     const { savedColKeys } = useSettingsContext();
 
     const [columns, setColumns] = useState<Column[]>(() => {
-        //for each possible col, check if its key is a saved key,
-        //then set their 'selected' property to false
-        const showCols = initialColumns
-            .filter(col => savedColKeys.includes(col.key))
+        //for each saved key, get matching table cols,
+        //filter out 'undefined' results when .find couldn't find the key,
+        //set each col's 'selected' property to true
+        const showCols = savedColKeys
+            .map(savedColKey => initialColumns.find(col => col.key === savedColKey))
+            .filter(col => col !== undefined)
             .map(col => ({ ...col, selected: true }));
-        //for each possible col, check if its key is not a saved key,
-        //then set their 'selected' property to false
+        //for each table col, get the columns that don't match the saved keys,
+        //set their 'selected' property to false
         const hideCols = initialColumns
             .filter(col => !savedColKeys.includes(col.key))
             .map(col => ({ ...col, selected: false }));

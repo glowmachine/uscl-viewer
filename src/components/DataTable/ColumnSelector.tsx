@@ -5,47 +5,56 @@ import { useSettingsContext } from "../../contexts/SettingsContext";
 export default function ColumnSelector() {
     const { columns, setColumns } = useTableContext();
     const { savedColKeys, setSavedColKeys, writeSavedColKeys } = useSettingsContext();
+    const [draftColKeys, setDraftColKeys] = useState(savedColKeys);
     const [colSelectOpen, setColSelectOpen] = useState(false);
     const selectorPanel = useRef<HTMLDivElement>(null);
 
     function handleSelection(selectorKey: number, columnKey: string): void {
-        setSelectedColKeys(prev => prev.map((val, index) =>
+        setDraftColKeys(prev => prev.map((val, index) =>
             index === selectorKey ? columnKey : val
         ));
     }
 
     function handleSaveButton(): void {
-        const selectors = selectedColKeys.filter(k => k != '');
-        const emptySelectors = selectedColKeys.filter(k => k == '');
+        const selectors = draftColKeys.filter(k => k != '');
+        const emptySelectors = draftColKeys.filter(k => k == '');
         const selectorKeys = [...selectors, ...emptySelectors];
-        setSelectedColKeys(selectorKeys);
-        writeSelectedColKeys(selectorKeys);
 
+        setDraftColKeys(selectorKeys);
+        setSavedColKeys(selectorKeys);
+        writeSavedColKeys(selectorKeys);
         setColumns(prev => {
-            //for each selected key, get the matching table col,
-            //confirm that they exist,
-            //then set their 'selected' property to true
-            const showCols = selectedColKeys
-                .map(selectedKey => prev.find(col => col.key === selectedKey))
+            //for each selector key, get matching table cols,
+            //filter out 'undefined' results when .find couldn't find the key,
+            //set each col's 'selected' property to true
+            const showCols = selectors
+                .map(selectorKey => prev.find(col => col.key === selectorKey))
                 .filter(col => col !== undefined)
                 .map(col => ({ ...col, selected: true }));
-            //for each table col, get the columns that don't match the selected keys,
-            //then set their 'selected' property to false
+            //for each table col, get the columns that don't match the saved keys,
+            //set their 'selected' property to false
             const hideCols = prev
-                .filter(col => !selectedColKeys.includes(col.key))
+                .filter(col => !selectors.includes(col.key))
                 .map(col => ({ ...col, selected: false }));
             return [...showCols, ...hideCols];
         });
+
         setColSelectOpen(false);
     }
 
     function handleCloseClick(e: MouseEvent) {
         if (selectorPanel.current && !selectorPanel.current
-            .contains(e.target as Node)) setColSelectOpen(false);
+            .contains(e.target as Node)) {
+            setDraftColKeys(savedColKeys);
+            setColSelectOpen(false);
+        }
     }
 
     function handleCloseEsc(e: KeyboardEvent) {
-        if (e.key === 'Escape') setColSelectOpen(false);
+        if (e.key === 'Escape') {
+            setDraftColKeys(savedColKeys);
+            setColSelectOpen(false);
+        }
     }
 
     useEffect(() => {
@@ -83,18 +92,18 @@ export default function ColumnSelector() {
                 <h2 className='font-bold text-xl mx-2 mb-2'>Change visible columns</h2>
                 <p className='px-10'>Small screens may need to scroll right to view all columns.</p>
                 <div className='m-5 flex flex-col gap-1'>
-                    {selectedColKeys.map((_, index) =>
+                    {draftColKeys.map((_, index) =>
                         <div className='flex justify-between'
                             key={`selector-${index}`}>
                             <span>{index + 1}.</span>
                             <select className={`w-9/10 border rounded px-1 
                                 ${index === 0 ? "text-gray-500" : ''}`}
                                 disabled={index === 0}
-                                value={selectedColKeys[index]}
+                                value={draftColKeys[index]}
                                 onChange={e => handleSelection(index, e.target.value)}>
                                 <option value=''>-</option>
-                                {columns.filter(col => col.key === selectedColKeys[index]
-                                    || !selectedColKeys.includes(col.key))
+                                {columns.filter(col => col.key === draftColKeys[index]
+                                    || !draftColKeys.includes(col.key))
                                     .map(option =>
                                         <option value={option.key}
                                             key={option.key}>
