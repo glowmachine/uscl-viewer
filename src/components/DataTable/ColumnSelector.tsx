@@ -1,36 +1,40 @@
 import { useEffect, useRef, useState } from "react";
 import { useTableContext } from "../../contexts/TableContext";
+import { useSettingsContext } from "../../contexts/SettingsContext";
 
 export default function ColumnSelector() {
-    const { columns, setColumns, selectedColKeys, setSelectedColKeys } = useTableContext();
+    const { columns, setColumns } = useTableContext();
+    const { selectedColKeys, setSelectedColKeys, writeSelectedColKeys } = useSettingsContext();
     const [colSelectOpen, setColSelectOpen] = useState(false);
     const selectorPanel = useRef<HTMLDivElement>(null);
 
     function handleSelection(selectorKey: number, columnKey: string): void {
         setSelectedColKeys(prev => prev.map((val, index) =>
             index === selectorKey ? columnKey : val
-        ))
+        ));
     }
 
     function handleSaveButton(): void {
+        const selectors = selectedColKeys.filter(k => k != '');
+        const emptySelectors = selectedColKeys.filter(k => k == '');
+        const selectorKeys = [...selectors, ...emptySelectors];
+        setSelectedColKeys(selectorKeys);
+        writeSelectedColKeys(selectorKeys);
+
         setColumns(prev => {
-            const selected = selectedColKeys
+            //for each selected key, get the matching table col,
+            //confirm that they exist,
+            //then set their 'selected' property to true
+            const showCols = selectedColKeys
                 .map(selectedKey => prev.find(col => col.key === selectedKey))
-                .filter((col): col is typeof prev[number] => col !== undefined)
+                .filter(col => col !== undefined)
                 .map(col => ({ ...col, selected: true }));
-            const unselected = prev
+            //for each table col, get the columns that don't match the selected keys,
+            //then set their 'selected' property to false
+            const hideCols = prev
                 .filter(col => !selectedColKeys.includes(col.key))
                 .map(col => ({ ...col, selected: false }));
-            return [...selected, ...unselected];
-        });
-        tidyUpSelectedKeys();
-    }
-
-    function tidyUpSelectedKeys() {
-        setSelectedColKeys(prev => {
-            const selected = prev.filter(key => key !== '');
-            const empty = prev.filter(key => key === '');;
-            return [...selected, ...empty];
+            return [...showCols, ...hideCols];
         });
         setColSelectOpen(false);
     }
@@ -107,7 +111,6 @@ export default function ColumnSelector() {
                     onClick={handleSaveButton}>
                     Save</button>
             </div>
-        </div>
-        }
+        </div>}
     </>);
 }

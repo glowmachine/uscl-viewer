@@ -1,16 +1,18 @@
 import { useDataContext } from "../../contexts/DataContext";
 import { useTableContext, type ColumnKey, type Row } from "../../contexts/TableContext";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo } from "react";
 import TableControls from "./TableControls";
 import TableRow from "./TableRow";
 import getRowData from "./getRowData";
 import sortRows from "./sortRows";
 import type { DataType } from "../../api/fetchData";
 import filterData from "./filterData";
+import { useSettingsContext } from "../../contexts/SettingsContext";
 
 export default function Table() {
     const { data, isLoading, error } = useDataContext();
     const { columns, setColumns, sortBy, setSortBy, filterOptions } = useTableContext();
+    const { selectedColKeys } = useSettingsContext();
     const rows = useMemo<Row[]>(() => {
         if (!data) return [];
         const filteredData: DataType[] = filterData(data, filterOptions);
@@ -18,6 +20,23 @@ export default function Table() {
         rowData = sortRows(rowData, sortBy.key, sortBy.asc);
         return rowData;
     }, [data, columns, sortBy, filterOptions]);
+
+    useEffect(() => {
+        //for each selected key, get the matching table col,
+        //confirm that they exist,
+        //then set their 'selected' property to true
+        const showCols = selectedColKeys
+            .map(selectedKey => columns.find(col => col.key === selectedKey))
+            .filter(col => col !== undefined)
+            .map(col => ({ ...col, selected: true }));
+        //for each table col, get the columns that don't match the selected keys,
+        //then set their 'selected' property to false
+        const hideCols = columns
+            .filter(col => !selectedColKeys.includes(col.key))
+            .map(col => ({ ...col, selected: false }));
+
+        setColumns([...showCols, ...hideCols]);
+    }, [selectedColKeys]);
 
     // type PaginationSettings = {
     //     rowsPerPage: number,

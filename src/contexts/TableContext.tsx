@@ -1,5 +1,6 @@
 import { createContext, useContext, useState, type PropsWithChildren } from "react";
 import type { allAreas } from "../types/states";
+import { useSettingsContext } from "./SettingsContext";
 
 const initialColumns = [
     { key: 'full', label: 'Full Name', selected: true },
@@ -62,8 +63,6 @@ export type SortByOptions = {
 type TableContextValue = {
     columns: Column[],
     setColumns: React.Dispatch<React.SetStateAction<Column[]>>,
-    selectedColKeys: string[],
-    setSelectedColKeys: React.Dispatch<React.SetStateAction<string[]>>,
     sortBy: SortByOptions,
     setSortBy: React.Dispatch<React.SetStateAction<SortByOptions>>,
     filterOptions: FilterOptions,
@@ -74,12 +73,25 @@ type TableContextValue = {
 const TableContext = createContext<TableContextValue | undefined>(undefined);
 
 export function TableProvider({ children }: PropsWithChildren) {
-    const [columns, setColumns] = useState<Column[]>(
-        initialColumns
-    );
-    const [selectedColKeys, setSelectedColKeys] = useState<string[]>(
-        Array(8).fill('')
-    );
+    const { selectedColKeys } = useSettingsContext();
+
+    const [columns, setColumns] = useState<Column[]>(() => {
+        //for each selected key, get the matching table col,
+        //confirm that they exist,
+        //then set their 'selected' property to true
+        const showCols = selectedColKeys
+            .map(selectedKey => initialColumns.find(col => col.key === selectedKey))
+            .filter(col => col !== undefined)
+            .map(col => ({ ...col, selected: true }));
+        //for each table col, get the columns that don't match the selected keys,
+        //then set their 'selected' property to false
+        const hideCols = initialColumns
+            .filter(col => !selectedColKeys.includes(col.key))
+            .map(col => ({ ...col, selected: false }));
+
+        return [...showCols, ...hideCols];
+    });
+
     const [sortBy, setSortBy] = useState<SortByOptions>({
         key: 'full',
         asc: true,
@@ -102,7 +114,6 @@ export function TableProvider({ children }: PropsWithChildren) {
     return (
         <TableContext value={{
             columns, setColumns,
-            selectedColKeys, setSelectedColKeys,
             sortBy, setSortBy,
             filterOptions, setFilterOptions,
             searchInput, setSearchInput
