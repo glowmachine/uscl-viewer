@@ -9,15 +9,15 @@ import type { DataType } from "../../api/fetchData";
 import filterData from "./filterData";
 
 export default function Table() {
-    const { data, isLoading, error } = useDataContext();
+    const { legislators, isLoading, error } = useDataContext();
     const { columns, sortBy, setSortBy, filterOptions } = useTableContext();
     const rows = useMemo<Row[]>(() => {
-        if (!data) return [];
-        const filteredData: DataType[] = filterData(data, filterOptions);
+        if (!legislators) return [];
+        const filteredData: DataType[] = filterData(legislators, filterOptions);
         let rowData: Row[] = getRowData(filteredData);
         rowData = sortRows(rowData, sortBy.key, sortBy.asc);
         return rowData;
-    }, [data, columns, sortBy, filterOptions]);
+    }, [legislators, columns, sortBy, filterOptions]);
 
     // type PaginationSettings = {
     //     rowsPerPage: number,

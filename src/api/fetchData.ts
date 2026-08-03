@@ -1,8 +1,8 @@
-import type { LegislatorsCurrent } from "../types/legislatorsCurrent";
+import type { Legislator } from "../types/legislator";
 import type { LegislatorsHistorical } from "../types/legislatorsHistorical";
 
 export type DataType =
-    | LegislatorsCurrent
+    | Legislator
     | LegislatorsHistorical;
 
 export type Filename =

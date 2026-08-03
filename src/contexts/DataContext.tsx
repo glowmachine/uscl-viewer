@@ -1,8 +1,9 @@
 import { createContext, useContext, useEffect, useState, type PropsWithChildren } from "react";
 import { fetchData, type DataType } from "../api/fetchData";
+import type { Legislator } from "../types/legislator";
 
 type DataContextValue = {
-    data: DataType[] | null,
+    legislators: Legislator[] | null,
     isLoading: boolean,
     error: Error | TypeError | null,
 }
@@ -10,7 +11,7 @@ type DataContextValue = {
 const DataContext = createContext<DataContextValue | undefined>(undefined);
 
 export function DataProvider({ children }: PropsWithChildren) {
-    const [data, setData] = useState<DataType[] | null>(null);
+    const [legislators, setLegislators] = useState<Legislator[] | null>(null);
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const [error, setError] = useState<Error | TypeError | null>(null);
 
@@ -22,7 +23,7 @@ export function DataProvider({ children }: PropsWithChildren) {
             setError(null);
 
             try {
-                if (isMounted) setData(await fetchData('legislators-current.json'));
+                if (isMounted) setlegislators(await fetchData('legislators-current.json'));
             } catch (err) {
                 (isMounted && err instanceof Error)
                     ? setError(err)
@@ -38,7 +39,7 @@ export function DataProvider({ children }: PropsWithChildren) {
     }, []);
 
     return (
-        <DataContext value={{ data, isLoading, error }}>
+        <DataContext value={{ legislators, isLoading, error }}>
             {children}
         </DataContext>
     );
