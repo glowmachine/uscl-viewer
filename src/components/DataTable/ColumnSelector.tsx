@@ -4,7 +4,7 @@ import { useSettingsContext } from "../../contexts/SettingsContext";
 
 export default function ColumnSelector() {
     const { columns, setColumns } = useTableContext();
-    const { selectedColKeys, setSelectedColKeys, writeSelectedColKeys } = useSettingsContext();
+    const { savedColKeys, setSavedColKeys, writeSavedColKeys } = useSettingsContext();
     const [colSelectOpen, setColSelectOpen] = useState(false);
     const selectorPanel = useRef<HTMLDivElement>(null);
 
@@ -49,8 +49,6 @@ export default function ColumnSelector() {
     }
 
     useEffect(() => {
-        setSelectedColKeys(prev => ['full', ...prev.slice(1)])
-
         document.addEventListener('mousedown', handleCloseClick);
         document.addEventListener('keydown', handleCloseEsc);
         return () => {

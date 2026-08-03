@@ -2,38 +2,39 @@ import { createContext, useContext, useState, type PropsWithChildren } from "rea
 
 const SettingsContext = createContext<SettingsContextValue | undefined>(undefined);
 
-const defaultSelectedColKeys = ['full', 'age', 'gender', 'type', 'state'].concat(Array(3).fill(''));
+const defaultSavedColKeys = ['full', 'age', 'gender', 'type', 'state']
+    .concat(Array(3).fill(''));
 
 type SettingsContextValue = {
-    selectedColKeys: string[],
-    setSelectedColKeys: React.Dispatch<React.SetStateAction<string[]>>,
-    readSelectedColKeys: () => string[],
-    writeSelectedColKeys: (keys: string[]) => void,
+    savedColKeys: string[],
+    setSavedColKeys: React.Dispatch<React.SetStateAction<string[]>>,
+    readSavedColKeys: () => string[],
+    writeSavedColKeys: (keys: string[]) => void,
 }
 export function SettingsProvider({ children }: PropsWithChildren) {
-    const [selectedColKeys, setSelectedColKeys] = useState<string[]>(
-        readSelectedColKeys()
+    const [savedColKeys, setSavedColKeys] = useState<string[]>(
+        readSavedColKeys()
     );
 
-    function readSelectedColKeys(): string[] {
+    function readSavedColKeys(): string[] {
         try {
             const data = localStorage.getItem('columns');
-            return data ? JSON.parse(data) : defaultSelectedColKeys;
+            return data ? JSON.parse(data) : defaultSavedColKeys;
         }
         catch (err) {
             console.warn(`Error parsing localStorage key: "columns" (${err})`);
-            return defaultSelectedColKeys;
+            return defaultSavedColKeys;
         }
     }
 
-    function writeSelectedColKeys(keys: string[]): void {
+    function writeSavedColKeys(keys: string[]): void {
         localStorage.setItem('columns', JSON.stringify(keys));
     }
 
     return (
         <SettingsContext value={{
-            selectedColKeys, setSelectedColKeys,
-            readSelectedColKeys, writeSelectedColKeys,
+            savedColKeys, setSavedColKeys,
+            readSavedColKeys, writeSavedColKeys,
         }}>
             {children}
         </SettingsContext>
