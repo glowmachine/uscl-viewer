@@ -39,23 +39,23 @@ export default function ColumnSelector() {
         setColSelectOpen(false);
     }
 
-    function handleClick(e: MouseEvent) {
+    function handleCloseClick(e: MouseEvent) {
         if (selectorPanel.current && !selectorPanel.current
             .contains(e.target as Node)) setColSelectOpen(false);
     }
 
-    function handleEsc(e: KeyboardEvent) {
+    function handleCloseEsc(e: KeyboardEvent) {
         if (e.key === 'Escape') setColSelectOpen(false);
     }
 
     useEffect(() => {
         setSelectedColKeys(prev => ['full', ...prev.slice(1)])
 
-        document.addEventListener('mousedown', handleClick);
-        document.addEventListener('keydown', handleEsc);
+        document.addEventListener('mousedown', handleCloseClick);
+        document.addEventListener('keydown', handleCloseEsc);
         return () => {
-            document.removeEventListener('mousedown', handleClick);
-            document.removeEventListener('keydown', handleEsc);
+            document.removeEventListener('mousedown', handleCloseClick);
+            document.removeEventListener('keydown', handleCloseEsc);
         }
     }, [colSelectOpen]);
 
