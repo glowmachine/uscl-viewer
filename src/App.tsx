@@ -2,6 +2,7 @@ import { Outlet } from 'react-router';
 import './App.css';
 import { DataProvider } from './contexts/DataContext';
 import { TableProvider } from './contexts/TableContext';
+import { SettingsProvider } from './contexts/SettingsContext';
 
 export default function App() {
   return (
