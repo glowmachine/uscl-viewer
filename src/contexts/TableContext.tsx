@@ -1,6 +1,7 @@
 import { createContext, useContext, useState, type PropsWithChildren } from "react";
-import type { allAreas } from "../types/states";
+import type { StateAbbreviation } from "../types/states";
 import { useSettingsContext } from "./SettingsContext";
+import type { Caucus, PartyAffiliation } from "../types/LegislatorCurrent";
 
 type Column = {
     key: string,
@@ -8,62 +9,166 @@ type Column = {
     selected: boolean
 };
 const tableColumns = [
+    { key: 'address', label: 'address', selected: false },
+    { key: 'birthday', label: 'birthday', selected: false },
+    { key: 'bioguide', label: 'bioguide', selected: false },
+    { key: 'caucus', label: 'caucus', selected: false },
+    { key: 'class', label: 'class', selected: false },
+    { key: 'contact_form', label: 'contact_form', selected: false },
+    { key: 'cspan', label: 'cspan', selected: false },
+    { key: 'district', label: 'district', selected: false },
+    { key: 'end', label: 'end', selected: false },
+    { key: 'end-type', label: 'end-type', selected: false },
+    { key: 'facebook', label: 'facebook', selected: false },
+    { key: 'fax', label: 'fax', selected: false },
+    { key: 'first', label: 'first', selected: false },
     { key: 'full', label: 'Full Name', selected: false },
-    { key: 'id', label: 'Bioguide', selected: false },
-    { key: 'first', label: 'First Name', selected: false },
-    { key: 'last', label: 'Last Name', selected: false },
-    { key: 'age', label: 'Age', selected: false },
-    { key: 'gender', label: 'Gender', selected: false },
-    { key: 'type', label: 'Role', selected: false },
-    { key: 'state', label: 'State', selected: false },
-    { key: 'district', label: 'District', selected: false },
-    { key: 'party', label: 'Party', selected: false },
-    { key: 'terms', label: 'Terms', selected: false },
-    { key: 'start', label: 'Start', selected: false },
-    { key: 'end', label: 'End', selected: false },
-
-    { key: 'twitter', label: 'Twitter', selected: false },
-    { key: 'twitter_id', label: 'TwitterID', selected: false },
-    { key: 'facebook', label: 'Facebook', selected: false },
-    { key: 'youtube', label: 'Youtube', selected: false },
-    { key: 'youtube_id', label: 'YoutubeID', selected: false },
-    { key: 'instagram', label: 'Instagram', selected: false },
-    { key: 'instagram_id', label: 'InstagramID', selected: false },
-    { key: 'mastodon', label: 'Mastodon', selected: false },
-
-    { key: 'bioguide', label: 'Bioguide', selected: false },
-    { key: 'thomas', label: 'Thomas', selected: false },
-    { key: 'lis', label: 'LIS', selected: false },
-    { key: 'govtrack', label: 'GovTrack', selected: false },
-    { key: 'opensecrets', label: 'OpenSecrets', selected: false },
-    { key: 'votesmart', label: 'VoteSmart', selected: false },
-    // { key: 'fec', label: 'FEC', selected: false },
-    { key: 'cspan', label: 'C-SPAN', selected: false },
-    { key: 'wikipedia', label: 'Wikipedia', selected: false },
-    { key: 'house_history', label: 'House History', selected: false },
-    { key: 'ballotpedia', label: 'Ballotpedia', selected: false },
-    { key: 'maplight', label: 'MapLight', selected: false },
-    { key: 'icpsr', label: 'ICPSR', selected: false },
-    { key: 'wikidata', label: 'Wikidata', selected: false },
-    { key: 'google_entity_id', label: 'Google Entity ID', selected: false },
-    { key: 'pictorial', label: 'Pictorial', selected: false },
-
+    { key: 'gender', label: 'gender', selected: false },
+    { key: 'google_entity_id', label: 'google_entity_id', selected: false },
+    { key: 'govtrack', label: 'govtrack', selected: false },
+    { key: 'house_history', label: 'house_history', selected: false },
+    { key: 'how', label: 'how', selected: false },
+    { key: 'icpsr', label: 'icpsr', selected: false },
+    { key: 'instagram', label: 'instagram', selected: false },
+    { key: 'instagram_id', label: 'instagram_id', selected: false },
+    { key: 'last', label: 'last', selected: false },
+    { key: 'lis', label: 'lis', selected: false },
+    { key: 'maplight', label: 'maplight', selected: false },
+    { key: 'mastodon', label: 'mastodon', selected: false },
+    { key: 'middle', label: 'middle', selected: false },
+    { key: 'nickname', label: 'nickname', selected: false },
+    { key: 'office', label: 'office', selected: false },
+    { key: 'official_full', label: 'official_full', selected: false },
+    { key: 'opensecrets', label: 'opensecrets', selected: false },
+    { key: 'party', label: 'party', selected: false },
+    { key: 'phone', label: 'phone', selected: false },
+    { key: 'pictorial', label: 'pictorial', selected: false },
+    { key: 'rss_url', label: 'rss_url', selected: false },
+    { key: 'state', label: 'state', selected: false },
+    { key: 'state_rank', label: 'state_rank', selected: false },
+    { key: 'start', label: 'start', selected: false },
+    { key: 'suffix', label: 'suffix', selected: false },
+    { key: 'thomas', label: 'thomas', selected: false },
+    { key: 'twitter', label: 'twitter', selected: false },
+    { key: 'twitter_id', label: 'twitter_id', selected: false },
+    { key: 'type', label: 'type', selected: false },
+    { key: 'url', label: 'url', selected: false },
+    { key: 'votesmart', label: 'votesmart', selected: false },
+    { key: 'wikipedia', label: 'wikipedia', selected: false },
+    { key: 'wikidata', label: 'wikidata', selected: false },
+    { key: 'youtube', label: 'youtube', selected: false },
+    { key: 'youtube_id', label: 'youtube_id', selected: false },
 ] as const satisfies Column[];
+// const tableColumns = [
+//     { key: 'full', label: 'Full Name', selected: false },
+
+//     { key: 'bioguide', label: 'bioguide', selected: false },
+//     { key: 'thomas', label: 'thomas', selected: false },
+//     { key: 'lis', label: 'lis', selected: false },
+//     { key: 'govtrack', label: 'govtrack', selected: false },
+//     { key: 'opensecrets', label: 'opensecrets', selected: false },
+//     { key: 'votesmart', label: 'votesmart', selected: false },
+//     // { key: 'fec', label: 'FEC', selected: false },
+//     { key: 'cspan', label: 'cspan', selected: false },
+//     { key: 'wikipedia', label: 'wikipedia', selected: false },
+//     { key: 'house_history', label: 'house_history', selected: false },
+//     { key: 'ballotpedia', label: 'ballotpedia', selected: false },
+//     { key: 'maplight', label: 'maplight', selected: false },
+//     { key: 'icpsr', label: 'icpsr', selected: false },
+//     { key: 'wikidata', label: 'wikidata', selected: false },
+//     { key: 'google_entity_id', label: 'google_entity_id', selected: false },
+//     { key: 'pictorial', label: 'pictorial', selected: false },
+
+//     { key: 'first', label: 'first', selected: false },
+//     { key: 'last', label: 'last', selected: false },
+//     { key: 'official_full', label: 'official_full', selected: false },
+//     { key: 'middle', label: 'middle', selected: false },
+//     { key: 'nickname', label: 'nickname', selected: false },
+//     { key: 'suffix', label: 'suffix', selected: false },
+
+//     { key: 'birthday', label: 'birthday', selected: false },
+//     { key: 'gender', label: 'gender', selected: false },
+
+//     { key: 'type', label: 'type', selected: false },
+//     { key: 'start', label: 'start', selected: false },
+//     { key: 'end', label: 'end', selected: false },
+//     { key: 'state', label: 'state', selected: false },
+//     { key: 'district', label: 'district', selected: false },
+//     { key: 'party', label: 'party', selected: false },
+//     { key: 'class', label: 'class', selected: false },
+//     { key: 'url', label: 'url', selected: false },
+//     { key: 'address', label: 'address', selected: false },
+//     { key: 'phone', label: 'phone', selected: false },
+//     { key: 'fax', label: 'fax', selected: false },
+//     { key: 'contact_form', label: 'contact_form', selected: false },
+//     { key: 'office', label: 'office', selected: false },
+//     { key: 'state_rank', label: 'state_rank', selected: false },
+//     { key: 'rss_url', label: 'rss_url', selected: false },
+//     { key: 'caucus', label: 'caucus', selected: false },
+//     { key: 'how', label: 'how', selected: false },
+//     { key: 'end-type', label: 'end-type', selected: false },
+//     // { key: 'party_affiliations', label: 'party_affiliations', selected: false },
+
+//     { key: 'twitter', label: 'twitter', selected: false },
+//     { key: 'twitter_id', label: 'twitter_id', selected: false },
+//     { key: 'facebook', label: 'facebook', selected: false },
+//     { key: 'youtube', label: 'youtube', selected: false },
+//     { key: 'youtube_id', label: 'youtube_id', selected: false },
+//     { key: 'instagram', label: 'instagram', selected: false },
+//     { key: 'instagram_id', label: 'instagram_id', selected: false },
+//     { key: 'mastodon', label: 'mastodon', selected: false },
+// ] as const satisfies Column[];
 export type ColumnKey = typeof tableColumns[number]['key'];
 type ColumnTypeMap = {
     full: string,
-    id: string,
+
+    bioguide: string,
+    thomas?: string | undefined,
+    lis?: string | undefined,
+    govtrack: number,
+    opensecrets?: string | undefined,
+    votesmart?: number | undefined,
+    // fec?: string[],
+    cspan?: number | undefined,
+    wikipedia?: string | undefined,
+    house_history?: number | undefined,
+    ballotpedia?: string | undefined,
+    maplight?: number | undefined,
+    icpsr?: number | undefined,
+    wikidata?: string | undefined,
+    google_entity_id?: string | undefined,
+    pictorial?: number | undefined,
+
     first: string,
     last: string,
-    age: number,
+    official_full?: string,
+    middle?: string,
+    nickname?: string,
+    suffix?: string,
+
+    birthday: string,
     gender: 'F' | 'M',
-    type: string,
-    state: typeof allAreas[keyof typeof allAreas],
-    district: number | undefined,
-    party: string,
-    terms: number,
+
+    type: 'rep' | 'sen',
     start: string,
     end: string,
+    state: StateAbbreviation,
+    district?: number,
+    party: Caucus,
+    class?: number,
+    url?: string,
+    address?: string,
+    phone?: string,
+    fax?: null | string,
+    contact_form?: string,
+    office?: string,
+    state_rank?: 'junior' | 'senior',
+    rss_url?: string,
+    caucus?: Caucus,
+    how?: 'appointment' | 'special-election',
+    'end-type'?: 'appointment' | 'special-election',
+    // party_affiliations?: PartyAffiliation[],
+
     twitter: string | undefined,
     twitter_id: string | undefined,
     facebook: string | undefined,
@@ -72,23 +177,6 @@ type ColumnTypeMap = {
     instagram: string | undefined,
     instagram_id: string | undefined,
     mastodon: string | undefined,
-
-    bioguide: string;
-    thomas?: string | undefined;
-    lis?: string | undefined;
-    govtrack: number;
-    opensecrets?: string | undefined;
-    votesmart?: number | undefined;
-    // fec?: string[];
-    cspan?: number | undefined;
-    wikipedia?: string | undefined;
-    house_history?: number | undefined;
-    ballotpedia?: string | undefined;
-    maplight?: number | undefined;
-    icpsr?: number | undefined;
-    wikidata?: string | undefined;
-    google_entity_id?: string | undefined;
-    pictorial?: number | undefined;
 };
 export type Row = { [K in ColumnKey]: ColumnTypeMap[K] };
 

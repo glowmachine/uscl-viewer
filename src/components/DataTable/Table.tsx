@@ -57,7 +57,7 @@ export default function Table() {
                         ({ ...p, index: p.index + p.rowsPerPage }))}>
                     →</button>
             </div> */}
-            <div id='table-container' className='overflow-auto h-screen'>
+            <div id='table-container' className='h-screen overflow-auto'>
                 {isLoading && <div className='h-full grid place-content-center
                     text-3xl text-gray-400'>Loading Database</div>}
                 {error && <div className='h-full grid place-content-center
@@ -86,7 +86,7 @@ export default function Table() {
                             {rows &&
                                 rows.map(row =>
                                     // (index >= pageSettings.index && index < pageSettings.index + pageSettings.rowsPerPage)
-                                    <TableRow row={row} key={row.id} />
+                                    <TableRow row={row} key={row.bioguide} />
                                 )}
                         </tbody>
                     </table>

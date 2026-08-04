@@ -7,11 +7,11 @@ export default function TableRow({ row }: TableRowProps) {
 
     return <>
         <tr className='even:bg-gray-100 hover:bg-gray-200 *:p-1 *:whitespace-nowrap'
-            key={row.id}>
+            key={row.bioguide}>
             {columns.filter((c) => (c.selected)).map((col, index) =>
                 index === 0
                     ? <td key={col.key}>
-                        <NavLink to={`/details/${row.id}`}
+                        <NavLink to={`/details/${row.bioguide}`}
                             className='hover:underline'>
                             {row[col.key as ColumnKey]}
                         </NavLink>
