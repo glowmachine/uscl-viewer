@@ -2,7 +2,12 @@ import { createContext, useContext, useState, type PropsWithChildren } from "rea
 import type { allAreas } from "../types/states";
 import { useSettingsContext } from "./SettingsContext";
 
-const initialColumns = [
+type Column = {
+    key: string,
+    label: string,
+    selected: boolean
+};
+const tableColumns = [
     { key: 'full', label: 'Full Name', selected: true },
     { key: 'id', label: 'Bioguide', selected: false },
     { key: 'first', label: 'First Name', selected: true },
@@ -17,13 +22,7 @@ const initialColumns = [
     { key: 'start', label: 'Start', selected: true },
     { key: 'end', label: 'End', selected: true },
 ] as const satisfies Column[];
-type Column = {
-    key: string,
-    label: string,
-    selected: boolean
-};
-export type ColumnKey = typeof initialColumns[number]['key'];
-
+export type ColumnKey = typeof tableColumns[number]['key'];
 type ColumnTypeMap = {
     full: string,
     id: string,
@@ -56,7 +55,7 @@ export type FilterOptions = {
 };
 
 export type SortByOptions = {
-    key: typeof initialColumns[number]['key'],
+    key: typeof tableColumns[number]['key'],
     asc: boolean,
 };
 
@@ -80,12 +79,12 @@ export function TableProvider({ children }: PropsWithChildren) {
         //filter out 'undefined' results when .find couldn't find the key,
         //set each col's 'selected' property to true
         const showCols = savedColKeys
-            .map(savedColKey => initialColumns.find(col => col.key === savedColKey))
+            .map(savedColKey => tableColumns.find(col => col.key === savedColKey))
             .filter(col => col !== undefined)
             .map(col => ({ ...col, selected: true }));
         //for each table col, get the columns that don't match the saved keys,
         //set their 'selected' property to false
-        const hideCols = initialColumns
+        const hideCols = tableColumns
             .filter(col => !savedColKeys.includes(col.key))
             .map(col => ({ ...col, selected: false }));
         return [...showCols, ...hideCols];
