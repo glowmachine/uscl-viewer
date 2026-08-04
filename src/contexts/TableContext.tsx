@@ -8,27 +8,46 @@ type Column = {
     selected: boolean
 };
 const tableColumns = [
-    { key: 'full', label: 'Full Name', selected: true },
+    { key: 'full', label: 'Full Name', selected: false },
     { key: 'id', label: 'Bioguide', selected: false },
-    { key: 'first', label: 'First Name', selected: true },
-    { key: 'last', label: 'Last Name', selected: true },
-    { key: 'age', label: 'Age', selected: true },
-    { key: 'gender', label: 'Gender', selected: true },
-    { key: 'type', label: 'Role', selected: true },
-    { key: 'state', label: 'State', selected: true },
-    { key: 'district', label: 'District', selected: true },
-    { key: 'party', label: 'Party', selected: true },
-    { key: 'terms', label: 'Terms', selected: true },
-    { key: 'start', label: 'Start', selected: true },
-    { key: 'end', label: 'End', selected: true },
-    { key: 'twitter', label: 'Twitter', selected: true },
-    { key: 'twitter_id', label: 'TwitterID', selected: true },
-    { key: 'facebook', label: 'Facebook', selected: true },
-    { key: 'youtube', label: 'Youtube', selected: true },
-    { key: 'youtube_id', label: 'YoutubeID', selected: true },
-    { key: 'instagram', label: 'Instagram', selected: true },
-    { key: 'instagram_id', label: 'InstagramID', selected: true },
-    { key: 'mastodon', label: 'Mastodon', selected: true },
+    { key: 'first', label: 'First Name', selected: false },
+    { key: 'last', label: 'Last Name', selected: false },
+    { key: 'age', label: 'Age', selected: false },
+    { key: 'gender', label: 'Gender', selected: false },
+    { key: 'type', label: 'Role', selected: false },
+    { key: 'state', label: 'State', selected: false },
+    { key: 'district', label: 'District', selected: false },
+    { key: 'party', label: 'Party', selected: false },
+    { key: 'terms', label: 'Terms', selected: false },
+    { key: 'start', label: 'Start', selected: false },
+    { key: 'end', label: 'End', selected: false },
+
+    { key: 'twitter', label: 'Twitter', selected: false },
+    { key: 'twitter_id', label: 'TwitterID', selected: false },
+    { key: 'facebook', label: 'Facebook', selected: false },
+    { key: 'youtube', label: 'Youtube', selected: false },
+    { key: 'youtube_id', label: 'YoutubeID', selected: false },
+    { key: 'instagram', label: 'Instagram', selected: false },
+    { key: 'instagram_id', label: 'InstagramID', selected: false },
+    { key: 'mastodon', label: 'Mastodon', selected: false },
+
+    { key: 'bioguide', label: 'Bioguide', selected: false },
+    { key: 'thomas', label: 'Thomas', selected: false },
+    { key: 'lis', label: 'LIS', selected: false },
+    { key: 'govtrack', label: 'GovTrack', selected: false },
+    { key: 'opensecrets', label: 'OpenSecrets', selected: false },
+    { key: 'votesmart', label: 'VoteSmart', selected: false },
+    // { key: 'fec', label: 'FEC', selected: false },
+    { key: 'cspan', label: 'C-SPAN', selected: false },
+    { key: 'wikipedia', label: 'Wikipedia', selected: false },
+    { key: 'house_history', label: 'House History', selected: false },
+    { key: 'ballotpedia', label: 'Ballotpedia', selected: false },
+    { key: 'maplight', label: 'MapLight', selected: false },
+    { key: 'icpsr', label: 'ICPSR', selected: false },
+    { key: 'wikidata', label: 'Wikidata', selected: false },
+    { key: 'google_entity_id', label: 'Google Entity ID', selected: false },
+    { key: 'pictorial', label: 'Pictorial', selected: false },
+
 ] as const satisfies Column[];
 export type ColumnKey = typeof tableColumns[number]['key'];
 type ColumnTypeMap = {
@@ -53,6 +72,23 @@ type ColumnTypeMap = {
     instagram: string | undefined,
     instagram_id: string | undefined,
     mastodon: string | undefined,
+
+    bioguide: string;
+    thomas?: string | undefined;
+    lis?: string | undefined;
+    govtrack: number;
+    opensecrets?: string | undefined;
+    votesmart?: number | undefined;
+    // fec?: string[];
+    cspan?: number | undefined;
+    wikipedia?: string | undefined;
+    house_history?: number | undefined;
+    ballotpedia?: string | undefined;
+    maplight?: number | undefined;
+    icpsr?: number | undefined;
+    wikidata?: string | undefined;
+    google_entity_id?: string | undefined;
+    pictorial?: number | undefined;
 };
 export type Row = { [K in ColumnKey]: ColumnTypeMap[K] };
 
