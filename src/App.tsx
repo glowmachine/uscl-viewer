@@ -10,7 +10,7 @@ export default function App() {
       <div className='h-screen flex flex-col'>
         <header className='bg-red-200'>hello world</header>
         <main className='min-h-0 flex flex-row'>
-          <div className='flex-1'>
+          <div className='max-w-full flex-1'>
             <DataProvider>
               <TableProvider>
                 <Outlet />
