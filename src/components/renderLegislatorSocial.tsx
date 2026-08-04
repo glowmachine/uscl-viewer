@@ -45,8 +45,8 @@ export function renderLegislatorSocial(member: Legislator) {
                 <li className='font-bold'>{indent(2)}social:</li>
                 <li className={styleHover}><ul>
                     {socialKeys.map(key =>
-                        <li className={styleMissing(member.social ? member.social[key] : false)} key={key}>
-                            {indent(4)}{key}: {member.social ? member.social[key] : ''}
+                        <li className={styleMissing(member.social?.[key])} key={key}>
+                            {indent(4)}{key}: {member.social?.[key]}
                         </li>)}
                 </ul></li>
             </ul></li>
