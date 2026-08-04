@@ -1,6 +1,6 @@
 import type { StateAbbreviation } from "./states";
 
-export interface Legislator {
+export interface LegislatorCurrent {
     id: ID;
     name: Name;
     bio: Bio;

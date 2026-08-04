@@ -1,4 +1,4 @@
-import type { ID, LegislatorSocial, Social } from "../types/socials";
+import type { ID, LegislatorSocialMedia, Social } from "../types/LegislatorSocialMedia";
 
 const idKeys: Array<keyof ID> = [
     'bioguide',
@@ -28,7 +28,7 @@ function styleMissing(obj: unknown) {
 }
 const styleHover = 'hover:bg-gray-200';
 
-export function renderLegislatorSocial(member: LegislatorSocial | undefined) {
+export function renderLegislatorSocial(member: LegislatorSocialMedia | undefined) {
     return (
         <section className='font-mono mb-5'><ul>
             <li><ul>

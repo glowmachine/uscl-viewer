@@ -1,4 +1,4 @@
-export interface LegislatorSocial {
+export interface LegislatorSocialMedia {
     id: ID;
     social: Social;
 }

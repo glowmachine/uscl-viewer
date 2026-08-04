@@ -1,9 +1,9 @@
-import type { Legislator } from "../types/legislator";
-import type { LegislatorSocial } from "../types/socials";
+import type { LegislatorCurrent } from "../types/LegislatorCurrent";
+import type { LegislatorSocialMedia } from "../types/LegislatorSocialMedia";
 
 export type DataType =
-    | Legislator
-    | LegislatorSocial;
+    | LegislatorCurrent
+    | LegislatorSocialMedia;
 
 export type Filename =
     | 'legislators-current.json'

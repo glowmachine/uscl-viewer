@@ -5,15 +5,15 @@ import TableControls from "./TableControls";
 import TableRow from "./TableRow";
 import getRowData from "./getRowData";
 import sortRows from "./sortRows";
-import type { DataType } from "../../api/fetchData";
 import filterData from "./filterData";
+import type { LegislatorCurrent } from "../../types/LegislatorCurrent";
 
 export default function Table() {
     const { legislators, socials, isLoading, error } = useDataContext();
     const { columns, sortBy, setSortBy, filterOptions } = useTableContext();
     const rows = useMemo<Row[]>(() => {
         if (!legislators) return [];
-        const filteredData: DataType[] = filterData(legislators, filterOptions);
+        const filteredData: LegislatorCurrent[] = filterData(legislators, filterOptions);
         let rowData: Row[] = getRowData(filteredData);
         rowData = sortRows(rowData, sortBy.key, sortBy.asc);
         return rowData;

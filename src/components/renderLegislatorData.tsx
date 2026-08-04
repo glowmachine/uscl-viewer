@@ -1,4 +1,4 @@
-import type { Bio, ID, LeadershipRole, Legislator, Name, PartyAffiliation, Term } from "../types/legislator";
+import type { Bio, ID, LeadershipRole, LegislatorCurrent, Name, PartyAffiliation, Term } from "../types/LegislatorCurrent";
 
 const idKeys: Array<keyof ID> = [
     'bioguide',
@@ -81,7 +81,7 @@ function styleMissing(obj: unknown) {
 const styleHover = 'hover:bg-gray-200';
 
 //YAML formatting reconstructed from json data, an absolute mess, needs refactoring
-export function renderLegislatorData(member: Legislator) {
+export function renderLegislatorData(member: LegislatorCurrent) {
     return (
         <section className='font-mono mb-5'><ul>
             <li><ul>

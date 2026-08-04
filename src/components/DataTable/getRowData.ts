@@ -1,9 +1,9 @@
-import type { DataType } from "../../api/fetchData";
 import type { Row } from "../../contexts/TableContext";
+import type { LegislatorCurrent } from "../../types/LegislatorCurrent";
 import { allAreas, type StateAbbreviation } from "../../types/states";
 import getDateDiff from "../../util/getDateDiff";
 
-export default function getRowData(data: DataType[]): Row[] {
+export default function getRowData(data: LegislatorCurrent[]): Row[] {
     const selectedData = data.map(member => {
         const currentTerm = member.terms[member.terms.length - 1];
         return {

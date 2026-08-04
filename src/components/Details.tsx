@@ -1,10 +1,10 @@
 import { useDataContext } from "../contexts/DataContext";
-import type { LeadershipRole, Legislator } from "../types/legislator";
+import type { LeadershipRole, LegislatorCurrent } from "../types/LegislatorCurrent";
 import { allAreas, type StateAbbreviation } from "../types/states";
 import getDateDiff from "../util/getDateDiff";
 import { NavLink } from "react-router";
 import { renderLegislatorData } from "./renderLegislatorData";
-import type { LegislatorSocial } from "../types/socials";
+import type { LegislatorSocialMedia } from "../types/LegislatorSocialMedia";
 import { renderLegislatorSocial } from "./renderLegislatorSocial";
 
 function abbreviateParty(party: string | undefined) {
@@ -26,8 +26,8 @@ interface DetailsProps {
 }
 export default function Details({ bioguide }: DetailsProps) {
     const { legislators, socials } = useDataContext();
-    const member: Legislator | undefined = legislators?.find(item => item.id.bioguide === bioguide);
-    const memberSocials: LegislatorSocial | undefined = socials?.find(item => item.id.bioguide === bioguide);
+    const member: LegislatorCurrent | undefined = legislators?.find(item => item.id.bioguide === bioguide);
+    const memberSocials: LegislatorSocialMedia | undefined = socials?.find(item => item.id.bioguide === bioguide);
     if (!member) return <p>No data found for bioguide {bioguide}</p>
 
     const age = getDateDiff(new Date(member.bio.birthday)).years;

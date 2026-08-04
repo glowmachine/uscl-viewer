@@ -1,11 +1,11 @@
 import { createContext, useContext, useEffect, useState, type PropsWithChildren } from "react";
-import { fetchData, type DataType } from "../api/fetchData";
-import type { Legislator } from "../types/legislator";
-import type { LegislatorSocial } from "../types/socials";
+import { fetchData } from "../api/fetchData";
+import type { LegislatorCurrent } from "../types/LegislatorCurrent";
+import type { LegislatorSocialMedia } from "../types/LegislatorSocialMedia";
 
 type DataContextValue = {
-    legislators: Legislator[] | null,
-    socials: LegislatorSocial[] | null,
+    legislators: LegislatorCurrent[] | null,
+    socials: LegislatorSocialMedia[] | null,
     isLoading: boolean,
     error: Error | TypeError | null,
 }
@@ -13,8 +13,8 @@ type DataContextValue = {
 const DataContext = createContext<DataContextValue | undefined>(undefined);
 
 export function DataProvider({ children }: PropsWithChildren) {
-    const [legislators, setLegislators] = useState<Legislator[] | null>(null);
-    const [socials, setSocials] = useState<LegislatorSocial[] | null>(null);
+    const [legislators, setLegislators] = useState<LegislatorCurrent[] | null>(null);
+    const [socials, setSocials] = useState<LegislatorSocialMedia[] | null>(null);
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const [error, setError] = useState<Error | TypeError | null>(null);
 
@@ -27,8 +27,8 @@ export function DataProvider({ children }: PropsWithChildren) {
 
             try {
                 if (isMounted) {
-                    const legislatorData = await fetchData<Legislator[]>('legislators-current.json');
-                    const socialData = await fetchData<LegislatorSocial[]>('legislators-social-media.json');
+                    const legislatorData = await fetchData<LegislatorCurrent[]>('legislators-current.json');
+                    const socialData = await fetchData<LegislatorSocialMedia[]>('legislators-social-media.json');
                     setLegislators(legislatorData);
                     setSocials(socialData);
                 };
