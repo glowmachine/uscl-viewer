@@ -87,7 +87,7 @@ export function renderLegislatorData(member: LegislatorCurrent) {
             <li><ul>
                 <li className='font-bold'>- id:</li>
                 <li className={styleHover}><ul>
-                    {idKeys.slice(1).map(key => key !== 'fec'
+                    {idKeys.map(key => key !== 'fec'
                         ? <li className={styleMissing(member.id[key])} key={key}>{indent(4)}{key}: {member.id[key]}</li>
                         : <li key={key}><ul>
                             <li>{indent(4)}fec:</li>
