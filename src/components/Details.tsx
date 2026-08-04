@@ -35,11 +35,11 @@ export default function Details({ bioguide }: DetailsProps) {
 
     return (
         <article className='flex flex-col max-w-full max-h-full'>
-            <NavLink to='/' className='rounded bg-gray-300 active:bg-gray-400'>🔙</NavLink>
+            <NavLink to='/' className='rounded bg-gray-300 active:bg-gray-400 grid place-items-center'>🔙</NavLink>
             <section className='border-b p-1 w-full flex gap-2'>
                 <img alt={`Profile photo for ${member.name.first} ${member.name.last}`}
                     src={`https://unitedstates.github.io/images/congress/225x275/${member.id.bioguide}.jpg`}
-                    className='w-[min(225px,15vw)]'
+                    className='w-[min(225px,40vw)]'
                 />
                 <div>
                     <div className='mb-1'>
