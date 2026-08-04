@@ -21,6 +21,14 @@ export default function getRowData(data: Legislator[]): Row[] {
             terms: member.terms.length,
             start: currentTerm.start,
             end: currentTerm.end,
+            twitter: member.social?.twitter,
+            twitter_id: member.social?.twitter_id,
+            facebook: member.social?.facebook,
+            youtube: member.social?.youtube,
+            youtube_id: member.social?.youtube,
+            instagram: member.social?.instagram,
+            instagram_id: member.social?.instagram_id,
+            mastodon: member.social?.mastodon,
         };
     })
     return selectedData;

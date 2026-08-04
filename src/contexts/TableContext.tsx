@@ -21,6 +21,14 @@ const tableColumns = [
     { key: 'terms', label: 'Terms', selected: true },
     { key: 'start', label: 'Start', selected: true },
     { key: 'end', label: 'End', selected: true },
+    { key: 'twitter', label: 'Twitter', selected: true },
+    { key: 'twitter_id', label: 'TwitterID', selected: true },
+    { key: 'facebook', label: 'Facebook', selected: true },
+    { key: 'youtube', label: 'Youtube', selected: true },
+    { key: 'youtube_id', label: 'YoutubeID', selected: true },
+    { key: 'instagram', label: 'Instagram', selected: true },
+    { key: 'instagram_id', label: 'InstagramID', selected: true },
+    { key: 'mastodon', label: 'Mastodon', selected: true },
 ] as const satisfies Column[];
 export type ColumnKey = typeof tableColumns[number]['key'];
 type ColumnTypeMap = {
@@ -37,6 +45,14 @@ type ColumnTypeMap = {
     terms: number,
     start: string,
     end: string,
+    twitter: string | undefined,
+    twitter_id: string | undefined,
+    facebook: string | undefined,
+    youtube: string | undefined,
+    youtube_id: string | undefined,
+    instagram: string | undefined,
+    instagram_id: string | undefined,
+    mastodon: string | undefined,
 };
 export type Row = { [K in ColumnKey]: ColumnTypeMap[K] };
 
