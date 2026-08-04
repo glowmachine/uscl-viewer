@@ -4,6 +4,8 @@ import { allAreas, type StateAbbreviation } from "../types/states";
 import getDateDiff from "../util/getDateDiff";
 import { NavLink } from "react-router";
 import { renderLegislatorData } from "./renderLegislatorData";
+import type { LegislatorSocial } from "../types/socials";
+import { renderLegislatorSocial } from "./renderLegislatorSocial";
 
 function abbreviateParty(party: string | undefined) {
     switch (party) {
@@ -23,9 +25,10 @@ interface DetailsProps {
     bioguide: string,
 }
 export default function Details({ bioguide }: DetailsProps) {
-    const { legislators } = useDataContext();
+    const { legislators, socials } = useDataContext();
     const member: Legislator | undefined = legislators?.find(item => item.id.bioguide === bioguide);
-    if (!member) return <p>No information found for bioguide {bioguide}</p>
+    const memberSocials: LegislatorSocial | undefined = socials?.find(item => item.id.bioguide === bioguide);
+    if (!member) return <p>No data found for bioguide {bioguide}</p>
 
     const age = getDateDiff(new Date(member.bio.birthday)).years;
     const currentTerm = member.terms[member.terms.length - 1];
@@ -44,15 +47,23 @@ export default function Details({ bioguide }: DetailsProps) {
                         <p>{age}{member.bio.gender}</p>
                     </div>
                     <div className='mb-1'>
-                        <p>{`(${abbreviateParty(currentTerm.party)})${currentTerm.type === 'rep' ? 'Representative' : 'Senator'}`}</p>
+                        <p>{`(${abbreviateParty(currentTerm.party)}) ${currentTerm.type === 'rep' ? 'Representative' : 'Senator'}`}</p>
                         <p>{`${allAreas[currentTerm.state as StateAbbreviation]}${currentTerm.district ? ', District ' + currentTerm.district : ''}`}</p>
                     </div>
                     {getLeadershipRole(member.leadership_roles)}
                 </div>
             </section>
-            <details className='overflow-auto' open><summary className='hover:cursor-pointer mb-2'>legislatorsCurrent.yaml</summary>
-                {renderLegislatorData(member)}
-            </details>
+            <section className='h-screen p-1 overflow-auto flex flex-col'>
+                <details open><summary className='hover:cursor-pointer mb-2'>legislatorsCurrent.yaml</summary>
+                    {renderLegislatorData(member)}
+                </details>
+                <details open>
+                    <summary className='hover:cursor-pointer mb-2'>
+                        legislatorsSocialMedia.yaml {!memberSocials && <span className='italic'>(no entry)</span>}
+                    </summary>
+                    {renderLegislatorSocial(memberSocials)}
+                </details>
+            </section>
         </article>
     );
 }

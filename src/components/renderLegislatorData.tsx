@@ -83,7 +83,7 @@ const styleHover = 'hover:bg-gray-200';
 //YAML formatting reconstructed from json data, an absolute mess, needs refactoring
 export function renderLegislatorData(member: Legislator) {
     return (
-        <section className='font-mono'><ul>
+        <section className='font-mono mb-5'><ul>
             <li><ul>
                 <li className='font-bold'>- id:</li>
                 <li className={styleHover}><ul>

@@ -1,19 +1,18 @@
 import type { Legislator } from "../types/legislator";
-import type { LegislatorsHistorical } from "../types/legislatorsHistorical";
+import type { LegislatorSocial } from "../types/socials";
 
 export type DataType =
     | Legislator
-    | LegislatorsHistorical;
+    | LegislatorSocial;
 
 export type Filename =
     | 'legislators-current.json'
-    | 'legislators-historical.json'
+    | 'legislators-social-media.json';
 
 const baseUrl = '../tests/fixtures';
 // const baseUrl = 'https://unitedstates.github.io/congress-legislators';
 const timeoutMs = 5000;
-
-export async function fetchData(filename: Filename): Promise<DataType[]> {
+export async function fetchData<T>(filename: Filename): Promise<T> {
     try {
         const response = await fetch(
             `${baseUrl}/${filename}`,
@@ -22,7 +21,7 @@ export async function fetchData(filename: Filename): Promise<DataType[]> {
         if (!response.ok) {
             throw new Error(`Error Code: ${response.status}, failed to fetch ${filename}`);
         }
-        return await response.json() as DataType[];
+        return await response.json();
     }
     catch (error) {
         if (error instanceof TypeError) {

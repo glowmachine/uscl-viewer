@@ -9,7 +9,7 @@ import type { DataType } from "../../api/fetchData";
 import filterData from "./filterData";
 
 export default function Table() {
-    const { legislators, isLoading, error } = useDataContext();
+    const { legislators, socials, isLoading, error } = useDataContext();
     const { columns, sortBy, setSortBy, filterOptions } = useTableContext();
     const rows = useMemo<Row[]>(() => {
         if (!legislators) return [];
