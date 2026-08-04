@@ -1,10 +1,9 @@
 import { useDataContext } from "../contexts/DataContext";
-import type { LeadershipRole, LegislatorCurrent } from "../types/LegislatorCurrent";
+import type { LeadershipRole } from "../types/LegislatorCurrent";
 import { allAreas, type StateAbbreviation } from "../types/states";
 import getDateDiff from "../util/getDateDiff";
 import { NavLink } from "react-router";
 import { renderLegislatorData } from "./renderLegislatorData";
-import type { LegislatorSocialMedia } from "../types/LegislatorSocialMedia";
 import { renderLegislatorSocial } from "./renderLegislatorSocial";
 
 function abbreviateParty(party: string | undefined) {
@@ -55,12 +54,12 @@ export default function Details({ bioguide }: DetailsProps) {
                 </div>
             </section>
             <section className='h-screen p-1 overflow-auto flex flex-col'>
-                <details open><summary className='hover:cursor-pointer mb-2'>legislatorsCurrent.yaml</summary>
+                <details open><summary className='hover:cursor-pointer mb-2'>legislators-current.yaml</summary>
                     {renderLegislatorData(member)}
                 </details>
                 <details open>
                     <summary className='hover:cursor-pointer mb-2'>
-                        legislatorsSocialMedia.yaml {!member.social && <span className='italic'>(no entry)</span>}
+                        legislators-social-media.yaml {!member.social && <span className='italic'>(no entry)</span>}
                     </summary>
                     {renderLegislatorSocial(member)}
                 </details>
