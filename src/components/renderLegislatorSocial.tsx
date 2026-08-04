@@ -1,4 +1,5 @@
-import type { ID, LegislatorSocialMedia, Social } from "../types/LegislatorSocialMedia";
+import type { Legislator } from "../contexts/DataContext";
+import type { ID, Social } from "../types/LegislatorSocialMedia";
 
 const idKeys: Array<keyof ID> = [
     'bioguide',
@@ -28,7 +29,7 @@ function styleMissing(obj: unknown) {
 }
 const styleHover = 'hover:bg-gray-200';
 
-export function renderLegislatorSocial(member: LegislatorSocialMedia | undefined) {
+export function renderLegislatorSocial(member: Legislator) {
     return (
         <section className='font-mono mb-5'><ul>
             <li><ul>
@@ -44,8 +45,8 @@ export function renderLegislatorSocial(member: LegislatorSocialMedia | undefined
                 <li className='font-bold'>{indent(2)}social:</li>
                 <li className={styleHover}><ul>
                     {socialKeys.map(key =>
-                        <li className={styleMissing(member?.social[key])} key={key}>
-                            {indent(4)}{key}: {member?.social[key]}
+                        <li className={styleMissing(member.social ? member.social[key] : false)} key={key}>
+                            {indent(4)}{key}: {member.social ? member.social[key] : ''}
                         </li>)}
                 </ul></li>
             </ul></li>

@@ -25,9 +25,10 @@ interface DetailsProps {
     bioguide: string,
 }
 export default function Details({ bioguide }: DetailsProps) {
-    const { legislators, socials } = useDataContext();
-    const member: LegislatorCurrent | undefined = legislators?.find(item => item.id.bioguide === bioguide);
-    const memberSocials: LegislatorSocialMedia | undefined = socials?.find(item => item.id.bioguide === bioguide);
+    const { legislators } = useDataContext();
+    if (!legislators) return <p>No data found</p>
+
+    const member = legislators?.find(item => item.id.bioguide === bioguide);
     if (!member) return <p>No data found for bioguide {bioguide}</p>
 
     const age = getDateDiff(new Date(member.bio.birthday)).years;
@@ -59,9 +60,9 @@ export default function Details({ bioguide }: DetailsProps) {
                 </details>
                 <details open>
                     <summary className='hover:cursor-pointer mb-2'>
-                        legislatorsSocialMedia.yaml {!memberSocials && <span className='italic'>(no entry)</span>}
+                        legislatorsSocialMedia.yaml {!member.social && <span className='italic'>(no entry)</span>}
                     </summary>
-                    {renderLegislatorSocial(memberSocials)}
+                    {renderLegislatorSocial(member)}
                 </details>
             </section>
         </article>

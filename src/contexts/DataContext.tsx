@@ -1,11 +1,12 @@
 import { createContext, useContext, useEffect, useState, type PropsWithChildren } from "react";
 import { fetchData } from "../api/fetchData";
 import type { LegislatorCurrent } from "../types/LegislatorCurrent";
-import type { LegislatorSocialMedia } from "../types/LegislatorSocialMedia";
+import type { LegislatorSocialMedia, Social } from "../types/LegislatorSocialMedia";
+
+export type Legislator = LegislatorCurrent & { social?: Social; };
 
 type DataContextValue = {
-    legislators: LegislatorCurrent[] | null,
-    socials: LegislatorSocialMedia[] | null,
+    legislators: Legislator[] | null,
     isLoading: boolean,
     error: Error | TypeError | null,
 }
@@ -13,8 +14,7 @@ type DataContextValue = {
 const DataContext = createContext<DataContextValue | undefined>(undefined);
 
 export function DataProvider({ children }: PropsWithChildren) {
-    const [legislators, setLegislators] = useState<LegislatorCurrent[] | null>(null);
-    const [socials, setSocials] = useState<LegislatorSocialMedia[] | null>(null);
+    const [legislators, setLegislators] = useState<Legislator[] | null>(null);
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const [error, setError] = useState<Error | TypeError | null>(null);
 
@@ -29,8 +29,10 @@ export function DataProvider({ children }: PropsWithChildren) {
                 if (isMounted) {
                     const legislatorData = await fetchData<LegislatorCurrent[]>('legislators-current.json');
                     const socialData = await fetchData<LegislatorSocialMedia[]>('legislators-social-media.json');
-                    setLegislators(legislatorData);
-                    setSocials(socialData);
+                    const socialByID = new Map(socialData.map(member => [member.id.bioguide, member]));
+                    setLegislators(legislatorData.map(member => (
+                        { ...member, social: socialByID.get(member.id.bioguide)?.social }
+                    )));
                 };
             } catch (err) {
                 (isMounted && err instanceof Error)
@@ -47,7 +49,7 @@ export function DataProvider({ children }: PropsWithChildren) {
     }, []);
 
     return (
-        <DataContext value={{ legislators, socials, isLoading, error }}>
+        <DataContext value={{ legislators, isLoading, error }}>
             {children}
         </DataContext>
     );

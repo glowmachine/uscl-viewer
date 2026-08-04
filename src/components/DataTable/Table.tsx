@@ -9,7 +9,7 @@ import filterData from "./filterData";
 import type { LegislatorCurrent } from "../../types/LegislatorCurrent";
 
 export default function Table() {
-    const { legislators, socials, isLoading, error } = useDataContext();
+    const { legislators, isLoading, error } = useDataContext();
     const { columns, sortBy, setSortBy, filterOptions } = useTableContext();
     const rows = useMemo<Row[]>(() => {
         if (!legislators) return [];
