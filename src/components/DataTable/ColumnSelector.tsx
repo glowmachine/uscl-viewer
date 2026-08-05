@@ -3,7 +3,7 @@ import { bioCols, idCols, nameCols, termCols, useTableContext } from "../../cont
 import { useSettingsContext } from "../../contexts/SettingsContext";
 
 export default function ColumnSelector() {
-    const { columns, setColumns } = useTableContext();
+    const { setColumns } = useTableContext();
     const { savedColKeys, setSavedColKeys, writeSavedColKeys } = useSettingsContext();
     const [draftColKeys, setDraftColKeys] = useState(savedColKeys);
     const [colSelectOpen, setColSelectOpen] = useState(false);
@@ -92,20 +92,20 @@ export default function ColumnSelector() {
                 <h2 className='font-bold text-xl mx-2 mb-2'>Change visible columns</h2>
                 <p className='px-10'>Small screens may need to scroll right to view all columns.</p>
                 <div className='m-5 flex flex-col gap-1'>
-                    {draftColKeys.map((_, index) =>
-                        <div className='flex justify-between'
-                            key={`selector-${index}`}>
+                    {draftColKeys.map((value, index) =>
+                        <div className='flex justify-between' key={`selector-${index}`}>
                             <span>{index + 1}.</span>
                             <select className={`w-9/10 border rounded px-1 
                                 ${index === 0 ? "text-gray-500" : ''}`}
                                 disabled={index === 0}
-                                value={draftColKeys[index]}
-                                onChange={e => handleSelection(index, e.target.value)}>
+                                value={value}
+                                onChange={e => handleSelection(index, e.target.value)}
+                            >
                                 <option value=''>-</option>
                                 {index === 0 && <option value='name'>Name</option>}
 
                                 <optgroup label='id'>
-                                    {idCols.filter(col => col.key === draftColKeys[index]
+                                    {idCols.filter(col => col.key === value
                                         || !draftColKeys.includes(col.key))
                                         .map(option =>
                                             <option value={option.key}
@@ -115,7 +115,7 @@ export default function ColumnSelector() {
                                         )}
                                 </optgroup>
                                 <optgroup label='name'>
-                                    {nameCols.filter(col => col.key === draftColKeys[index]
+                                    {nameCols.filter(col => col.key === value
                                         || !draftColKeys.includes(col.key))
                                         .map(option =>
                                             <option value={option.key}
@@ -125,7 +125,7 @@ export default function ColumnSelector() {
                                         )}
                                 </optgroup>
                                 <optgroup label='bio'>
-                                    {bioCols.filter(col => col.key === draftColKeys[index]
+                                    {bioCols.filter(col => col.key === value
                                         || !draftColKeys.includes(col.key))
                                         .map(option =>
                                             <option value={option.key}
@@ -135,7 +135,7 @@ export default function ColumnSelector() {
                                         )}
                                 </optgroup>
                                 <optgroup label='term (current)'>
-                                    {termCols.filter(col => col.key === draftColKeys[index]
+                                    {termCols.filter(col => col.key === value
                                         || !draftColKeys.includes(col.key))
                                         .map(option =>
                                             <option value={option.key}
