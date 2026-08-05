@@ -5,7 +5,7 @@ export default function getRowData(data: Legislator[]): Row[] {
     const selectedData = data.map(member => {
         const currentTerm = member.terms[member.terms.length - 1];
         return {
-            full: `${member.name.first} ${member.name.last}`,
+            name: `${member.name.first} ${member.name.last}`,
 
             bioguide: member.id.bioguide,
             thomas: member.id.thomas,

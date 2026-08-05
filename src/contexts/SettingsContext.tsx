@@ -2,8 +2,8 @@ import { createContext, useContext, useState, type PropsWithChildren } from "rea
 
 const SettingsContext = createContext<SettingsContextValue | undefined>(undefined);
 
-const defaultSavedColKeys = ['full', 'age', 'gender', 'type', 'state']
-    .concat(Array(3).fill(''));
+const defaultSavedColKeys = ['name', 'party', 'type', 'state']
+    .concat(Array(4).fill(''));
 
 type SettingsContextValue = {
     savedColKeys: string[],

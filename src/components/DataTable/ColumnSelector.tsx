@@ -102,6 +102,8 @@ export default function ColumnSelector() {
                                 value={draftColKeys[index]}
                                 onChange={e => handleSelection(index, e.target.value)}>
                                 <option value=''>-</option>
+                                {index === 0 && <option value='name'>Name</option>}
+
                                 <optgroup label='id'>
                                     {idCols.filter(col => col.key === draftColKeys[index]
                                         || !draftColKeys.includes(col.key))

@@ -4,7 +4,7 @@ import { useSettingsContext } from "./SettingsContext";
 import type { Caucus, PartyAffiliation } from "../types/LegislatorCurrent";
 
 export type RowData = {
-    full: string,
+    name: string,
 
     bioguide: string,
     thomas?: string | undefined,
@@ -137,7 +137,7 @@ export const socialCols = [
 ] as const satisfies Column[];
 
 const tableColumns = [
-    { key: 'full', label: 'Full Name', selected: false },
+    { key: 'name', label: 'Name', selected: false },
     ...nameCols, ...idCols, ...bioCols, ...termCols, ...socialCols
 ] as const satisfies Column[];
 
@@ -192,7 +192,7 @@ export function TableProvider({ children }: PropsWithChildren) {
     });
 
     const [sortBy, setSortBy] = useState<SortByOptions>({
-        key: 'full',
+        key: 'name',
         asc: true,
     });
     const [filterOptions, setFilterOptions] = useState<FilterOptions>({
