@@ -35,7 +35,7 @@ export default function Table() {
 
     return (
         <div className='flex flex-col max-w-full max-h-full'>
-            <TableControls />
+            {/* <TableControls /> */}
             {/* <div id='page-controls' className='self-end m-1 flex items-center gap-1'>
                 {rows.length === 0
                     ? <span>0-0 of 0</span>
@@ -58,17 +58,18 @@ export default function Table() {
                     →</button>
             </div> */}
             <div id='table-container' className='h-screen overflow-auto'>
+                <TableControls />
                 {isLoading && <div className='h-full grid place-content-center
                     text-3xl text-gray-400'>Loading Database</div>}
                 {error && <div className='h-full grid place-content-center
                     text-2xl text-red-300'>{error.message}</div>}
                 {(!isLoading && !error) &&
                     <table className='min-w-full'>
-                        <thead className='sticky top-0'>
-                            <tr className='text-left bg-gray-400'>
+                        <thead className='sticky top-0 bg-white text-left'>
+                            <tr>
                                 {columns.filter((c) => (c.selected)).map((col) =>
                                     <th key={col.key}><button
-                                        className='flex gap-1 justify-between whitespace-nowrap w-full px-1 hover:bg-gray-500'
+                                        className='flex gap-1 whitespace-nowrap w-full p-2 hover:bg-gray-300 border-b-1'
                                         onClick={() => setSortBy((prev) => {
                                             return (col.key === prev.key)
                                                 ? { ...prev, asc: !prev.asc }
@@ -89,8 +90,7 @@ export default function Table() {
                                     <TableRow row={row} key={row.bioguide} />
                                 )}
                         </tbody>
-                    </table>
-                }
+                    </table>}
             </div>
         </div>
     );

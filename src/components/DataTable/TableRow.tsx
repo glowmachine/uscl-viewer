@@ -6,7 +6,7 @@ export default function TableRow({ row }: TableRowProps) {
     const { columns } = useTableContext();
 
     return <>
-        <tr className='even:bg-gray-100 hover:bg-gray-200 *:p-1 *:whitespace-nowrap'
+        <tr className='even:bg-gray-100 hover:bg-gray-200 *:p-4 *:whitespace-nowrap'
             key={row.bioguide}>
             {columns.filter((c) => (c.selected)).map((col, index) =>
                 index === 0
