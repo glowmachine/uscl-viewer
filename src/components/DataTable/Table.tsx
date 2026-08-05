@@ -1,5 +1,5 @@
 import { useDataContext } from "../../contexts/DataContext";
-import { useTableContext, type ColumnKey, type Row } from "../../contexts/TableContext";
+import { useTableContext, type Row } from "../../contexts/TableContext";
 import { useMemo } from "react";
 import TableControls from "./TableControls";
 import TableRow from "./TableRow";
@@ -70,9 +70,9 @@ export default function Table() {
                                     <th key={col.key}><button
                                         className='flex gap-1 justify-between whitespace-nowrap w-full px-1 hover:bg-gray-500'
                                         onClick={() => setSortBy((prev) => {
-                                            return (col.key == prev.key)
+                                            return (col.key === prev.key)
                                                 ? { ...prev, asc: !prev.asc }
-                                                : { key: col.key as ColumnKey, asc: true }
+                                                : { key: col.key, asc: true }
                                         })}
                                     >
                                         <span>{col.label}</span>

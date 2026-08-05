@@ -1,4 +1,4 @@
-import { useTableContext, type ColumnKey, type Row } from "../../contexts/TableContext";
+import { useTableContext, type Row } from "../../contexts/TableContext";
 import { NavLink } from "react-router";
 
 interface TableRowProps { row: Row }
@@ -13,10 +13,10 @@ export default function TableRow({ row }: TableRowProps) {
                     ? <td key={col.key}>
                         <NavLink to={`/details/${row.bioguide}`}
                             className='hover:underline'>
-                            {row[col.key as ColumnKey]}
+                            {row[col.key]}
                         </NavLink>
                     </td>
-                    : <td key={col.key}>{row[col.key as ColumnKey]}</td>
+                    : <td key={col.key}>{row[col.key]}</td>
             )}
         </tr>
     </>

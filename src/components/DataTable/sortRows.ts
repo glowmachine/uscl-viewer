@@ -1,6 +1,6 @@
-import type { ColumnKey, Row } from "../../contexts/TableContext";
+import type { RowData, Row } from "../../contexts/TableContext";
 
-export default function sortRows(rows: Row[], key: ColumnKey, asc: boolean): Row[] {
+export default function sortRows(rows: Row[], key: keyof RowData, asc: boolean): Row[] {
     return rows.sort((a, b) => {
         const aVal = a[key];
         const bVal = b[key];

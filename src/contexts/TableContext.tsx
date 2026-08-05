@@ -3,8 +3,69 @@ import type { StateAbbreviation } from "../types/states";
 import { useSettingsContext } from "./SettingsContext";
 import type { Caucus, PartyAffiliation } from "../types/LegislatorCurrent";
 
+export type RowData = {
+    full: string,
+
+    bioguide: string,
+    thomas?: string | undefined,
+    lis?: string | undefined,
+    govtrack: number,
+    opensecrets?: string | undefined,
+    votesmart?: number | undefined,
+    // fec?: string[],
+    cspan?: number | undefined,
+    wikipedia?: string | undefined,
+    house_history?: number | undefined,
+    ballotpedia?: string | undefined,
+    maplight?: number | undefined,
+    icpsr?: number | undefined,
+    wikidata?: string | undefined,
+    google_entity_id?: string | undefined,
+    pictorial?: number | undefined,
+
+    first: string,
+    last: string,
+    official_full?: string,
+    middle?: string,
+    nickname?: string,
+    suffix?: string,
+
+    birthday: string,
+    gender: 'F' | 'M',
+
+    type: 'rep' | 'sen',
+    start: string,
+    end: string,
+    state: StateAbbreviation,
+    district?: number,
+    party: Caucus,
+    class?: number,
+    url?: string,
+    address?: string,
+    phone?: string,
+    fax?: null | string,
+    contact_form?: string,
+    office?: string,
+    state_rank?: 'junior' | 'senior',
+    rss_url?: string,
+    caucus?: Caucus,
+    how?: 'appointment' | 'special-election',
+    'end-type'?: 'appointment' | 'special-election',
+    // party_affiliations?: PartyAffiliation[],
+
+    twitter: string | undefined,
+    twitter_id: string | undefined,
+    facebook: string | undefined,
+    youtube: string | undefined,
+    youtube_id: string | undefined,
+    instagram: string | undefined,
+    instagram_id: string | undefined,
+    mastodon: string | undefined,
+};
+export type Row = { [K in keyof RowData]: RowData[K] };
+
 type Column = {
-    key: string,
+    key: keyof RowData,
     label: string,
     selected: boolean
 };
@@ -118,67 +179,6 @@ const tableColumns = [
 //     { key: 'instagram_id', label: 'instagram_id', selected: false },
 //     { key: 'mastodon', label: 'mastodon', selected: false },
 // ] as const satisfies Column[];
-export type ColumnKey = typeof tableColumns[number]['key'];
-type ColumnTypeMap = {
-    full: string,
-
-    bioguide: string,
-    thomas?: string | undefined,
-    lis?: string | undefined,
-    govtrack: number,
-    opensecrets?: string | undefined,
-    votesmart?: number | undefined,
-    // fec?: string[],
-    cspan?: number | undefined,
-    wikipedia?: string | undefined,
-    house_history?: number | undefined,
-    ballotpedia?: string | undefined,
-    maplight?: number | undefined,
-    icpsr?: number | undefined,
-    wikidata?: string | undefined,
-    google_entity_id?: string | undefined,
-    pictorial?: number | undefined,
-
-    first: string,
-    last: string,
-    official_full?: string,
-    middle?: string,
-    nickname?: string,
-    suffix?: string,
-
-    birthday: string,
-    gender: 'F' | 'M',
-
-    type: 'rep' | 'sen',
-    start: string,
-    end: string,
-    state: StateAbbreviation,
-    district?: number,
-    party: Caucus,
-    class?: number,
-    url?: string,
-    address?: string,
-    phone?: string,
-    fax?: null | string,
-    contact_form?: string,
-    office?: string,
-    state_rank?: 'junior' | 'senior',
-    rss_url?: string,
-    caucus?: Caucus,
-    how?: 'appointment' | 'special-election',
-    'end-type'?: 'appointment' | 'special-election',
-    // party_affiliations?: PartyAffiliation[],
-
-    twitter: string | undefined,
-    twitter_id: string | undefined,
-    facebook: string | undefined,
-    youtube: string | undefined,
-    youtube_id: string | undefined,
-    instagram: string | undefined,
-    instagram_id: string | undefined,
-    mastodon: string | undefined,
-};
-export type Row = { [K in ColumnKey]: ColumnTypeMap[K] };
 
 export type FilterOptions = {
     search: string,
@@ -195,7 +195,7 @@ export type FilterOptions = {
 };
 
 export type SortByOptions = {
-    key: typeof tableColumns[number]['key'],
+    key: keyof RowData,
     asc: boolean,
 };
 
