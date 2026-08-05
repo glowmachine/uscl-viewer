@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { bioCols, idCols, nameCols, termCols, useTableContext } from "../../contexts/TableContext";
+import { bioCols, idCols, nameCols, socialCols, termCols, useTableContext } from "../../contexts/TableContext";
 import { useSettingsContext } from "../../contexts/SettingsContext";
 
 export default function ColumnSelector() {
@@ -138,6 +138,15 @@ export default function ColumnSelector() {
                                 </optgroup>
                                 <optgroup label='term (current)'>
                                     {termCols.map(option =>
+                                        <option value={option.key}
+                                            key={option.key}
+                                            disabled={draftColKeys.includes(option.key)}>
+                                            {option.label}
+                                        </option>
+                                    )}
+                                </optgroup>
+                                <optgroup label='social'>
+                                    {socialCols.map(option =>
                                         <option value={option.key}
                                             key={option.key}
                                             disabled={draftColKeys.includes(option.key)}>
