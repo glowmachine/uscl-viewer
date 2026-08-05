@@ -3,12 +3,14 @@ import './App.css';
 import { DataProvider } from './contexts/DataContext';
 import { TableProvider } from './contexts/TableContext';
 import { SettingsProvider } from './contexts/SettingsContext';
+import Header from './components/Header';
+import Footer from './components/Footer';
 
 export default function App() {
   return (
     <SettingsProvider>
       <div className='h-screen flex flex-col'>
-        <header className='bg-red-200'>hello world</header>
+        <Header />
         <main className='min-h-0 flex flex-row'>
           <div className='max-w-full flex-1'>
             <DataProvider>
@@ -18,7 +20,7 @@ export default function App() {
             </DataProvider>
           </div>
         </main>
-        <footer className='bg-red-200'>goodbye world</footer>
+        <Footer />
       </div>
     </SettingsProvider>
   )
