@@ -42,6 +42,11 @@ export default function ColumnSelector() {
         setColSelectOpen(false);
     }
 
+    function handleClearButton(): void {
+        const selectorKeys = ['name'].concat(Array(7).fill(''));
+        setDraftColKeys(selectorKeys);
+    }
+
     function handleCloseClick(e: MouseEvent) {
         if (selectorPanel.current && !selectorPanel.current
             .contains(e.target as Node)) {
@@ -148,9 +153,14 @@ export default function ColumnSelector() {
                         </div>
                     )}
                 </div>
-                <button className='self-center w-1/3 border rounded hover:bg-gray-300 active:bg-gray-500'
-                    onClick={handleSaveButton}>
-                    Save</button>
+                <div className='flex justify-center gap-1'>
+                    <button className='self-center w-1/3 border rounded hover:bg-gray-300 active:bg-gray-500'
+                        onClick={handleSaveButton}>
+                        Save</button>
+                    <button className='self-center w-1/3 border rounded hover:bg-gray-300 active:bg-gray-500'
+                        onClick={handleClearButton}>
+                        Clear</button>
+                </div>
             </div>
         </div>}
     </>);
