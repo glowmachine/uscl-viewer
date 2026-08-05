@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { useTableContext } from "../../contexts/TableContext";
+import { bioCols, idCols, nameCols, termCols, useTableContext } from "../../contexts/TableContext";
 import { useSettingsContext } from "../../contexts/SettingsContext";
 
 export default function ColumnSelector() {
@@ -102,14 +102,46 @@ export default function ColumnSelector() {
                                 value={draftColKeys[index]}
                                 onChange={e => handleSelection(index, e.target.value)}>
                                 <option value=''>-</option>
-                                {columns.filter(col => col.key === draftColKeys[index]
-                                    || !draftColKeys.includes(col.key))
-                                    .map(option =>
-                                        <option value={option.key}
-                                            key={option.key}>
-                                            {option.label}
-                                        </option>
-                                    )}
+                                <optgroup label='id'>
+                                    {idCols.filter(col => col.key === draftColKeys[index]
+                                        || !draftColKeys.includes(col.key))
+                                        .map(option =>
+                                            <option value={option.key}
+                                                key={option.key}>
+                                                {option.label}
+                                            </option>
+                                        )}
+                                </optgroup>
+                                <optgroup label='name'>
+                                    {nameCols.filter(col => col.key === draftColKeys[index]
+                                        || !draftColKeys.includes(col.key))
+                                        .map(option =>
+                                            <option value={option.key}
+                                                key={option.key}>
+                                                {option.label}
+                                            </option>
+                                        )}
+                                </optgroup>
+                                <optgroup label='bio'>
+                                    {bioCols.filter(col => col.key === draftColKeys[index]
+                                        || !draftColKeys.includes(col.key))
+                                        .map(option =>
+                                            <option value={option.key}
+                                                key={option.key}>
+                                                {option.label}
+                                            </option>
+                                        )}
+                                </optgroup>
+                                <optgroup label='term (current)'>
+                                    {termCols.filter(col => col.key === draftColKeys[index]
+                                        || !draftColKeys.includes(col.key))
+                                        .map(option =>
+                                            <option value={option.key}
+                                                key={option.key}>
+                                                {option.label}
+                                            </option>
+                                        )}
+                                </optgroup>
                             </select>
                         </div>
                     )}

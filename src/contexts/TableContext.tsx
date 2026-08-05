@@ -70,7 +70,7 @@ type Column = {
     selected: boolean
 };
 
-const nameCols = [
+export const nameCols = [
     { key: 'first', label: 'first', selected: false },
     { key: 'last', label: 'last', selected: false },
     { key: 'official_full', label: 'official_full', selected: false },
@@ -79,7 +79,7 @@ const nameCols = [
     { key: 'suffix', label: 'suffix', selected: false },
 ] as const satisfies Column[];
 
-const idCols = [
+export const idCols = [
     { key: 'bioguide', label: 'bioguide', selected: false },
     { key: 'thomas', label: 'thomas', selected: false },
     { key: 'lis', label: 'lis', selected: false },
@@ -98,12 +98,12 @@ const idCols = [
     { key: 'pictorial', label: 'pictorial', selected: false },
 ] as const satisfies Column[];
 
-const bioCols = [
+export const bioCols = [
     { key: 'birthday', label: 'birthday', selected: false },
     { key: 'gender', label: 'gender', selected: false },
 ] as const satisfies Column[];
 
-const termCols = [
+export const termCols = [
     { key: 'type', label: 'type', selected: false },
     { key: 'start', label: 'start', selected: false },
     { key: 'end', label: 'end', selected: false },
@@ -125,7 +125,7 @@ const termCols = [
     // { key: 'party_affiliations', label: 'party_affiliations', selected: false },
 ] as const satisfies Column[];
 
-const socialCols = [
+export const socialCols = [
     { key: 'twitter', label: 'twitter', selected: false },
     { key: 'twitter_id', label: 'twitter_id', selected: false },
     { key: 'facebook', label: 'facebook', selected: false },
