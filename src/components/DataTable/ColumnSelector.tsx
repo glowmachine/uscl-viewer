@@ -106,48 +106,44 @@ export default function ColumnSelector() {
                                 value={value}
                                 onChange={e => handleSelection(index, e.target.value)}
                             >
+                                <option value='name' disabled>Name (default)</option>
                                 <option value=''>-</option>
-                                {index === 0 && <option value='name'>Name</option>}
 
                                 <optgroup label='id'>
-                                    {idCols.filter(col => col.key === value
-                                        || !draftColKeys.includes(col.key))
-                                        .map(option =>
-                                            <option value={option.key}
-                                                key={option.key}>
-                                                {option.label}
-                                            </option>
-                                        )}
+                                    {idCols.map(option =>
+                                        <option value={option.key}
+                                            key={option.key}
+                                            disabled={draftColKeys.includes(option.key)}>
+                                            {option.label}
+                                        </option>
+                                    )}
                                 </optgroup>
                                 <optgroup label='name'>
-                                    {nameCols.filter(col => col.key === value
-                                        || !draftColKeys.includes(col.key))
-                                        .map(option =>
-                                            <option value={option.key}
-                                                key={option.key}>
-                                                {option.label}
-                                            </option>
-                                        )}
+                                    {nameCols.map(option =>
+                                        <option value={option.key}
+                                            key={option.key}
+                                            disabled={draftColKeys.includes(option.key)}>
+                                            {option.label}
+                                        </option>
+                                    )}
                                 </optgroup>
                                 <optgroup label='bio'>
-                                    {bioCols.filter(col => col.key === value
-                                        || !draftColKeys.includes(col.key))
-                                        .map(option =>
-                                            <option value={option.key}
-                                                key={option.key}>
-                                                {option.label}
-                                            </option>
-                                        )}
+                                    {bioCols.map(option =>
+                                        <option value={option.key}
+                                            key={option.key}
+                                            disabled={draftColKeys.includes(option.key)}>
+                                            {option.label}
+                                        </option>
+                                    )}
                                 </optgroup>
                                 <optgroup label='term (current)'>
-                                    {termCols.filter(col => col.key === value
-                                        || !draftColKeys.includes(col.key))
-                                        .map(option =>
-                                            <option value={option.key}
-                                                key={option.key}>
-                                                {option.label}
-                                            </option>
-                                        )}
+                                    {termCols.map(option =>
+                                        <option value={option.key}
+                                            key={option.key}
+                                            disabled={draftColKeys.includes(option.key)}>
+                                            {option.label}
+                                        </option>
+                                    )}
                                 </optgroup>
                             </select>
                         </div>
