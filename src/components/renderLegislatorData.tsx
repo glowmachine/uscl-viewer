@@ -117,9 +117,14 @@ export function renderLegislatorData(member: LegislatorCurrent) {
                 <li className='font-bold'>{indent(2)}leadership_roles:</li>
                 {member.leadership_roles.map(term => <li className={styleHover} key={`leader-${term.start}`}><ul>
                     <li>{indent(2)}- title: {term.title}</li>
-                    {leadershipKeys.slice(1).map(key => isDateKey(key)
-                        ? <li className={styleMissing(term[key])} key={key}>{indent(4)}{key}: '{term[key]}'</li>
-                        : <li className={styleMissing(term[key])} key={key}>{indent(4)}{key}: {term[key]}</li>
+                    {leadershipKeys.slice(1).map(key =>
+                        <li className={styleMissing(term[key])} key={key}>
+                            {`${indent(4)}${key}: ${term[key]
+                                ? isDateKey(key)
+                                    ? `'${term[key]}'`
+                                    : term[key]
+                                : ''}`}
+                        </li>
                     )}
                 </ul></li>)}
             </ul></li>}
@@ -135,9 +140,14 @@ export function renderLegislatorData(member: LegislatorCurrent) {
                             <li>{indent(4)}party_affiliations:</li>
                             {term[key]?.map(item => <li key={item.party}><ul>
                                 <li>{indent(4)}- start: '{item['start']}'</li>
-                                {affiliationKeys.slice(1).map(key => isDateKey(key)
-                                    ? <li className={styleMissing(item[key])} key={key}>{indent(6)}{key}: '{item[key]}'</li>
-                                    : <li className={styleMissing(item[key])} key={key}>{indent(6)}{key}: {item[key]}</li>
+                                {affiliationKeys.slice(1).map(key =>
+                                    <li className={styleMissing(item[key])} key={key}>
+                                        {`${indent(6)}${key}: ${item[key]
+                                            ? isDateKey(key)
+                                                ? `'${term[key]}'`
+                                                : term[key]
+                                            : ''}`}
+                                    </li>
                                 )}
                             </ul></li>)}
                         </ul></li>
