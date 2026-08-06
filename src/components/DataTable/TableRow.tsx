@@ -1,4 +1,4 @@
-import { useTableContext, type Row, type RowData } from "../../contexts/TableContext";
+import { useTableContext, type Row } from "../../contexts/TableContext";
 import { NavLink } from "react-router";
 import buildLink from "./buildLink";
 
@@ -6,12 +6,20 @@ interface TableRowProps { row: Row }
 export default function TableRow({ row }: TableRowProps) {
     const { columns } = useTableContext();
 
-    return <>
-        <tr className='even:bg-gray-100 hover:bg-gray-200 *:p-4 *:whitespace-nowrap'
+    return (
+        <tr className='even:bg-gray-100 hover:bg-gray-200 *:p-2 *:whitespace-nowrap'
             key={row.bioguide}>
+            <td className='w-0'>
+                <NavLink to={`/details/${row.bioguide}`}>
+                    <img alt={`Profile photo for ${row.name}`}
+                        src={`https://unitedstates.github.io/images/congress/225x275/${row.bioguide}.jpg`}
+                        className='bg-cyan-300 object-cover w-10 aspect-square rounded-full'
+                    />
+                </NavLink>
+            </td>
             {columns
                 .filter((c) => (c.selected))
-                .map((col, index) => {
+                .map((col) => {
                     const value = row[col.key];
                     const link = buildLink(col.key, row);
 
@@ -33,6 +41,8 @@ export default function TableRow({ row }: TableRowProps) {
                             : <p>{String(value)}</p>
                         }
                     </td>
-        </tr>
-    </>
+                }
+                )}
+        </tr >
+    )
 }

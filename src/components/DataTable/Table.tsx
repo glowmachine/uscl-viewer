@@ -67,6 +67,9 @@ export default function Table() {
                     <table className='min-w-full'>
                         <thead className='sticky top-0 bg-white text-left'>
                             <tr>
+                                <th className='flex p-2 border-b-1'>
+                                    <span className='invisible'>Photo</span>
+                                </th>
                                 {columns.filter((c) => (c.selected)).map((col) =>
                                     <th key={col.key}><button
                                         className='flex gap-1 whitespace-nowrap w-full p-2 hover:bg-gray-300 border-b-1'
