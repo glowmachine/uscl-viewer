@@ -33,6 +33,7 @@ export default function buildLink(key: keyof RowData, row: Row): string | undefi
         case 'instagram': return `https://www.instagram.com/${row.instagram}`;
         //instagram_id path appears to be depreciated 
         // case 'instagram_id': return `https://www.instagram.com/${row.instagram_id}`;
+        case 'mastodon': return `https://mastodon.social/${row.mastodon}`;
         default: return undefined;
     }
 }
