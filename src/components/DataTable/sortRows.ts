@@ -4,12 +4,12 @@ export default function sortRows(rows: Row[], key: keyof RowData, asc: boolean):
     return rows.sort((a, b) => {
         const aVal = a[key];
         const bVal = b[key];
+
+        if (aVal == null && bVal == null) return 0;
+        if (aVal == null) return asc ? 1 : -1;
+        if (bVal == null) return asc ? -1 : 1;
+
         let compareVal = 0;
-
-        if (aVal == null && bVal == null) return compareVal;
-
-        if (!aVal) return compareVal = 1;
-        if (!bVal) return compareVal = -1;
 
         if (typeof aVal === 'string' && typeof bVal === 'string')
             compareVal = aVal.localeCompare(bVal);

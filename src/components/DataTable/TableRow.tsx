@@ -29,18 +29,24 @@ export default function TableRow({ row }: TableRowProps) {
                                 {value}
                             </NavLink>
                         </td>
+                    else if (value) {
+                        return <td key={col.key}>
+                            {link
+                                ? <a href={link} target='_blank' rel='noopener noreferrer'
+                                    // className='hover:text-red-500 hover:*:visible'>{value}
+                                    className='inline-flex gap-1 items-center hover:text-red-500 *:invisible hover:*:visible'>
+                                    {value} <span className='material-symbols-outlined !text-lg'>
+                                        open_in_new</span>
+                                </a>
+                                : <p>{String(value)}</p>
+                            }
+                        </td>
+                    }
+                    else {
+                        return <td></td>
+                    }
 
-                    return <td key={col.key}>
-                        {link
-                            ? <a href={link} target='_blank' rel='noopener noreferrer'
-                                // className='hover:text-red-500 hover:*:visible'>{value}
-                                className='inline-flex gap-1 items-center hover:text-red-500 *:invisible hover:*:visible'>
-                                {value} <span className='material-symbols-outlined !text-lg'>
-                                    open_in_new</span>
-                            </a>
-                            : <p>{String(value)}</p>
-                        }
-                    </td>
+
                 }
                 )}
         </tr >
