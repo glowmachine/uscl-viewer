@@ -34,26 +34,27 @@ export default function Details({ bioguide }: DetailsProps) {
     const currentTerm = member.terms[member.terms.length - 1];
 
     return (
-        <article className='flex flex-col max-w-full max-h-full'>
-            <NavLink to='/' className='rounded bg-gray-300 active:bg-gray-400 grid place-items-center'>🔙</NavLink>
-            <section className='border-b p-1 w-full flex gap-2'>
-                <img alt={`Profile photo for ${member.name.first} ${member.name.last}`}
-                    src={`https://unitedstates.github.io/images/congress/225x275/${member.id.bioguide}.jpg`}
-                    className='w-[min(225px,40vw)]'
-                />
-                <div>
-                    <div className='mb-1'>
-                        <p>{member.name.first} {member.name.last}</p>
-                        <p>{age}{member.bio.gender}</p>
+        <article className='max-w-full max-h-full p-1 flex flex-col gap-1'>
+            <section className='h-screen p-1 overflow-auto flex flex-col gap-2'>
+                <NavLink to='/' className='shrink-0 w-10 h-10 rounded-full hover:bg-gray-200 active:bg-gray-300 grid place-items-center'>🔙</NavLink>
+                <section className='pb-2 border-b w-full flex gap-2
+                flex-col items-center sm:flex-row sm:items-start'
+                >
+                    <img alt={`Profile photo for ${member.name.first} ${member.name.last}`}
+                        src={`https://unitedstates.github.io/images/congress/225x275/${member.id.bioguide}.jpg`}
+                        className='w-[min(225px,40vw)]'
+                    />
+                    <div className='*:text-center sm:*:text-start'>
+                        <div className='mb-1'>
+                            <h2 className='text-3xl'>{member.name.first} {member.name.last}, {age}{member.bio.gender}</h2>
+                        </div>
+                        <div className='mb-1 *:text-xl'>
+                            <p>{`(${abbreviateParty(currentTerm.party)}) ${currentTerm.type === 'rep' ? 'Representative' : 'Senator'}`}</p>
+                            <p>{`${allAreas[currentTerm.state as StateAbbreviation]}${currentTerm.district ? ', District ' + currentTerm.district : ''}`}</p>
+                        </div>
+                        {getLeadershipRole(member.leadership_roles)}
                     </div>
-                    <div className='mb-1'>
-                        <p>{`(${abbreviateParty(currentTerm.party)}) ${currentTerm.type === 'rep' ? 'Representative' : 'Senator'}`}</p>
-                        <p>{`${allAreas[currentTerm.state as StateAbbreviation]}${currentTerm.district ? ', District ' + currentTerm.district : ''}`}</p>
-                    </div>
-                    {getLeadershipRole(member.leadership_roles)}
-                </div>
-            </section>
-            <section className='h-screen p-1 overflow-auto flex flex-col'>
+                </section>
                 <details open><summary className='hover:cursor-pointer mb-2'>legislators-current.yaml</summary>
                     {renderLegislatorData(member)}
                 </details>
