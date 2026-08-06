@@ -12,6 +12,8 @@ export default function TableRow({ row }: TableRowProps) {
             <td className='w-0'>
                 <NavLink to={`/details/${row.bioguide}`}>
                     <img alt={`Profile photo for ${row.name}`}
+                        loading='lazy'
+                        decoding='async'
                         src={`https://unitedstates.github.io/images/congress/225x275/${row.bioguide}.jpg`}
                         className='bg-cyan-300 object-cover w-10 aspect-square rounded-full'
                     />
