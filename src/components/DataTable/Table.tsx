@@ -34,7 +34,7 @@ export default function Table() {
     // }, [rows]);
 
     return (
-        <div className='flex flex-col max-w-full max-h-full'>
+        <div className='flex flex-col min-w-0 max-h-full'>
             {/* <TableControls /> */}
             {/* <div id='page-controls' className='self-end m-1 flex items-center gap-1'>
                 {rows.length === 0
@@ -57,8 +57,8 @@ export default function Table() {
                         ({ ...p, index: p.index + p.rowsPerPage }))}>
                     →</button>
             </div> */}
-            <div id='table-container' className='h-screen overflow-auto'>
-                <TableControls />
+            <TableControls />
+            <div id='table-container' className='min-w-0 h-screen overflow-auto'>
                 {isLoading && <div className='h-full grid place-content-center
                     text-3xl text-gray-400'>Loading Database</div>}
                 {error && <div className='h-full grid place-content-center
