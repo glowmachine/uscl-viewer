@@ -45,10 +45,8 @@ export default function TableRow({ row }: TableRowProps) {
                         </td>
                     }
                     else {
-                        return <td></td>
+                        return <td key={col.key}></td>
                     }
-
-
                 }
                 )}
         </tr >
