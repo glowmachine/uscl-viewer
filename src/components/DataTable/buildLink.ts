@@ -24,6 +24,9 @@ export default function buildLink(key: keyof RowData, row: Row): string | undefi
         // unable to search
         // case 'google_entity_id':
 
+        case 'url': return `${row.url}`;
+        case 'contact_form': return `${row.contact_form}`;
+
         case 'twitter': return `https://twitter.com/${row.twitter}`;
         //twitter_id path appears to be depreciated 
         // case 'twitter_id': return `https://twitter.com/${row.twitter_id}`;
