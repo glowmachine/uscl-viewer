@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { bioCols, idCols, nameCols, socialCols, termCols, useTableContext } from "../../contexts/TableContext";
 import { defaultSavedColKeys, useSettingsContext } from "../../contexts/SettingsContext";
+import { buttonStyle } from "./TableControls";
 
 export default function ColumnSelector() {
     const { setColumns } = useTableContext();
@@ -74,7 +75,7 @@ export default function ColumnSelector() {
     }, [colSelectOpen]);
 
     return (<>
-        <button
+        <button className={buttonStyle}
             onClick={() => setColSelectOpen(prev => !prev)}>
             <span className='material-symbols-outlined'
                 style={{ fontVariationSettings: `'FILL' ${colSelectOpen ? 1 : 0}` }}

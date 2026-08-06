@@ -4,6 +4,8 @@ import debounce from "../../util/debounce";
 import FilterSelector from "./FilterSelector";
 import ColumnSelector from "./ColumnSelector";
 
+export const buttonStyle = 'w-8 h-8 grid place-content-center rounded-full hover:bg-gray-200';
+
 export default function TableControls() {
     const { setFilterOptions, searchInput, setSearchInput } = useTableContext();
     const [filterSelectOpen, setFilterSelectOpen] = useState(false);
@@ -40,7 +42,7 @@ export default function TableControls() {
                         )}
                     </div>
                 </label>
-                <button className=''
+                <button className={buttonStyle}
                     onClick={() => setFilterSelectOpen(prev => !prev)}>
                     <span className='material-symbols-outlined'
                         style={{ fontVariationSettings: `'FILL' ${filterSelectOpen ? 1 : 0}` }}

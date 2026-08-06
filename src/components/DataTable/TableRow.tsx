@@ -7,7 +7,7 @@ export default function TableRow({ row }: TableRowProps) {
     const { columns } = useTableContext();
 
     return (
-        <tr className='even:bg-gray-100 hover:bg-gray-200 *:p-2 *:whitespace-nowrap'
+        <tr className='hover:bg-gray-100 *:p-2 *:whitespace-nowrap'
             key={row.bioguide}>
             <td className='w-0'>
                 <NavLink to={`/details/${row.bioguide}`}>
