@@ -1,5 +1,11 @@
 import type { Legislator } from "../../contexts/DataContext";
 import type { Row } from "../../contexts/TableContext";
+import type { LeadershipRole } from "../../types/LegislatorCurrent";
+
+function getLeadershipRole(terms: LeadershipRole[] | undefined): string | undefined {
+    if (!terms || terms[terms.length - 1].end) return;
+    return terms[terms.length - 1].title
+}
 
 export default function getRowData(data: Legislator[]): Row[] {
     const selectedData = data.map(member => {
@@ -53,6 +59,7 @@ export default function getRowData(data: Legislator[]): Row[] {
             how: currentTerm.how,
             "end-type": currentTerm["end-type"],
             // party_affiliations: currentTerm.party_affiliations,
+            leadership: getLeadershipRole(member.leadership_roles),
 
             twitter: member.social?.twitter,
             twitter_id: member.social?.twitter_id,

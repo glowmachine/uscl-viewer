@@ -50,6 +50,7 @@ export type RowData = {
     how: string | undefined,
     'end-type': string | undefined,
     // party_affiliations?: PartyAffiliation[],
+    leadership: string | undefined,
 
     twitter: string | undefined,
     twitter_id: string | undefined,
@@ -121,6 +122,7 @@ export const termCols = [
     { key: 'how', label: 'how', selected: false },
     { key: 'end-type', label: 'end-type', selected: false },
     // { key: 'party_affiliations', label: 'party_affiliations', selected: false },
+    { key: 'leadership', label: 'leadership', selected: false },
 ] as const satisfies Column[];
 
 export const socialCols = [
