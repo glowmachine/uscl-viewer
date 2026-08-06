@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { bioCols, idCols, nameCols, socialCols, termCols, useTableContext } from "../../contexts/TableContext";
-import { useSettingsContext } from "../../contexts/SettingsContext";
+import { defaultSavedColKeys, useSettingsContext } from "../../contexts/SettingsContext";
 
 export default function ColumnSelector() {
     const { setColumns } = useTableContext();
@@ -15,7 +15,7 @@ export default function ColumnSelector() {
         ));
     }
 
-    function handleSaveButton(): void {
+    function handleDoneButton(): void {
         const selectors = draftColKeys.filter(k => k != '');
         const emptySelectors = draftColKeys.filter(k => k == '');
         const selectorKeys = [...selectors, ...emptySelectors];
@@ -42,23 +42,25 @@ export default function ColumnSelector() {
         setColSelectOpen(false);
     }
 
-    function handleClearButton(): void {
-        const selectorKeys = ['name'].concat(Array(7).fill(''));
-        setDraftColKeys(selectorKeys);
+    function handleResetButton(): void {
+        setDraftColKeys(defaultSavedColKeys);
+    }
+
+    function cancelSelection(): void {
+        setDraftColKeys(savedColKeys);
+        setColSelectOpen(false);
     }
 
     function handleCloseClick(e: MouseEvent) {
         if (selectorPanel.current && !selectorPanel.current
             .contains(e.target as Node)) {
-            setDraftColKeys(savedColKeys);
-            setColSelectOpen(false);
+            cancelSelection();
         }
     }
 
     function handleCloseEsc(e: KeyboardEvent) {
         if (e.key === 'Escape') {
-            setDraftColKeys(savedColKeys);
-            setColSelectOpen(false);
+            cancelSelection();
         }
     }
 
@@ -85,23 +87,15 @@ export default function ColumnSelector() {
                 grid place-items-center'>
 
             <div ref={selectorPanel}
-                className='w-[max(20rem,25rem)] bg-yellow-300 rounded p-3 pb-6
-                flex flex-col'>
-                <button className='self-end flex place-items-center
-                aspect-square rounded-full hover:bg-white'
-                    onClick={() => setColSelectOpen(false)}>
-                    <span className='material-symbols-outlined'>
-                        close
-                    </span>
-                </button>
-                <h2 className='font-bold text-xl mx-2 mb-2'>Change visible columns</h2>
-                <p className='px-10'>Small screens may need to scroll right to view all columns.</p>
-                <div className='m-5 flex flex-col gap-1'>
+                className='w-[max(20rem,25rem)] text-sm bg-white rounded-[2rem] p-5 flex flex-col'>
+                <h2 className='text-2xl pb-5'>Change visible columns</h2>
+                <p className='pb-2.5'>Smaller screens may need to scroll right to view more columns.</p>
+                <div className='w-50 flex flex-col'>
                     {draftColKeys.map((value, index) =>
-                        <div className='flex justify-between' key={`selector-${index}`}>
+                        <div className='flex justify-between gap-1 *:p-2' key={`selector-${index}`}>
                             <span>{index + 1}.</span>
-                            <select className={`w-9/10 border rounded px-1 
-                                ${index === 0 ? "text-gray-500" : ''}`}
+                            <select className={`flex-1 rounded-t
+                                ${index === 0 ? 'text-gray-400' : 'hover:bg-gray-200 border-b-1'}`}
                                 disabled={index === 0}
                                 value={value}
                                 onChange={e => handleSelection(index, e.target.value)}
@@ -158,13 +152,18 @@ export default function ColumnSelector() {
                         </div>
                     )}
                 </div>
-                <div className='flex justify-center gap-1'>
-                    <button className='self-center w-1/3 border rounded hover:bg-gray-300 active:bg-gray-500'
-                        onClick={handleSaveButton}>
-                        Save</button>
-                    <button className='self-center w-1/3 border rounded hover:bg-gray-300 active:bg-gray-500'
-                        onClick={handleClearButton}>
-                        Clear</button>
+                <div className='mx-2.5 mt-5 flex justify-between gap-1'>
+                    <button className='px-3 py-2 self-center rounded-full hover:bg-gray-200'
+                        onClick={handleResetButton}>
+                        Reset</button>
+                    <div className='flex gap-2'>
+                        <button className='px-3 py-2 self-center rounded-full hover:bg-gray-200'
+                            onClick={() => cancelSelection()}>
+                            Cancel</button>
+                        <button className='px-3 py-2 self-center rounded-full hover:bg-gray-200'
+                            onClick={handleDoneButton}>
+                            Done</button>
+                    </div>
                 </div>
             </div>
         </div>}
