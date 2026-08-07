@@ -40,10 +40,12 @@ export default function Details({ bioguide }: DetailsProps) {
                 <section className='pb-2 border-b w-full flex gap-2
                 flex-col items-center sm:flex-row sm:items-start'
                 >
-                    <img alt={`Profile photo for ${member.name.first} ${member.name.last}`}
-                        src={`https://unitedstates.github.io/images/congress/225x275/${member.id.bioguide}.jpg`}
-                        className='w-[min(225px,40vw)]'
-                    />
+                    <div className='bg-black rounded aspect-[225/275] w-[min(225px,40vw)] overflow-hidden'>
+                        <img alt={`Profile photo for ${member.name.first} ${member.name.last}`}
+                            src={`https://unitedstates.github.io/images/congress/225x275/${member.id.bioguide}.jpg`}
+                            className='object-cover w-full h-full'
+                        />
+                    </div>
                     <div className='*:text-center sm:*:text-start'>
                         <div className='mb-1'>
                             <h2 className='text-3xl'>{member.name.first} {member.name.last}, {age}{member.bio.gender}</h2>
@@ -55,10 +57,10 @@ export default function Details({ bioguide }: DetailsProps) {
                         {getLeadershipRole(member.leadership_roles)}
                     </div>
                 </section>
-                <details open><summary className='hover:cursor-pointer mb-2'>legislators-current.yaml</summary>
+                <details><summary className='hover:cursor-pointer mb-2'>legislators-current.yaml</summary>
                     {renderLegislatorData(member)}
                 </details>
-                <details open>
+                <details>
                     <summary className='hover:cursor-pointer mb-2'>
                         legislators-social-media.yaml {!member.social && <span className='italic'>(no entry)</span>}
                     </summary>

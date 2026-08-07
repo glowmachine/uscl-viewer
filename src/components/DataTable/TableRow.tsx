@@ -11,12 +11,15 @@ export default function TableRow({ row }: TableRowProps) {
             key={row.bioguide}>
             <td className='w-0'>
                 <NavLink to={`/details/${row.bioguide}`}>
-                    <img alt={`Profile photo for ${row.name}`}
-                        loading='lazy'
-                        decoding='async'
-                        src={`https://unitedstates.github.io/images/congress/225x275/${row.bioguide}.jpg`}
-                        className='bg-cyan-300 object-cover w-10 aspect-square rounded-full'
-                    />
+                    <div className='bg-black object-cover w-10 aspect-square rounded-full overflow-hidden'>
+                        <img alt={`Profile photo for ${row.name}`}
+                            loading='lazy'
+                            decoding='async'
+                            src={`https://unitedstates.github.io/images/congress/225x275/${row.bioguide}.jpg`}
+                            onError={e => e.currentTarget.style.display = 'none'}
+                            className='object-cover w-full h-full'
+                        />
+                    </div>
                 </NavLink>
             </td>
             {columns
