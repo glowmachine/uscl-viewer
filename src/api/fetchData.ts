@@ -9,8 +9,8 @@ export type Filename =
     | 'legislators-current.json'
     | 'legislators-social-media.json';
 
-const baseUrl = '../tests/fixtures';
-// const baseUrl = 'https://unitedstates.github.io/congress-legislators';
+// const baseUrl = '../tests/fixtures';
+const baseUrl = 'https://unitedstates.github.io/congress-legislators';
 const timeoutMs = 5000;
 export async function fetchData<T>(filename: Filename): Promise<T> {
     try {
