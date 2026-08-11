@@ -65,7 +65,7 @@ export interface Term {
     url?: string;
     address?: string;
     phone?: string;
-    fax?: null | string;
+    fax?: string;
     contact_form?: string;
     office?: string;
     state_rank?: 'junior' | 'senior';
