@@ -4,25 +4,25 @@ An easy to navigate tool for viewing information about members of the United Sta
 ## Screenshots
 *upcoming*
 
-**Live Demo:**
-*upcoming*
+## Live Demo:
+[congress-search-v3.netlify.app](https://congress-search-v3.netlify.app/)
 
 ## Overview
 
-The database at https://github.com/unitedstates/congress-legislators is mantained through a combination of manual edits by volunteers and automated imports from a variety of sources. Stored in YAML, the text-based format can make it difficult for people to browse, or identify information that may be in need of attention. This project makes their work easier to explore and validate by presenting it through a user-friendly interface. It is a tool for contributors, researchers, and anyone interested in congressional data.
+The database at https://github.com/unitedstates/congress-legislators is mantained through a combination of automated imports and manual edits. Stored in YAML, the text-based format can make it difficult for people to browse. This project makes exploring the information easier with a user-friendly interface. It is simple a tool for volunteers, researchers, and anyone interested in congressional data.
 
 ## Features / To Do List
 
-- [ ] load data
-- [ ] profile pages
+- [x] load data
+- [x] profile pages
 - [ ] responsive layout
 - [ ] dark/light mode
 - [ ] card view
-- [ ] search field
-- [ ] filters menu
+- [x] search field
+- [x] filters menu
 - [ ] dashboard
 - [ ] pinned profiles
-- [ ] portrait images
+- [x] portrait images
 - [ ] state flags
 - [ ] notes
 
@@ -34,7 +34,8 @@ The database at https://github.com/unitedstates/congress-legislators is mantaine
 | Tooling     | Vite, Vitest                           |
 | Persistence | LocalStorage                           |
 | Data Source | Congress Legislators API               |
-| Deployment  | *tbd*                                  |
+| Icons       | Google Fonts                           |
+| Deployment  | Netlify                                |
 
 ## Getting Started
 
@@ -55,4 +56,5 @@ http://localhost:5173
 
 ## Attribution
 - civic data from https://github.com/unitedstates/congress-legislators
+- legislators photos from https://github.com/unitedstates/images
 - state flags from https://github.com/nibsbin/us-state-flags-svg
