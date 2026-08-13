@@ -9,11 +9,17 @@ export type Filename =
     | 'legislators-current.json'
     | 'legislators-social-media.json';
 
-// const baseUrl = '../tests/fixtures';
 const baseUrl = 'https://unitedstates.github.io/congress-legislators';
 const timeoutMs = 5000;
 export async function fetchData<T>(filename: Filename): Promise<T> {
     try {
+        if (import.meta.env.VITE_USE_MOCK_DATA === 'true') {
+            const mockResponse = await fetch(
+                `../tests/fixtures/${filename}`
+            );
+            return await mockResponse.json();
+        }
+
         const response = await fetch(
             `${baseUrl}/${filename}`,
             { signal: AbortSignal.timeout(timeoutMs) }
