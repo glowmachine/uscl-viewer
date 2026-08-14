@@ -22,37 +22,35 @@ export default function TableControls() {
     }
 
     return (
-        <div className='m-1 flex flex-col'>
-            <div className='flex gap-1'>
-                <label className='flex-1 flex items-center justify-center gap-1'>
-                    <span className='sr-only'>Search</span>
-                    <div className='relative w-full'>
-                        <input className='w-full border rounded p-2'
-                            type='text'
-                            placeholder='Search'
-                            value={searchInput}
-                            onChange={handleSearch}
-                        />
-                        {waitingIndicator && (
-                            <div className='absolute right-2.5 top-1/2 -translate-y-1/2'>
-                                <div className='h-4 w-4
-                                rounded-full border-2 border-gray-200 border-t-blue-500
-                                animate-spin [animation-duration:300ms]' />
-                            </div>
-                        )}
-                    </div>
-                </label>
-                <button className={buttonStyle}
-                    onClick={() => setFilterSelectOpen(prev => !prev)}>
-                    <span className='material-symbols-outlined'
-                        style={{ fontVariationSettings: `'FILL' ${filterSelectOpen ? 1 : 0}` }}
-                    >
-                        filter_alt
-                    </span>
-                </button>
-                <ColumnSelector />
+        <div className='m-1 flex items-center gap-1'>
+            <div className='flex-1 border rounded'>
+                <label className='sr-only'>Search</label>
+                <div className='relative'>
+                    <input className='w-full p-2'
+                        type='text'
+                        placeholder='Search'
+                        value={searchInput}
+                        onChange={handleSearch}
+                    />
+                    {/* {waitingIndicator && (
+                        <div className='absolute right-2.5 top-1/2 -translate-y-1/2'>
+                            <div className='h-4 w-4
+                            rounded-full border-2 border-gray-200 border-t-blue-500
+                            animate-spin [animation-duration:300ms]' />
+                        </div>
+                    )} */}
+                    <button className={`${buttonStyle} absolute right-1 top-1/2 -translate-y-1/2`}
+                        onClick={() => setFilterSelectOpen(prev => !prev)}>
+                        <span className='material-symbols-outlined'
+                            style={{ fontVariationSettings: `'FILL' ${filterSelectOpen ? 1 : 0}` }}
+                        >
+                            filter_alt
+                        </span>
+                    </button>
+                </div>
+                {filterSelectOpen && <div className='border-t-1 m-1'><FilterSelector /></div>}
             </div>
-            {filterSelectOpen && <FilterSelector />}
+            <ColumnSelector />
         </div>
     );
 }
