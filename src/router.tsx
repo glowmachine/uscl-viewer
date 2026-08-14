@@ -1,6 +1,6 @@
 import { createBrowserRouter } from "react-router";
 import App from "./App";
-import DetailsRoute from "./pages/DetailsRoute";
+import MemberRoute from "./pages/MemberRoute";
 import Table from "./components/List/Table";
 import NotFound from "./components/NotFound";
 import Dashboard from "./components/Dashboard";
@@ -12,7 +12,7 @@ export const router = createBrowserRouter([
             { index: true, element: <Table /> },
             { path: '/dashboard', element: <Dashboard /> },
             { path: '/table', element: <Table /> },
-            { path: '/details/:bioguide', element: <DetailsRoute /> },
+            { path: '/member/:bioguide', element: <MemberRoute /> },
             { path: '*', element: <NotFound /> },
         ]
     }

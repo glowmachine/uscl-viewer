@@ -1,4 +1,4 @@
-import type { Bio, ID, LeadershipRole, LegislatorCurrent, Name, PartyAffiliation, Term } from "../types/LegislatorCurrent";
+import type { Bio, ID, LeadershipRole, LegislatorCurrent, Name, PartyAffiliation, Term } from "../../types/LegislatorCurrent";
 
 const idKeys: Array<keyof ID> = [
     'bioguide',

@@ -1,5 +1,5 @@
-import type { Legislator } from "../contexts/DataContext";
-import type { ID, Social } from "../types/LegislatorSocialMedia";
+import type { Legislator } from "../../contexts/DataContext";
+import type { ID, Social } from "../../types/LegislatorSocialMedia";
 
 const idKeys: Array<keyof ID> = [
     'bioguide',

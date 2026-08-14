@@ -1,7 +1,7 @@
-import { useDataContext } from "../contexts/DataContext";
-import type { LeadershipRole } from "../types/LegislatorCurrent";
-import { allAreas, type StateAbbreviation } from "../types/states";
-import getDateDiff from "../util/getDateDiff";
+import { useDataContext } from "../../contexts/DataContext";
+import type { LeadershipRole } from "../../types/LegislatorCurrent";
+import { allAreas, type StateAbbreviation } from "../../types/states";
+import getDateDiff from "../../util/getDateDiff";
 import { NavLink } from "react-router";
 import { renderLegislatorData } from "./renderLegislatorData";
 import { renderLegislatorSocial } from "./renderLegislatorSocial";
@@ -20,10 +20,10 @@ function getLeadershipRole(terms: LeadershipRole[] | undefined) {
     return <p>{terms[terms.length - 1].title}</p>
 }
 
-interface DetailsProps {
+interface PageProps {
     bioguide: string,
 }
-export default function Details({ bioguide }: DetailsProps) {
+export default function Page({ bioguide }: PageProps) {
     const { legislators } = useDataContext();
     if (!legislators) return <p>No data found</p>
 
@@ -57,7 +57,7 @@ export default function Details({ bioguide }: DetailsProps) {
                         {getLeadershipRole(member.leadership_roles)}
                     </div>
                 </section>
-                <details><summary className='hover:cursor-pointer mb-2'>legislators-current.yaml</summary>
+                <details open><summary className='hover:cursor-pointer mb-2'>legislators-current.yaml</summary>
                     {renderLegislatorData(member)}
                 </details>
                 <details>

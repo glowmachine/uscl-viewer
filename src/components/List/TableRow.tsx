@@ -30,7 +30,7 @@ export default function TableRow({ row }: TableRowProps) {
 
                     if (col.key === 'name')
                         return <td key={col.key}>
-                            <NavLink to={`/details/${row.bioguide}`} className='hover:underline'>
+                            <NavLink to={`/member/${row.bioguide}`} className='hover:underline'>
                                 {value}
                             </NavLink>
                         </td>
