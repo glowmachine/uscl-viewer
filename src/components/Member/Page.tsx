@@ -14,7 +14,6 @@ function abbreviateParty(party: string | undefined) {
         default: return party;
     }
 }
-
 function getLeadershipRole(terms: LeadershipRole[] | undefined) {
     if (!terms || terms[terms.length - 1].end) return;
     return <p>{terms[terms.length - 1].title}</p>
@@ -37,9 +36,7 @@ export default function Page({ bioguide }: PageProps) {
         <article className='max-w-full max-h-full p-1 flex flex-col gap-1'>
             <section className='h-screen p-1 overflow-auto flex flex-col gap-2'>
                 <NavLink to='/' className='shrink-0 w-10 h-10 rounded-full hover:bg-gray-200 active:bg-gray-300 grid place-items-center'>🔙</NavLink>
-                <section className='pb-2 border-b w-full flex gap-2
-                flex-col items-center sm:flex-row sm:items-start'
-                >
+                <section className='mb-2 w-full flex flex-col gap-2 items-center sm:flex-row'>
                     <div className='bg-black rounded aspect-[225/275] w-[min(225px,40vw)] overflow-hidden'>
                         <img alt={`Profile photo for ${member.name.first} ${member.name.last}`}
                             src={`https://unitedstates.github.io/images/congress/225x275/${member.id.bioguide}.jpg`}
@@ -50,11 +47,11 @@ export default function Page({ bioguide }: PageProps) {
                         <div className='mb-1'>
                             <h2 className='text-3xl'>{member.name.first} {member.name.last}, {age}{member.bio.gender}</h2>
                         </div>
-                        <div className='mb-1 *:text-xl'>
+                        <div className='mb-2 *:text-xl'>
                             <p>{`(${abbreviateParty(currentTerm.party)}) ${currentTerm.type === 'rep' ? 'Representative' : 'Senator'}`}</p>
                             <p>{`${allAreas[currentTerm.state as StateAbbreviation]}${currentTerm.district ? ', District ' + currentTerm.district : ''}`}</p>
+                            <p>{getLeadershipRole(member.leadership_roles)}</p>
                         </div>
-                        {getLeadershipRole(member.leadership_roles)}
                     </div>
                 </section>
                 <details open><summary className='hover:cursor-pointer mb-2'>legislators-current.yaml</summary>
