@@ -23,7 +23,7 @@ export interface ID {
     bioguide: string;
     thomas?: string;
     lis?: string;
-    govtrack: number;
+    govtrack?: number;
     opensecrets?: string;
     votesmart?: number;
     fec?: string[];
