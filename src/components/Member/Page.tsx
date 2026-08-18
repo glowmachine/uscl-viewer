@@ -24,9 +24,9 @@ function getLeadershipRole(terms: LeadershipRole[] | undefined) {
 
 type TabKey = 'current' | 'social' | 'offices';
 const tabs: { key: TabKey, label: string }[] = [
-    { key: 'current', label: 'legislators-curent.yaml' },
+    { key: 'current', label: 'legislators-current.yaml' },
     { key: 'social', label: 'legislators-social-media.yaml' },
-    { key: 'offices', label: 'legislators-district-offices.ymal' }
+    { key: 'offices', label: 'legislators-district-offices.yaml' }
 ];
 
 interface PageProps {
@@ -47,7 +47,8 @@ export default function Page({ bioguide }: PageProps) {
     return (
         <article className='max-w-full max-h-full p-1 flex flex-col gap-1'>
             <section className='h-screen p-1 overflow-auto flex flex-col gap-2'>
-                <NavLink to='/' className='shrink-0 w-10 h-10 rounded-full hover:bg-gray-200 active:bg-gray-300 grid place-items-center'>🔙</NavLink>
+                <NavLink to='/' className='shrink-0 w-10 h-10 rounded-full hover:bg-gray-200 active:bg-gray-300 grid place-items-center'>
+                    <span className='material-symbols-outlined'>arrow_back</span></NavLink>
                 <section className='mb-2 w-full flex flex-col gap-2 items-center sm:flex-row'>
                     <div className='bg-black rounded aspect-[225/275] w-[min(225px,40vw)] overflow-hidden'>
                         <img alt={`Profile photo for ${member.name.first} ${member.name.last}`}
@@ -64,11 +65,14 @@ export default function Page({ bioguide }: PageProps) {
                             <p>{`${allAreas[currentTerm.state as StateAbbreviation]}${currentTerm.district ? ', District ' + currentTerm.district : ''}`}</p>
                             <p>{getLeadershipRole(member.leadership_roles)}</p>
                         </div>
-                        <ContactButtons member={member} />
                     </div>
                 </section>
+                <section className='flex flex-row justify-center'>
+                    <ContactButtons member={member} />
+                    <div className='hidden sm:block m-5 border-t w-full translate-y-[50%]'></div>
+                </section>
                 <section className='border m-1 p-1'>
-                    <nav className='flex gap-10'>
+                    <nav className='flex flex-col'>
                         {tabs.map(tab =>
                             <button
                                 className={`outline rounded-full ${tab.key === activeTab ? 'bg-gray-300' : ''}`}
