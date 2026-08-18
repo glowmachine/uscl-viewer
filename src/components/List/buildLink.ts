@@ -32,7 +32,7 @@ export default function buildLink(key: keyof RowData, row: Row): string | undefi
         // case 'twitter_id': return `https://twitter.com/${row.twitter_id}`;
         case 'facebook': return `https://facebook.com/${row.facebook}`;
         case 'youtube': return `https://youtube.com/user/${row.youtube}`;
-        case 'youtube_id': return `https://youtube.com/user/${row.youtube_id}`;
+        case 'youtube_id': return `https://youtube.com/channel/${row.youtube_id}`;
         case 'instagram': return `https://www.instagram.com/${row.instagram}`;
         //instagram_id path appears to be depreciated 
         // case 'instagram_id': return `https://www.instagram.com/${row.instagram_id}`;
