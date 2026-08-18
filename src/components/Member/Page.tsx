@@ -4,7 +4,7 @@ import { allAreas, type StateAbbreviation } from "../../types/states";
 import getDateDiff from "../../util/getDateDiff";
 import { NavLink } from "react-router";
 import { renderLegislatorData } from "./renderLegislatorData";
-import { renderLegislatorSocial } from "./renderLegislatorSocial";
+import ContactButtons from "./ContactButtons";
 
 function abbreviateParty(party: string | undefined) {
     switch (party) {
@@ -52,6 +52,7 @@ export default function Page({ bioguide }: PageProps) {
                             <p>{`${allAreas[currentTerm.state as StateAbbreviation]}${currentTerm.district ? ', District ' + currentTerm.district : ''}`}</p>
                             <p>{getLeadershipRole(member.leadership_roles)}</p>
                         </div>
+                        <ContactButtons member={member} />
                     </div>
                 </section>
                 <details open><summary className='hover:cursor-pointer mb-2'>legislators-current.yaml</summary>
