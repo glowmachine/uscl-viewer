@@ -1,13 +1,16 @@
 import type { LegislatorCurrent } from "../types/LegislatorCurrent";
 import type { LegislatorSocialMedia } from "../types/LegislatorSocialMedia";
+import type { LegislatorDistrictOffice } from "../types/LegislatorDistrictOffice";
 
 export type DataType =
     | LegislatorCurrent
-    | LegislatorSocialMedia;
+    | LegislatorSocialMedia
+    | LegislatorDistrictOffice;
 
 export type Filename =
     | 'legislators-current.json'
-    | 'legislators-social-media.json';
+    | 'legislators-social-media.json'
+    | 'legislators-district-offices.json';
 
 const baseUrl = 'https://unitedstates.github.io/congress-legislators';
 const timeoutMs = 5000;

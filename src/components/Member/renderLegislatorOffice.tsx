@@ -1,0 +1,62 @@
+import type { Legislator } from "../../contexts/DataContext";
+import type { ID, Office } from "../../types/LegislatorDistrictOffice";
+
+const idKeys: Array<keyof ID> = [
+    'bioguide',
+    'thomas',
+    'govtrack',
+];
+const officeKeys: Array<keyof Office> = [
+    'id',
+    'address',
+    'suite',
+    'building',
+    'city',
+    'state',
+    'zip',
+    'latitude',
+    'longitude',
+    'fax',
+    'hours',
+    'phone',
+]
+
+function indent(count: number): string {
+    if (count <= 0) return '';
+    return Array(count).fill('\u00A0').join('');
+}
+function styleMissing(obj: unknown) {
+    return (obj === undefined)
+        ? 'text-gray-400'
+        : ''
+}
+const styleHover = 'hover:bg-gray-200';
+
+export default function renderLegislatorOffice(member: Legislator) {
+    return (
+        <section className='font-mono mb-5'><ul>
+            <li><ul>
+                <li className='font-bold'>- id:</li>
+                <li className={styleHover}><ul>
+                    {idKeys.map(key =>
+                        <li className={styleMissing(member?.id[key])} key={key}>
+                            {indent(4)}{key}: {member?.id[key]}
+                        </li>)}
+                </ul></li>
+            </ul></li>
+            <li><ul>
+                <li className='font-bold'>{indent(2)}offices:</li>
+                {member.offices.map(office =>
+                    <li key={office.id}>
+                        <ul className={styleHover}>
+                            <li>{indent(2)}- id: {office.id}</li>
+                            {officeKeys.slice(1).map(key =>
+                                <li key={key}>{indent(4)}{key}: {office[key]}</li>
+                            )}
+                        </ul>
+                    </li>
+                )}
+            </ul></li>
+        </ul></section>
+    )
+}

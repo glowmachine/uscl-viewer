@@ -2,8 +2,9 @@ import { createContext, useContext, useEffect, useState, type PropsWithChildren 
 import { fetchData } from "../api/fetchData";
 import type { LegislatorCurrent } from "../types/LegislatorCurrent";
 import type { LegislatorSocialMedia, Social } from "../types/LegislatorSocialMedia";
+import type { LegislatorDistrictOffice, Office } from "../types/LegislatorDistrictOffice";
 
-export type Legislator = LegislatorCurrent & { social: Social; };
+export type Legislator = LegislatorCurrent & { social: Social, offices: Office[] };
 
 type DataContextValue = {
     legislators: Legislator[] | null,
@@ -30,8 +31,14 @@ export function DataProvider({ children }: PropsWithChildren) {
                     const legislatorData = await fetchData<LegislatorCurrent[]>('legislators-current.json');
                     const socialData = await fetchData<LegislatorSocialMedia[]>('legislators-social-media.json');
                     const socialByID = new Map(socialData.map(member => [member.id.bioguide, member]));
+                    const officeData = await fetchData<LegislatorDistrictOffice[]>('legislators-district-offices.json');
+                    const officeByID = new Map(officeData.map(member => [member.id.bioguide, member]));
                     setLegislators(legislatorData.map(member => (
-                        { ...member, social: socialByID.get(member.id.bioguide)?.social || {} }
+                        {
+                            ...member,
+                            social: socialByID.get(member.id.bioguide)?.social || {},
+                            offices: officeByID.get(member.id.bioguide)?.offices || []
+                        }
                     )));
                 };
             } catch (err) {
