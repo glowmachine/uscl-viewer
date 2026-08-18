@@ -1,10 +1,13 @@
 import { useDataContext } from "../../contexts/DataContext";
+import { useState } from "react";
+import { NavLink } from "react-router";
 import type { LeadershipRole } from "../../types/LegislatorCurrent";
 import { allAreas, type StateAbbreviation } from "../../types/states";
 import getDateDiff from "../../util/getDateDiff";
-import { NavLink } from "react-router";
-import { renderLegislatorData } from "./renderLegislatorData";
 import ContactButtons from "./ContactButtons";
+import { renderLegislatorData } from "./renderLegislatorData";
+import { renderLegislatorSocial } from "./renderLegislatorSocial";
+import renderLegislatorOffice from "./renderLegislatorOffice";
 
 function abbreviateParty(party: string | undefined) {
     switch (party) {
@@ -19,11 +22,20 @@ function getLeadershipRole(terms: LeadershipRole[] | undefined) {
     return terms[terms.length - 1].title
 }
 
+type TabKey = 'current' | 'social' | 'offices';
+const tabs: { key: TabKey, label: string }[] = [
+    { key: 'current', label: 'legislators-curent.yaml' },
+    { key: 'social', label: 'legislators-social-media.yaml' },
+    { key: 'offices', label: 'legislators-district-offices.ymal' }
+];
+
 interface PageProps {
     bioguide: string,
 }
 export default function Page({ bioguide }: PageProps) {
     const { legislators } = useDataContext();
+    const [activeTab, setActiveTab] = useState<TabKey>('current');
+
     if (!legislators) return <p>No data found</p>
 
     const member = legislators?.find(item => item.id.bioguide === bioguide);
@@ -55,15 +67,21 @@ export default function Page({ bioguide }: PageProps) {
                         <ContactButtons member={member} />
                     </div>
                 </section>
-                <details open><summary className='hover:cursor-pointer mb-2'>legislators-current.yaml</summary>
-                    {renderLegislatorData(member)}
-                </details>
-                <details>
-                    <summary className='hover:cursor-pointer mb-2'>
-                        legislators-social-media.yaml {!member.social && <span className='italic'>(no entry)</span>}
-                    </summary>
-                    {renderLegislatorSocial(member)}
-                </details>
+                <section className='border m-1 p-1'>
+                    <nav className='flex gap-10'>
+                        {tabs.map(tab =>
+                            <button
+                                className={`outline rounded-full ${tab.key === activeTab ? 'bg-gray-300' : ''}`}
+                                onClick={() => setActiveTab(tab.key)}
+                                key={tab.key}>
+                                {tab.label}
+                            </button>
+                        )}
+                    </nav>
+                    {activeTab === 'current' && renderLegislatorData(member)}
+                    {activeTab === 'social' && renderLegislatorSocial(member)}
+                    {activeTab === 'offices' && renderLegislatorOffice(member)}
+                </section>
             </section>
         </article>
     );
