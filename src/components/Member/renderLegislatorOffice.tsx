@@ -34,7 +34,7 @@ const styleHover = 'hover:bg-gray-200';
 
 export default function renderLegislatorOffice(member: Legislator) {
     return (
-        <section className='font-mono mb-5'><ul>
+        <ul>
             <li><ul>
                 <li className='font-bold'>- id:</li>
                 <li className={styleHover}><ul>
@@ -61,6 +61,6 @@ export default function renderLegislatorOffice(member: Legislator) {
                     </li>
                 )}
             </ul></li>
-        </ul></section>
+        </ul>
     )
 }

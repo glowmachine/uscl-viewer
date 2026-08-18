@@ -24,9 +24,9 @@ function getLeadershipRole(terms: LeadershipRole[] | undefined) {
 
 type TabKey = 'current' | 'social' | 'offices';
 const tabs: { key: TabKey, label: string }[] = [
-    { key: 'current', label: 'legislators-current.yaml' },
-    { key: 'social', label: 'legislators-social-media.yaml' },
-    { key: 'offices', label: 'legislators-district-offices.yaml' }
+    { key: 'current', label: 'Legislator' },
+    { key: 'social', label: 'Social Media' },
+    { key: 'offices', label: 'District Offices' }
 ];
 
 interface PageProps {
@@ -45,11 +45,12 @@ export default function Page({ bioguide }: PageProps) {
     const currentTerm = member.terms[member.terms.length - 1];
 
     return (
-        <article className='max-w-full max-h-full p-1 flex flex-col gap-1'>
-            <section className='h-screen p-1 overflow-auto flex flex-col gap-2'>
-                <NavLink to='/' className='shrink-0 w-10 h-10 rounded-full hover:bg-gray-200 active:bg-gray-300 grid place-items-center'>
-                    <span className='material-symbols-outlined'>arrow_back</span></NavLink>
-                <section className='mb-2 w-full flex flex-col gap-2 items-center sm:flex-row'>
+        <div className='max-w-full max-h-full p-1 flex flex-col'>
+            <div className='h-screen p-1 overflow-auto flex flex-col gap-5'>
+                <NavLink to='/' className='mt-2 shrink-0 w-10 h-10 rounded-full hover:bg-gray-200 active:bg-gray-300 grid place-items-center'>
+                    <span className='material-symbols-outlined'>arrow_back</span>
+                </NavLink>
+                <section className='w-full flex flex-col gap-2 items-center sm:flex-row'>
                     <div className='bg-black rounded aspect-[225/275] w-[min(225px,40vw)] overflow-hidden'>
                         <img alt={`Profile photo for ${member.name.first} ${member.name.last}`}
                             src={`https://unitedstates.github.io/images/congress/225x275/${member.id.bioguide}.jpg`}
@@ -60,7 +61,7 @@ export default function Page({ bioguide }: PageProps) {
                         <div className='mb-1'>
                             <h2 className='text-3xl'>{member.name.first} {member.name.last}, {age}{member.bio.gender}</h2>
                         </div>
-                        <div className='mb-2 *:text-xl'>
+                        <div className='*:text-xl'>
                             <p>{`(${abbreviateParty(currentTerm.party)}) ${currentTerm.type === 'rep' ? 'Representative' : 'Senator'}`}</p>
                             <p>{`${allAreas[currentTerm.state as StateAbbreviation]}${currentTerm.district ? ', District ' + currentTerm.district : ''}`}</p>
                             <p>{getLeadershipRole(member.leadership_roles)}</p>
@@ -69,24 +70,26 @@ export default function Page({ bioguide }: PageProps) {
                 </section>
                 <section className='flex flex-row justify-center'>
                     <ContactButtons member={member} />
-                    <div className='hidden sm:block m-5 border-t w-full translate-y-[50%]'></div>
+                    <div className='hidden sm:block ml-5 mr-1 border-t w-full translate-y-[50%]'></div>
                 </section>
-                <section className='border m-1 p-1'>
-                    <nav className='flex flex-col'>
+                <section className='m-1'>
+                    <nav className='flex justify-evenly'>
                         {tabs.map(tab =>
                             <button
-                                className={`outline rounded-full ${tab.key === activeTab ? 'bg-gray-300' : ''}`}
+                                className={`border-x border-t rounded-t py-1 px-2 ${tab.key === activeTab ? 'bg-gray-300' : ''}`}
                                 onClick={() => setActiveTab(tab.key)}
                                 key={tab.key}>
                                 {tab.label}
                             </button>
                         )}
                     </nav>
-                    {activeTab === 'current' && renderLegislatorData(member)}
-                    {activeTab === 'social' && renderLegislatorSocial(member)}
-                    {activeTab === 'offices' && renderLegislatorOffice(member)}
+                    <article className='font-mono rounded p-5 bg-gray-300'>
+                        {activeTab === 'current' && renderLegislatorData(member)}
+                        {activeTab === 'social' && renderLegislatorSocial(member)}
+                        {activeTab === 'offices' && renderLegislatorOffice(member)}
+                    </article>
                 </section>
-            </section>
-        </article>
+            </div>
+        </div>
     );
 }
