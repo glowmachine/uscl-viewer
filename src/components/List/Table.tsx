@@ -1,4 +1,4 @@
-import { useDataContext } from "../../contexts/DataContext";
+import { useDataContext, type Legislator } from "../../contexts/DataContext";
 import { useTableContext, type Row } from "../../contexts/TableContext";
 import { useMemo } from "react";
 import TableControls from "./TableControls";
@@ -6,14 +6,13 @@ import TableRow from "./TableRow";
 import getRowData from "./getRowData";
 import sortRows from "./sortRows";
 import filterData from "./filterData";
-import type { LegislatorCurrent } from "../../types/LegislatorCurrent";
 
 export default function Table() {
     const { legislators, isLoading, error } = useDataContext();
     const { columns, sortBy, setSortBy, filterOptions } = useTableContext();
     const rows = useMemo<Row[]>(() => {
         if (!legislators) return [];
-        const filteredData: LegislatorCurrent[] = filterData(legislators, filterOptions);
+        const filteredData: Legislator[] = filterData(legislators, filterOptions);
         let rowData: Row[] = getRowData(filteredData);
         rowData = sortRows(rowData, sortBy.key, sortBy.asc);
         return rowData;

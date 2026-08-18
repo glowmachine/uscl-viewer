@@ -1,7 +1,7 @@
+import type { Legislator } from "../../contexts/DataContext";
 import type { FilterOptions } from "../../contexts/TableContext";
-import type { LegislatorCurrent } from "../../types/LegislatorCurrent";
 
-export default function filterData(data: LegislatorCurrent[], filterOptions: FilterOptions): LegislatorCurrent[] {
+export default function filterData(data: Legislator[], filterOptions: FilterOptions): Legislator[] {
     let filteredData = data;
 
     if (filterOptions.search) {

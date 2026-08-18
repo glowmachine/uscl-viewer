@@ -3,7 +3,7 @@ import { fetchData } from "../api/fetchData";
 import type { LegislatorCurrent } from "../types/LegislatorCurrent";
 import type { LegislatorSocialMedia, Social } from "../types/LegislatorSocialMedia";
 
-export type Legislator = LegislatorCurrent & { social?: Social; };
+export type Legislator = LegislatorCurrent & { social: Social; };
 
 type DataContextValue = {
     legislators: Legislator[] | null,
@@ -31,7 +31,7 @@ export function DataProvider({ children }: PropsWithChildren) {
                     const socialData = await fetchData<LegislatorSocialMedia[]>('legislators-social-media.json');
                     const socialByID = new Map(socialData.map(member => [member.id.bioguide, member]));
                     setLegislators(legislatorData.map(member => (
-                        { ...member, social: socialByID.get(member.id.bioguide)?.social }
+                        { ...member, social: socialByID.get(member.id.bioguide)?.social || {} }
                     )));
                 };
             } catch (err) {
