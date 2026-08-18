@@ -16,7 +16,7 @@ function abbreviateParty(party: string | undefined) {
 }
 function getLeadershipRole(terms: LeadershipRole[] | undefined) {
     if (!terms || terms[terms.length - 1].end) return;
-    return <p>{terms[terms.length - 1].title}</p>
+    return terms[terms.length - 1].title
 }
 
 interface PageProps {
