@@ -51,7 +51,11 @@ export default function renderLegislatorOffice(member: Legislator) {
                         <ul className={styleHover}>
                             <li>{indent(2)}- id: {office.id}</li>
                             {officeKeys.slice(1).map(key =>
-                                <li key={key}>{indent(4)}{key}: {office[key]}</li>
+                                <li
+                                    className={styleMissing(office[key])}
+                                    key={key}>
+                                    {indent(4)}{key}: {office[key]}
+                                </li>
                             )}
                         </ul>
                     </li>
