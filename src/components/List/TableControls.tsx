@@ -9,15 +9,15 @@ export const buttonStyle = 'w-8 h-8 grid place-content-center rounded-full hover
 export default function TableControls() {
     const { setFilterOptions, searchInput, setSearchInput } = useTableContext();
     const [filterSelectOpen, setFilterSelectOpen] = useState(false);
-    const [waitingIndicator, setWaitingIndicator] = useState(false);
+    // const [waitingIndicator, setWaitingIndicator] = useState(false);
     const debouceTimeMs = 300;
     const debouncedSearch = debounce((value) => {
         setFilterOptions((prev) => ({ ...prev, search: value }));
-        setWaitingIndicator(false);
+        // setWaitingIndicator(false);
     }, debouceTimeMs);
     function handleSearch(e: React.ChangeEvent<HTMLInputElement>): void {
         setSearchInput(e.target.value);
-        setWaitingIndicator(true);
+        // setWaitingIndicator(true);
         debouncedSearch(e.target.value);
     }
 
