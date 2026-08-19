@@ -75,22 +75,22 @@ type ContactButtonsProps = {
 export default function ContactButtons({ member }: ContactButtonsProps) {
     return (
         <div className='flex gap-5'>{
-            socials.map(social => {
-                if (!buttonConfig[social].enabled) return null;
-                return !member.social[social]
+            {socials.map(socialKey => {
+                if (!buttonConfig[socialKey].enabled) return null;
+                return !member.social[socialKey]
                     ? <a href='' onClick={e => e.preventDefault()}
                         className={`${buttonStyle} bg-gray-100 cursor-default`}
-                        key={social}>
-                        {buttonConfig[social].icon}
+                        key={socialKey}>
+                        {buttonConfig[socialKey].icon}
                     </a>
                     : <a
-                        href={buttonConfig[social].link(member.social[social])}
+                        href={buttonConfig[socialKey].link(member.social[socialKey])}
                         target='_blank' rel='noopener noreferrer'
                         className={`${buttonStyle} bg-blue-200`}
-                        key={social}>
-                        {buttonConfig[social].icon}
+                        key={socialKey}>
+                        {buttonConfig[socialKey].icon}
                     </a>
-            })
-        }</div>
+            })}
+        </div>
     )
 }
