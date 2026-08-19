@@ -74,7 +74,7 @@ type ContactButtonsProps = {
 }
 export default function ContactButtons({ member }: ContactButtonsProps) {
     return (
-        <div className='flex gap-5'>{
+        <div className='flex flex-wrap justify-center gap-5'>
             {socials.map(socialKey => {
                 if (!buttonConfig[socialKey].enabled) return null;
                 return !member.social[socialKey]

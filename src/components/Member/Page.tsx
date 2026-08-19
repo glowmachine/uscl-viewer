@@ -45,12 +45,12 @@ export default function Page({ bioguide }: PageProps) {
     const currentTerm = member.terms[member.terms.length - 1];
 
     return (
-        <div className='max-w-full max-h-full p-1 flex flex-col'>
-            <div className='h-screen p-1 overflow-auto flex flex-col gap-5'>
+        <div className='border rounded-[1em] max-w-full max-h-full p-5 flex flex-col'>
+            <div className='h-screen overflow-auto flex flex-col gap-5'>
                 <NavLink to='/' className='mt-2 shrink-0 w-10 h-10 rounded-full hover:bg-gray-200 active:bg-gray-300 grid place-items-center'>
                     <span className='material-symbols-outlined'>arrow_back</span>
                 </NavLink>
-                <section className='w-full flex flex-col gap-2 items-center sm:flex-row'>
+                <section className='w-full flex flex-col gap-2 sm:gap-10 items-center sm:flex-row'>
                     <div className='bg-black rounded aspect-[225/275] w-[min(225px,40vw)] overflow-hidden'>
                         <img alt={`Profile photo for ${member.name.first} ${member.name.last}`}
                             src={`https://unitedstates.github.io/images/congress/225x275/${member.id.bioguide}.jpg`}
@@ -70,20 +70,20 @@ export default function Page({ bioguide }: PageProps) {
                 </section>
                 <section className='flex flex-row justify-center'>
                     <ContactButtons member={member} />
-                    <div className='hidden sm:block ml-5 mr-1 border-t w-full translate-y-[50%]'></div>
+                    <div className='hidden sm:block flex-1 ml-5 mr-1 border-t translate-y-[50%]'></div>
                 </section>
                 <section className='m-1'>
-                    <nav className='flex justify-evenly'>
+                    <nav className='ml-2 flex gap-1'>
                         {tabs.map(tab =>
                             <button
-                                className={`border-x border-t rounded-t py-1 px-2 ${tab.key === activeTab ? 'bg-gray-300' : ''}`}
+                                className={`rounded-t py-1 px-2 ${tab.key === activeTab ? 'bg-gray-200' : 'bg-gray-100'}`}
                                 onClick={() => setActiveTab(tab.key)}
                                 key={tab.key}>
                                 {tab.label}
                             </button>
                         )}
                     </nav>
-                    <article className='font-mono rounded p-5 bg-gray-300'>
+                    <article className='font-mono rounded p-5 bg-gray-200'>
                         {activeTab === 'current' && renderLegislatorData(member)}
                         {activeTab === 'social' && renderLegislatorSocial(member)}
                         {activeTab === 'offices' && renderLegislatorOffice(member)}
