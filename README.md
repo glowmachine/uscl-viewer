@@ -33,16 +33,16 @@ The database at https://github.com/unitedstates/congress-legislators is mantaine
 | Frontend    | React, TypeScript, Tailwind CSS        |
 | Tooling     | Vite, Vitest                           |
 | Persistence | LocalStorage                           |
-| Data Source | Congress Legislators API               |
-| Icons       | Google Fonts                           |
+| Data Source | Congress Legislators                   |
+| Icons       | Google Fonts, Font Awesome             |
 | Deployment  | Netlify                                |
 
 ## Getting Started
 
 ```bash
 # Clone the repo
-git clone https://github.com/glowmachine/uscl-dashboard.git
-cd uscl-dashboard
+git clone https://github.com/glowmachine/congress-search-v3.git
+cd congress-search-v3
 
 # Install dependencies
 npm install
