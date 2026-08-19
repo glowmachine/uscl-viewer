@@ -1,5 +1,8 @@
 import type { Legislator } from "../../contexts/DataContext";
 import type { Social } from "../../types/LegislatorSocialMedia";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faFacebook, faInstagram, faMastodon, faXTwitter, faYoutube, type IconDefinition } from '@fortawesome/free-brands-svg-icons';
+import { faLink } from "@fortawesome/free-solid-svg-icons";
 
 const buttonStyle = 'shrink-0 w-10 h-10 rounded-full grid place-items-center'
 
@@ -16,54 +19,54 @@ const socials = [
 const buttonConfig: Record<keyof Social,
     {
         label: string,
-        icon: string,
+        faIcon: IconDefinition,
         link: (id: string) => string, enabled: boolean
     }> = {
     twitter: {
         label: 'Twitter',
-        icon: 'T',
+        faIcon: faXTwitter,
         link: (id) => `https://twitter.com/${id}`,
         enabled: true
     },
     facebook: {
         label: 'Facebook',
-        icon: 'FB',
+        faIcon: faFacebook,
         link: (id) => `https://facebook.com/${id}`,
         enabled: true
     },
     youtube_id: {
         label: 'youtube_id',
-        icon: 'YT',
+        faIcon: faYoutube,
         link: (id) => `https://youtube.com/channel/${id}`,
         enabled: true
     },
     twitter_id: {
         label: 'twitter_id',
-        icon: 'T',
+        faIcon: faXTwitter,
         link: (id) => `https://twitter.com/${id}`,
         enabled: true
     },
     youtube: {
         label: 'youtube',
-        icon: 'YT',
+        faIcon: faYoutube,
         link: (id) => `https://youtube.com/user/${id}`,
         enabled: true
     },
     instagram: {
         label: 'instagram',
-        icon: 'IG',
+        faIcon: faInstagram,
         link: (id) => `https://www.instagram.com/${id}`,
         enabled: true
     },
     instagram_id: {
         label: 'instagram_id',
-        icon: 'IG',
+        faIcon: faInstagram,
         link: (id) => `https://twitter.com/${id}`,
         enabled: true
     },
     mastodon: {
         label: 'mastodon',
-        icon: 'M',
+        faIcon: faMastodon,
         link: (id) => `https://mastodon.social/${id}`,
         enabled: true
     },
@@ -75,20 +78,29 @@ type ContactButtonsProps = {
 export default function ContactButtons({ member }: ContactButtonsProps) {
     return (
         <div className='flex flex-wrap justify-center gap-5'>
+            <a
+                href={member.terms[member.terms.length - 1].url}
+                target='_blank' rel='noopener noreferrer'
+                className={`${buttonStyle} bg-blue-200`}>
+                <FontAwesomeIcon icon={faLink} />
+            </a>
             {socials.map(socialKey => {
-                if (!buttonConfig[socialKey].enabled) return null;
+                //button is disabled or property undefined
+                if (!buttonConfig[socialKey].enabled || !member.social[socialKey]) {
+                    return null;
+                }
                 return !member.social[socialKey]
                     ? <a href='' onClick={e => e.preventDefault()}
                         className={`${buttonStyle} bg-gray-100 cursor-default`}
                         key={socialKey}>
-                        {buttonConfig[socialKey].icon}
+                        <FontAwesomeIcon icon={buttonConfig[socialKey].faIcon} />
                     </a>
                     : <a
                         href={buttonConfig[socialKey].link(member.social[socialKey])}
                         target='_blank' rel='noopener noreferrer'
                         className={`${buttonStyle} bg-blue-200`}
                         key={socialKey}>
-                        {buttonConfig[socialKey].icon}
+                        <FontAwesomeIcon icon={buttonConfig[socialKey].faIcon} />
                     </a>
             })}
         </div>
