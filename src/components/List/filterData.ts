@@ -1,5 +1,6 @@
 import type { Legislator } from "../../contexts/DataContext";
 import type { FilterOptions } from "../../contexts/TableContext";
+import objectIncludes from "../../util/objectIncludes";
 
 export default function filterData(data: Legislator[], filterOptions: FilterOptions): Legislator[] {
     let filteredData = data;
@@ -8,12 +9,9 @@ export default function filterData(data: Legislator[], filterOptions: FilterOpti
         const searchStrings: string[] = filterOptions.search
             .trim().toLowerCase().split(/\s+/).filter(str => str.length > 0);
 
-        filteredData = filteredData.filter((member) => {
-            return searchStrings.every(str =>
-                member.name.first.toLowerCase().includes(str)
-                || member.name.last.toLowerCase().includes(str)
-                || member.name.nickname?.toLowerCase().includes(str));
-        });
+        filteredData = filteredData.filter(member =>
+            searchStrings.every(str => objectIncludes(member.name, str))
+        );
     }
 
     if (filterOptions.state)
