@@ -1,13 +1,15 @@
 import { useEffect, useRef, useState } from "react";
 import { bioCols, idCols, nameCols, socialCols, termCols, useTableContext } from "../../contexts/TableContext";
 import { defaultSavedColKeys, useSettingsContext } from "../../contexts/SettingsContext";
-import { buttonStyle } from "./TableControls";
 
-export default function ColumnSelector() {
+type ColumnSelectorProps = {
+    colSelectOpen: boolean,
+    setColSelectOpen: React.Dispatch<React.SetStateAction<boolean>>,
+}
+export default function ColumnSelector({ colSelectOpen, setColSelectOpen }: ColumnSelectorProps) {
     const { setColumns } = useTableContext();
     const { savedColKeys, setSavedColKeys, writeSavedColKeys } = useSettingsContext();
     const [draftColKeys, setDraftColKeys] = useState(savedColKeys);
-    const [colSelectOpen, setColSelectOpen] = useState(false);
     const selectorPanel = useRef<HTMLDivElement>(null);
 
     function handleSelection(selectorKey: number, columnKey: string): void {
@@ -74,17 +76,8 @@ export default function ColumnSelector() {
         }
     }, [colSelectOpen]);
 
-    return (<>
-        <button className={buttonStyle}
-            onClick={() => setColSelectOpen(prev => !prev)}>
-            <span className='material-symbols-outlined'
-                style={{ fontVariationSettings: `'FILL' ${colSelectOpen ? 1 : 0}` }}
-            >
-                view_column
-            </span>
-        </button>
-
-        {colSelectOpen && <div className='fixed inset-0 z-100 bg-gray-500/50
+    return (
+        <div className='fixed inset-0 z-100 bg-gray-500/50
                 grid place-items-center'>
 
             <div ref={selectorPanel}
@@ -167,6 +160,6 @@ export default function ColumnSelector() {
                     </div>
                 </div>
             </div>
-        </div>}
-    </>);
+        </div>
+    );
 }

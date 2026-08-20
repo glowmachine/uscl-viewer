@@ -9,19 +9,19 @@ import Footer from './components/Footer';
 export default function App() {
   return (
     <SettingsProvider>
-      <div className='h-screen flex flex-col'>
-        <Header />
-        <main className='min-h-0 flex flex-row'>
-          <div className='flex-1 min-w-0'>
-            <DataProvider>
-              <TableProvider>
+      <TableProvider>
+        <div className='h-screen flex flex-col'>
+          <Header />
+          <main className='min-h-0 flex flex-row'>
+            <div className='flex-1 min-w-0'>
+              <DataProvider>
                 <Outlet />
-              </TableProvider>
-            </DataProvider>
-          </div>
-        </main>
-        <Footer />
-      </div>
-    </SettingsProvider>
+              </DataProvider>
+            </div>
+          </main>
+          <Footer />
+        </div>
+      </TableProvider>
+    </SettingsProvider >
   )
 }

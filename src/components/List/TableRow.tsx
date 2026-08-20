@@ -15,7 +15,7 @@ export default function TableRow({ row }: TableRowProps) {
                         <img alt={`Profile photo for ${row.name}`}
                             loading='lazy'
                             decoding='async'
-                            src={`https://unitedstates.github.io/images/congress/225x275/${row.bioguide}.jpg`}
+                            src={!import.meta.env.VITE_USE_MOCK_DATA ? `https://unitedstates.github.io/images/congress/225x275/${row.bioguide}.jpg` : `/`}
                             onError={e => e.currentTarget.style.display = 'none'}
                             className='object-cover w-full h-full'
                         />
