@@ -10,7 +10,7 @@ export default function TableRow({ row }: TableRowProps) {
         <tr className='hover:bg-gray-100 *:p-2 *:whitespace-nowrap'
             key={row.bioguide}>
             <td className='w-0'>
-                <NavLink to={`/details/${row.bioguide}`}>
+                <NavLink to={`/member/${row.bioguide}`}>
                     <div className='bg-black object-cover w-10 aspect-square rounded-full overflow-hidden'>
                         <img alt={`Profile photo for ${row.name}`}
                             loading='lazy'
