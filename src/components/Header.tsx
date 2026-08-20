@@ -5,9 +5,9 @@ export default function Header() {
     const isRoot: boolean = useLocation().pathname == '/';
 
     return (
-        <header className='bg-red-200 px-3 py-1 flex justify-between items-center gap-20'>
+        <header className='bg-red-200 px-3 py-2 flex justify-between items-center gap-20'>
             <div className='flex items-center gap-3'>
-                <div className='text-5xl'>🇺🇸</div>
+                <div className='text-4xl'>🇺🇸</div>
                 <h1 className='text-2xl'>US Congress Legislators</h1>
             </div>
             {isRoot && <Search />}
