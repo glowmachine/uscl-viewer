@@ -1,6 +1,6 @@
 import { useDataContext } from "../../contexts/DataContext";
-import { useState } from "react";
-import { NavLink } from "react-router";
+import { useEffect, useState } from "react";
+import { NavLink, useNavigate } from "react-router";
 import type { LeadershipRole } from "../../types/LegislatorCurrent";
 import { allAreas, type StateAbbreviation } from "../../types/states";
 import getDateDiff from "../../util/getDateDiff";
@@ -35,6 +35,14 @@ interface PageProps {
 export default function Page({ bioguide }: PageProps) {
     const { legislators } = useDataContext();
     const [activeTab, setActiveTab] = useState<TabKey>('current');
+    const navigate = useNavigate();
+    useEffect(() => {
+        function goBack(e: KeyboardEvent) {
+            if (e.key === 'Escape' || e.key === 'Backspace') navigate(-1);
+        }
+        document.addEventListener('keydown', goBack);
+        return () => document.removeEventListener('keydown', goBack)
+    }, []);
 
     if (!legislators) return <p>No data found</p>
 
