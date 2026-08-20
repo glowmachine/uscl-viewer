@@ -44,7 +44,7 @@ export default function Table() {
                 <div className='flex items-center gap-1'>
                     <h1 className='text-3xl'>Legislators</h1> <span>({rows.length})</span>
                 </div>
-                {filterSelectOpen && <FilterSelector />}
+                <FilterSelector open={filterSelectOpen} />
                 <div className='flex gap-1'>
                     <button className={'h-10 w-10 flex items-center justify-center rounded-full bg-gray-200'}
                         onClick={() => setFilterSelectOpen(prev => !prev)}>

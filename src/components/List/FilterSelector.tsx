@@ -8,13 +8,16 @@ const styleCheckboxButton = `rounded-full border
                             peer-hover:ring-2 peer-hover:ring-blue-500
                             peer-focus-visible:ring-2 peer-focus-visible:ring-blue-500`;
 
-export default function TableFilters() {
+type TableFiltersProps = {
+    open: boolean,
+}
+export default function TableFilters({ open }: TableFiltersProps) {
     const { filterOptions, setFilterOptions } = useTableContext();
 
     return (
         <div id='filters_container'
-            className='w-full flex flex-row flex-wrap items-center justify-evenly gap-1
-                *:border *:rounded *:px-2 *:pt-2 *:pb-4 *:flex *:gap-1'>
+            className={`${!open ? 'invisible' : ''} w-full flex flex-row flex-wrap items-center justify-evenly gap-1
+                *:border *:rounded *:px-2 *:pt-2 *:pb-4 *:flex *:gap-1`}>
             <fieldset>
                 <legend>State</legend>
                 <label className='sr-only' htmlFor='filterState'>State</label>
