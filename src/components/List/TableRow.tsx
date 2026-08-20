@@ -22,36 +22,33 @@ export default function TableRow({ row }: TableRowProps) {
                     </div>
                 </NavLink>
             </td>
-            {columns
-                .filter((c) => (c.selected))
-                .map((col) => {
-                    const value = row[col.key];
-                    const link = buildLink(col.key, row);
+            {columns.filter((c) => (c.selected)).map((col) => {
+                const value = row[col.key];
+                const link = buildLink(col.key, row);
 
-                    if (col.key === 'name')
-                        return <td key={col.key}>
-                            <NavLink to={`/member/${row.bioguide}`} className='hover:underline'>
-                                {value}
-                            </NavLink>
-                        </td>
-                    else if (value) {
-                        return <td key={col.key}>
-                            {link
-                                ? <a href={link} target='_blank' rel='noopener noreferrer'
-                                    // className='hover:text-red-500 hover:*:visible'>{value}
-                                    className='inline-flex gap-1 items-center hover:text-red-500 *:invisible hover:*:visible'>
-                                    {value} <span className='material-symbols-outlined !text-lg'>
-                                        open_in_new</span>
-                                </a>
-                                : <p>{String(value)}</p>
-                            }
-                        </td>
-                    }
-                    else {
-                        return <td key={col.key}></td>
-                    }
+                if (col.key === 'name')
+                    return <td key={col.key}>
+                        <NavLink to={`/member/${row.bioguide}`} className='hover:underline'>
+                            {value}
+                        </NavLink>
+                    </td>
+                else if (value === 0 || value) {
+                    return <td key={col.key}>
+                        {link
+                            ? <a href={link} target='_blank' rel='noopener noreferrer'
+                                // className='hover:text-red-500 hover:*:visible'>{value}
+                                className='inline-flex gap-1 items-center hover:text-red-500 *:invisible hover:*:visible'>
+                                {value} <span className='material-symbols-outlined !text-lg'>
+                                    open_in_new</span>
+                            </a>
+                            : <p>{String(value)}</p>
+                        }
+                    </td>
                 }
-                )}
+                else {
+                    return <td key={col.key}></td>
+                }
+            })}
         </tr >
     )
 }
