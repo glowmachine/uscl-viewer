@@ -11,6 +11,8 @@ export default function ColumnSelector({ colSelectOpen, setColSelectOpen }: Colu
     const { savedColKeys, setSavedColKeys, writeSavedColKeys } = useSettingsContext();
     const [draftColKeys, setDraftColKeys] = useState(savedColKeys);
     const selectorPanel = useRef<HTMLDivElement>(null);
+    const firstFocusableRef = useRef<HTMLSelectElement>(null);
+    const lastFocusableRef = useRef<HTMLButtonElement>(null);
 
     function handleSelection(selectorKey: number, columnKey: string): void {
         setDraftColKeys(prev => prev.map((val, index) =>
@@ -67,12 +69,32 @@ export default function ColumnSelector({ colSelectOpen, setColSelectOpen }: Colu
         }
     }
 
+    function trapFocus(e: KeyboardEvent) {
+        if (firstFocusableRef.current && lastFocusableRef.current && e.key === 'Tab') {
+            if (e.shiftKey) {
+                if (firstFocusableRef.current === document.activeElement) {
+                    { e.preventDefault(); lastFocusableRef.current.focus(); }
+                }
+            }
+            else {
+                if (lastFocusableRef.current === document.activeElement) {
+                    { e.preventDefault(); firstFocusableRef.current.focus(); }
+                }
+            }
+        }
+    }
+
     useEffect(() => {
+        if (lastFocusableRef.current) lastFocusableRef.current.focus();
+
         document.addEventListener('mousedown', handleCloseClick);
         document.addEventListener('keydown', handleCloseEsc);
+        document.addEventListener('keydown', trapFocus);
+
         return () => {
             document.removeEventListener('mousedown', handleCloseClick);
             document.removeEventListener('keydown', handleCloseEsc);
+            document.addEventListener('keydown', trapFocus);
         }
     }, [colSelectOpen]);
 
@@ -91,6 +113,7 @@ export default function ColumnSelector({ colSelectOpen, setColSelectOpen }: Colu
                             <select className={`flex-1 rounded-t
                                 ${index === 0 ? 'text-gray-400' : 'hover:bg-gray-200 border-b-1'}`}
                                 disabled={index === 0}
+                                ref={index === 1 ? firstFocusableRef : null}
                                 value={value}
                                 onChange={e => handleSelection(index, e.target.value)}
                             >
@@ -155,6 +178,7 @@ export default function ColumnSelector({ colSelectOpen, setColSelectOpen }: Colu
                             onClick={() => cancelSelection()}>
                             Cancel</button>
                         <button className='px-3 py-2 self-center rounded-full hover:bg-gray-200'
+                            ref={lastFocusableRef}
                             onClick={handleDoneButton}>
                             Done</button>
                     </div>
