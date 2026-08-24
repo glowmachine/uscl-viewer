@@ -23,14 +23,10 @@ export default function Search() {
     }
 
     function handleEnter(e: KeyboardEvent): void {
-        if (e.key === 'Enter') setShowFilters(false);
-    }
-    useEffect(() => {
-        document.addEventListener('keydown', handleEnter);
-        return () => {
-            document.removeEventListener('keydown', handleEnter);
+        if (inputRef.current && e.key === 'Enter') {
+            setShowFilters(false);
         }
-    }, []);
+    }
     function handleFilterButton(): void {
         setShowFilters(prev => !prev);
         if (inputRef.current) {
@@ -40,7 +36,15 @@ export default function Search() {
     function handleClearButton(): void {
         setSearchInput('');
         setFilterOptions((prev) => ({ ...prev, search: '' }));
+        if (inputRef.current) {
+            inputRef.current.focus()
+        }
     }
+
+    useEffect(() => {
+        document.addEventListener('keydown', handleEnter);
+        return () => document.removeEventListener('keydown', handleEnter);
+    }, []);
 
     return (
         <div className={`flex-1 shadow-black ${showFilters ? '' : ''}`}>
