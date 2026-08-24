@@ -10,7 +10,7 @@ export const router = createBrowserRouter([
         children: [
             { index: true, element: <Table /> },
             { path: '/table', element: <Table /> },
-            { path: '/member/:bioguide', element: <MemberRoute /> },
+            { path: '/details/:bioguide', element: <MemberRoute /> },
             { path: '*', element: <NotFound /> },
         ]
     }

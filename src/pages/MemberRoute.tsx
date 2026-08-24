@@ -1,9 +1,9 @@
 import { useParams } from "react-router";
-import Page from "../components/Member/Page";
+import Details from "../components/Member/Details";
 
 export default function DetailsRoute() {
     const { bioguide } = useParams<{ bioguide: string }>();
     return bioguide
-        ? <Page bioguide={bioguide} />
+        ? <Details bioguide={bioguide} />
         : <p>No bioguide provided.</p>;
 }
