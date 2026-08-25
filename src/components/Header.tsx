@@ -3,7 +3,7 @@ import Search from "./Search";
 
 export default function Header() {
     const isRoot: boolean = useLocation().pathname == '/';
-    const isAbout: boolean = useLocation().pathname == '/help';
+    const isAbout: boolean = useLocation().pathname == '/about';
 
     return (
         <header className='bg-red-200 px-3 py-2 flex justify-between items-center gap-3'>
