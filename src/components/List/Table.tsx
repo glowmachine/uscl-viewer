@@ -83,7 +83,7 @@ export default function Table() {
                         </div>
                     </div>
                     <table className='min-w-full'>
-                        <thead className='sticky top-0 bg-white text-left'>
+                        <thead className='sticky z-10 top-0 bg-white text-left'>
                             <tr>{columns.filter((c) => (c.selected)).map((col, index) =>
                                 <th colSpan={index === 0 ? 2 : 1} key={col.key}>
                                     <button
