@@ -33,7 +33,8 @@ function styleMissing(obj: unknown) {
 const styleHover = 'hover:bg-gray-300';
 
 export default function renderLegislatorOffice(member: Legislator) {
-    return (
+    return (<>
+        <p className='mb-5 italic'>from legislators-district-offices.json</p>
         <ul>
             <li><ul>
                 <li className='font-bold'>- id:</li>
@@ -62,5 +63,5 @@ export default function renderLegislatorOffice(member: Legislator) {
                 )}
             </ul></li>
         </ul>
-    )
+    </>)
 }
