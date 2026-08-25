@@ -12,10 +12,10 @@ export default function TableRow({ row }: TableRowProps) {
             <td className='w-0'>
                 <NavLink to={`/member/${row.bioguide}`}>
                     <div className='bg-black object-cover w-10 aspect-square rounded-full overflow-hidden'>
-                        <img alt={`Profile photo for ${row.name}`}
+                        <img alt={`Flag of ${row.state}`}
                             loading='lazy'
                             decoding='async'
-                            src={!import.meta.env.VITE_USE_MOCK_DATA ? `https://unitedstates.github.io/images/congress/225x275/${row.bioguide}.jpg` : `/`}
+                            src={`/flags/Flag_of_${row.state}.svg`}
                             onError={e => e.currentTarget.style.display = 'none'}
                             className='object-cover w-full h-full'
                         />
