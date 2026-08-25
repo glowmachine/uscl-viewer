@@ -65,13 +65,12 @@ export default function Table() {
                     text-3xl text-gray-400'>Loading Database</div>}
             {error && <div className='h-full grid place-content-center
                     text-2xl text-red-300'>{error.message}</div>}
-            {(!isLoading && !error) && <div className='bg-white rounded-xl h-full pt-3'>
+            {(!isLoading && !error) && <div className='relative bg-white rounded-xl h-full pt-3'>
                 <div className='min-w-0 h-full overflow-auto px-3'>
-                    <div className='sticky px-2 flex items-center gap-1 justify-between'>
-                        <div className='flex items-center gap-1 text-gray-600'>
-                            <h1 className='text-3xl'>Legislators</h1> <span>({rows.length})</span>
-                        </div>
-                        <div className='flex gap-1'>
+                    <div className='sticky left-0 w-full bg-white h-12 pl-2 flex items-center gap-1 text-gray-600'>
+                        <h1 className='text-3xl'>Legislators</h1>
+                        <span>({rows.length})</span>
+                        <div className='ml-auto'>
                             <button className={`${buttonStyle} ${colSelectOpen ? 'bg-gray-200' : ''}`}
                                 onClick={() => setColSelectOpen(prev => !prev)}
                             >
@@ -88,8 +87,8 @@ export default function Table() {
                             <tr>{columns.filter((c) => (c.selected)).map((col, index) =>
                                 <th colSpan={index === 0 ? 2 : 1} key={col.key}>
                                     <button
-                                        className='h-15 flex items-center gap-1 whitespace-nowrap w-full p-2
-                                            text-gray-500 hover:text-black hover:bg-gray-100 border-b-1 border-gray-300'
+                                        className='h-12 flex items-center gap-1 whitespace-nowrap w-full p-2
+                                            text-gray-400 hover:text-black border-b-1 border-gray-300'
                                         onClick={() => setSortBy((prev) => {
                                             return (col.key === prev.key)
                                                 ? { ...prev, asc: !prev.asc }
