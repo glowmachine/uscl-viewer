@@ -75,7 +75,7 @@ export default function Search() {
                         </span>
                     </button>
                 </div>
-                <div className={`absolute bg-gray-100 rounded-b-xl z-10 w-full shadow-lg
+                <div className={`absolute bg-gray-100 rounded-b-xl z-20 w-full shadow-lg
                     grid ${showFilters ? 'grid-rows-[1fr] border-t-1 border-gray-400 p-2' : 'grid-rows-[0fr] invisible'}
                     transition-[grid-template-rows] duration-300`}>
                     <div className='overflow-hidden'>
