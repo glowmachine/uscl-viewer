@@ -1,21 +1,18 @@
-import { useLocation } from "react-router";
+import { NavLink, useLocation } from "react-router";
 import Search from "./Search";
 
 export default function Header() {
     const isRoot: boolean = useLocation().pathname == '/';
+    const isAbout: boolean = useLocation().pathname == '/help';
 
     return (
-        <header className='bg-red-200 px-3 py-2 flex justify-between items-center gap-20'>
+        <header className='bg-red-200 px-3 py-2 flex justify-between items-center gap-3'>
             <div className='flex items-center gap-3'>
-                <div className='text-4xl'>🇺🇸</div>
-                <h1 className='text-2xl'>US Congress Legislators</h1>
+                <div className='text-5xl'>🇺🇸</div>
+                <h1 className='text-2xl'>USCL Viewer</h1>
             </div>
             {isRoot && <Search />}
-            <div className='flex gap-3'>
-                <button className='size-6 aspect-square outline'>A</button>
-                <button className='size-6 aspect-square outline'>B</button>
-                <button className='size-6 aspect-square outline'>C</button>
-            </div>
+            {!isAbout && <NavLink to='/about' className='size-10 rounded-full grid place-items-center hover:cursor-pointer bg-red-300'>?</NavLink>}
         </header>
     );
 }
