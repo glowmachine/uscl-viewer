@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { useTableContext } from "../contexts/TableContext";
+import { defaultFilterOptions, useTableContext } from "../contexts/TableContext";
 import debounce from "../util/debounce";
 import FilterSelector from "./List/FilterSelector";
 
@@ -35,6 +35,7 @@ export default function Search() {
     }
     function handleClearButton(): void {
         setSearchInput('');
+        setFilterOptions(defaultFilterOptions);
         setFilterOptions((prev) => ({ ...prev, search: '' }));
         if (inputRef.current) {
             inputRef.current.focus()

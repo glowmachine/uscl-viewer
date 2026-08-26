@@ -154,6 +154,19 @@ export type FilterOptions = {
         rep: boolean,
     },
 };
+export const defaultFilterOptions = {
+    search: '',
+    state: '',
+    parties: {
+        democrat: true,
+        independent: true,
+        republican: true,
+    },
+    types: {
+        sen: true,
+        rep: true,
+    },
+}
 
 export type SortByOptions = {
     key: keyof RowData,
@@ -195,19 +208,7 @@ export function TableProvider({ children }: PropsWithChildren) {
         key: 'name',
         asc: true,
     });
-    const [filterOptions, setFilterOptions] = useState<FilterOptions>({
-        search: '',
-        state: '',
-        parties: {
-            democrat: true,
-            independent: true,
-            republican: true,
-        },
-        types: {
-            sen: true,
-            rep: true,
-        },
-    })
+    const [filterOptions, setFilterOptions] = useState<FilterOptions>(defaultFilterOptions)
     const [searchInput, setSearchInput] = useState('');
 
     return (
