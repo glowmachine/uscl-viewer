@@ -81,7 +81,8 @@ export default function ContactButtons({ member }: ContactButtonsProps) {
             <a
                 href={member.terms[member.terms.length - 1].url}
                 target='_blank' rel='noopener noreferrer'
-                className={`${buttonStyle} bg-zinc-200 hover:bg-zinc-300`}>
+                className={`${buttonStyle} bg-zinc-200 hover:bg-zinc-300
+                    dark:bg-zinc-700 dark:hover:bg-zinc-600`}>
                 <FontAwesomeIcon icon={faLink} />
             </a>
             {socials.map(socialKey => {
@@ -98,7 +99,8 @@ export default function ContactButtons({ member }: ContactButtonsProps) {
                     : <a
                         href={buttonConfig[socialKey].link(member.social[socialKey])}
                         target='_blank' rel='noopener noreferrer'
-                        className={`${buttonStyle} bg-zinc-200 hover:bg-zinc-300`}
+                        className={`${buttonStyle} bg-zinc-200 hover:bg-zinc-300
+                            dark:bg-zinc-700 dark:hover:bg-zinc-600`}
                         key={socialKey}>
                         <FontAwesomeIcon icon={buttonConfig[socialKey].faIcon} />
                     </a>

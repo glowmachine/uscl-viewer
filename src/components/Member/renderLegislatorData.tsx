@@ -78,7 +78,7 @@ function styleMissing(obj: unknown) {
         ? 'text-zinc-400'
         : ''
 }
-const styleHover = 'hover:bg-zinc-300';
+const styleHover = 'hover:bg-zinc-300 dark:hover:bg-zinc-600';
 
 //YAML formatting reconstructed from json data, an absolute mess, needs refactoring
 export function renderLegislatorData(member: LegislatorCurrent) {

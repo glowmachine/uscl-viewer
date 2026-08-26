@@ -7,7 +7,9 @@ export default function TableRow({ row }: TableRowProps) {
     const { columns } = useTableContext();
 
     return (
-        <tr className='hover:bg-zinc-100 transition-[background-color] duration-300 *:p-2 *:whitespace-nowrap'
+        <tr className='transition-[background-color] duration-300
+                hover:bg-zinc-100 dark:hover:bg-zinc-700
+                *:p-2 *:whitespace-nowrap'
             key={row.bioguide}>
             <td className='w-0'>
                 <NavLink to={`/member/${row.bioguide}`}>
@@ -36,7 +38,9 @@ export default function TableRow({ row }: TableRowProps) {
                     return <td key={col.key}>
                         {link
                             ? <a href={link} target='_blank' rel='noopener noreferrer'
-                                className='inline-flex gap-1 items-center hover:text-red-500 *:invisible hover:*:visible'>
+                                className='inline-flex gap-1 items-center
+                                    hover:text-red-500
+                                    *:invisible hover:*:visible'>
                                 {value} <span className='material-symbols-outlined !text-lg'>
                                     open_in_new</span>
                             </a>

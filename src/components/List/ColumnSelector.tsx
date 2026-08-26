@@ -99,11 +99,12 @@ export default function ColumnSelector({ colSelectOpen, setColSelectOpen }: Colu
     }, [colSelectOpen]);
 
     return (
-        <div className='fixed inset-0 z-100 bg-zinc-500/50
+        <div className='fixed inset-0 z-100 bg-black/50
                 grid place-items-center'>
 
             <div ref={selectorPanel}
-                className='w-[max(20rem,25rem)] text-sm bg-white rounded-[2rem] p-5 flex flex-col'>
+                className='w-[max(20rem,25rem)] text-sm rounded-[2rem] p-5 flex flex-col
+                    bg-zinc-100 dark:bg-zinc-800'>
                 <h2 className='text-2xl pb-5'>Change visible columns</h2>
                 <p className='pb-2.5'>Smaller screens may need to scroll right to view more columns.</p>
                 <div className='w-50 flex flex-col'>
@@ -111,7 +112,7 @@ export default function ColumnSelector({ colSelectOpen, setColSelectOpen }: Colu
                         <div className='flex justify-between gap-1 *:p-2' key={`selector-${index}`}>
                             <span>{index + 1}.</span>
                             <select className={`flex-1 rounded-t
-                                ${index === 0 ? 'text-zinc-400' : 'hover:bg-zinc-200 border-b-1'}`}
+                                ${index === 0 ? 'text-zinc-400' : 'hover:bg-zinc-200 dark:hover:bg-zinc-700 border-b-1'}`}
                                 disabled={index === 0}
                                 ref={index === 1 ? firstFocusableRef : null}
                                 value={value}
@@ -169,19 +170,17 @@ export default function ColumnSelector({ colSelectOpen, setColSelectOpen }: Colu
                         </div>
                     )}
                 </div>
-                <div className='mx-2.5 mt-5 flex justify-between gap-1'>
-                    <button className='px-3 py-2 self-center rounded-full hover:bg-zinc-200'
-                        onClick={handleResetButton}>
-                        Reset</button>
-                    <div className='flex gap-2'>
-                        <button className='px-3 py-2 self-center rounded-full hover:bg-zinc-200'
-                            onClick={() => cancelSelection()}>
-                            Cancel</button>
-                        <button className='px-3 py-2 self-center rounded-full hover:bg-zinc-200'
-                            ref={lastFocusableRef}
-                            onClick={handleDoneButton}>
-                            Done</button>
-                    </div>
+                <div className='mx-2.5 mt-5 flex justify-between gap-2
+                *:px-3 *:py-2 *:rounded-full *:hover:bg-zinc-200 *:dark:hover:bg-zinc-700'>
+                    <button onClick={handleResetButton} className='mr-auto'>
+                        Reset
+                    </button>
+                    <button onClick={() => cancelSelection()}>
+                        Cancel
+                    </button>
+                    <button onClick={handleDoneButton} ref={lastFocusableRef}>
+                        Done
+                    </button>
                 </div>
             </div>
         </div>

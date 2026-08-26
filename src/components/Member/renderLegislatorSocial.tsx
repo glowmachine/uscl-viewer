@@ -27,7 +27,7 @@ function styleMissing(obj: unknown) {
         ? 'text-zinc-400'
         : ''
 }
-const styleHover = 'hover:bg-zinc-300';
+const styleHover = 'hover:bg-zinc-300 dark:hover:bg-zinc-600';
 
 export function renderLegislatorSocial(member: Legislator) {
     return (<>

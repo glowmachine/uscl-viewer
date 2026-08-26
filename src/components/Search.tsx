@@ -3,7 +3,7 @@ import { useTableContext } from "../contexts/TableContext";
 import debounce from "../util/debounce";
 import FilterSelector from "./List/FilterSelector";
 
-export const buttonStyle = 'w-8 h-8 grid place-content-center rounded-full hover:bg-zinc-300';
+export const buttonStyle = 'size-8 grid place-content-center rounded-full hover:bg-zinc-200 dark:hover:bg-zinc-600';
 
 export default function Search() {
     const { setFilterOptions, searchInput, setSearchInput } = useTableContext();
@@ -47,7 +47,7 @@ export default function Search() {
     }, []);
 
     return (
-        <div className={`relative flex-1 bg-zinc-100 ${showFilters ? 'rounded-t-xl' : 'rounded-full'}`}>
+        <div className={`relative flex-1 ${showFilters ? 'rounded-t-xl' : 'rounded-full'} bg-zinc-100 dark:bg-zinc-700`}>
             <label className='sr-only'>Search</label>
             <input className={`w-full px-5 h-12 text-lg ${showFilters ? 'rounded-t-xl' : 'rounded-full'}`}
                 type='text'
@@ -63,22 +63,24 @@ export default function Search() {
                     animate-spin [animation-duration:300ms]' />
                 </div>
             )} */}
-            <div className='absolute bg-zinc-100 pl-4 z-10 flex items-center gap-2 right-3 top-1/2 -translate-y-1/2'>
-                <button onClick={handleClearButton} className='text-sm underline'>clear</button>
-                <button className={`${buttonStyle} ${showFilters ? 'bg-zinc-300' : ''}`}
-                    onClick={handleFilterButton}>
-                    <span className='material-symbols-outlined'
-                        style={{ fontVariationSettings: `'FILL' ${showFilters ? 1 : 0}` }}
-                    >
-                        filter_alt
-                    </span>
-                </button>
-            </div>
-            <div className={`absolute bg-zinc-100 rounded-b-xl z-20 w-full shadow-lg
-                grid ${showFilters ? 'grid-rows-[1fr] border-t-1 border-zinc-400 p-2' : 'grid-rows-[0fr] invisible'}
-                transition-[grid-template-rows] duration-300`}>
-                <div className='overflow-hidden'>
-                    <FilterSelector />
+            <div className=''>
+                <div className='absolute pl-4 z-10 flex items-center gap-2 right-3 top-1/2 -translate-y-1/2 bg-zinc-100 dark:bg-zinc-700'>
+                    <button onClick={handleClearButton} className='text-sm underline'>clear</button>
+                    <button className={`${buttonStyle} ${showFilters ? 'bg-zinc-200 dark:bg-zinc-600' : ''}`}
+                        onClick={handleFilterButton}>
+                        <span className='material-symbols-outlined'
+                            style={{ fontVariationSettings: `'FILL' ${showFilters ? 1 : 0}` }}
+                        >
+                            filter_alt
+                        </span>
+                    </button>
+                </div>
+                <div className={`absolute rounded-b-xl z-20 w-full shadow-lg bg-zinc-100 dark:bg-zinc-700
+                    grid ${showFilters ? 'grid-rows-[1fr] border-t-1 border-zinc-400 p-2' : 'grid-rows-[0fr] invisible'}
+                    transition-[grid-template-rows] duration-300`}>
+                    <div className='overflow-hidden'>
+                        <FilterSelector />
+                    </div>
                 </div>
             </div>
         </div>

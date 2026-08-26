@@ -18,7 +18,8 @@ export default function Header() {
             <div className='flex gap-2'>
                 <DarkModeSwitch />
                 {!isAbout && <NavLink to='/about'
-                    className='size-10 rounded-full grid place-items-center hover:cursor-pointer hover:bg-zinc-200 font-serif text-2xl italic'
+                    className='size-10 rounded-full grid place-items-center hover:cursor-pointer font-serif text-2xl italic
+                        hover:bg-zinc-200 dark:hover:bg-zinc-700'
                 >i</NavLink>}
             </div>
         </header>
