@@ -13,7 +13,7 @@ export default function TableRow({ row }: TableRowProps) {
             key={row.bioguide}>
             <td className='w-0'>
                 <NavLink to={`/details/${row.bioguide}`}>
-                    <div className='bg-black object-cover w-10 aspect-square rounded-full overflow-hidden'>
+                    <div className='bg-black size-10 rounded-full overflow-hidden'>
                         <img alt={`Flag of ${row.state}`}
                             loading='lazy'
                             decoding='async'
