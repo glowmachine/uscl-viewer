@@ -99,7 +99,7 @@ export default function ColumnSelector({ colSelectOpen, setColSelectOpen }: Colu
     }, [colSelectOpen]);
 
     return (
-        <div className='fixed inset-0 z-100 bg-gray-500/50
+        <div className='fixed inset-0 z-100 bg-zinc-500/50
                 grid place-items-center'>
 
             <div ref={selectorPanel}
@@ -111,7 +111,7 @@ export default function ColumnSelector({ colSelectOpen, setColSelectOpen }: Colu
                         <div className='flex justify-between gap-1 *:p-2' key={`selector-${index}`}>
                             <span>{index + 1}.</span>
                             <select className={`flex-1 rounded-t
-                                ${index === 0 ? 'text-gray-400' : 'hover:bg-gray-200 border-b-1'}`}
+                                ${index === 0 ? 'text-zinc-400' : 'hover:bg-zinc-200 border-b-1'}`}
                                 disabled={index === 0}
                                 ref={index === 1 ? firstFocusableRef : null}
                                 value={value}
@@ -170,14 +170,14 @@ export default function ColumnSelector({ colSelectOpen, setColSelectOpen }: Colu
                     )}
                 </div>
                 <div className='mx-2.5 mt-5 flex justify-between gap-1'>
-                    <button className='px-3 py-2 self-center rounded-full hover:bg-gray-200'
+                    <button className='px-3 py-2 self-center rounded-full hover:bg-zinc-200'
                         onClick={handleResetButton}>
                         Reset</button>
                     <div className='flex gap-2'>
-                        <button className='px-3 py-2 self-center rounded-full hover:bg-gray-200'
+                        <button className='px-3 py-2 self-center rounded-full hover:bg-zinc-200'
                             onClick={() => cancelSelection()}>
                             Cancel</button>
-                        <button className='px-3 py-2 self-center rounded-full hover:bg-gray-200'
+                        <button className='px-3 py-2 self-center rounded-full hover:bg-zinc-200'
                             ref={lastFocusableRef}
                             onClick={handleDoneButton}>
                             Done</button>

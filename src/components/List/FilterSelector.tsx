@@ -3,10 +3,10 @@ import { districts, states, territories } from "../../types/states";
 
 const styleCheckboxButton = `rounded-full border
                             px-2 py-1 transition-colors select-none
-                            border-gray-300 bg-white text-gray-400
-                            peer-checked:bg-blue-600 peer-checked:border-blue-600 peer-checked:text-white
-                            peer-hover:ring-2 peer-hover:ring-blue-500
-                            peer-focus-visible:ring-2 peer-focus-visible:ring-blue-500`;
+                            border-zinc-300 bg-white text-zinc-400
+                            peer-checked:bg-zinc-600 peer-checked:text-white
+                            peer-hover:ring-2 peer-hover:ring-blue-700
+                            peer-focus-visible:ring-2 peer-focus-visible:ring-blue-700`;
 
 export default function TableFilters() {
     const { filterOptions, setFilterOptions } = useTableContext();

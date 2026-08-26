@@ -53,8 +53,8 @@ export default function Page({ bioguide }: PageProps) {
     const currentTerm = member.terms[member.terms.length - 1];
 
     return (
-        <div className='min-w-0 h-full overflow-auto  p-5 flex flex-col gap-4 sm:gap-8'>
-            <NavLink to='/' className='mt-2 shrink-0 w-10 h-10 rounded-full hover:bg-gray-200 active:bg-gray-300 grid place-items-center'>
+        <div className='min-w-0 h-full overflow-auto px-5 pb-5 flex flex-col gap-4 sm:gap-8'>
+            <NavLink to='/' className='mt-2 shrink-0 w-10 h-10 rounded-full hover:bg-zinc-200 active:bg-zinc-300 grid place-items-center'>
                 <span className='material-symbols-outlined'>arrow_back</span>
             </NavLink>
             <section className='w-full flex flex-col gap-2 sm:gap-8 items-center sm:flex-row'>
@@ -83,14 +83,14 @@ export default function Page({ bioguide }: PageProps) {
                 <nav className='ml-2 flex gap-1'>
                     {tabs.map(tab =>
                         <button
-                            className={`rounded-t py-1 px-2 ${tab.key === activeTab ? 'bg-gray-200' : 'bg-gray-100'}`}
+                            className={`rounded-t py-1 px-2 ${tab.key === activeTab ? 'bg-zinc-200' : 'bg-zinc-100'}`}
                             onClick={() => setActiveTab(tab.key)}
                             key={tab.key}>
                             {tab.label}
                         </button>
                     )}
                 </nav>
-                <article className='font-mono rounded p-5 bg-gray-200'>
+                <article className='font-mono rounded p-5 bg-zinc-200'>
                     {activeTab === 'current' && renderLegislatorData(member)}
                     {activeTab === 'social' && renderLegislatorSocial(member)}
                     {activeTab === 'offices' && renderLegislatorOffice(member)}

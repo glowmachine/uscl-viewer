@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFacebook, faInstagram, faMastodon, faXTwitter, faYoutube, type IconDefinition } from '@fortawesome/free-brands-svg-icons';
 import { faLink } from "@fortawesome/free-solid-svg-icons";
 
-const buttonStyle = 'shrink-0 w-10 h-10 rounded-full grid place-items-center'
+const buttonStyle = 'shrink-0 size-10 rounded-full grid place-items-center'
 
 const socials = [
     'twitter',
@@ -81,7 +81,7 @@ export default function ContactButtons({ member }: ContactButtonsProps) {
             <a
                 href={member.terms[member.terms.length - 1].url}
                 target='_blank' rel='noopener noreferrer'
-                className={`${buttonStyle} bg-blue-200`}>
+                className={`${buttonStyle} bg-zinc-200 hover:bg-zinc-300`}>
                 <FontAwesomeIcon icon={faLink} />
             </a>
             {socials.map(socialKey => {
@@ -91,14 +91,14 @@ export default function ContactButtons({ member }: ContactButtonsProps) {
                 }
                 return !member.social[socialKey]
                     ? <a href='' onClick={e => e.preventDefault()}
-                        className={`${buttonStyle} bg-gray-100 cursor-default`}
+                        className={`${buttonStyle} bg-zinc-100 cursor-default`}
                         key={socialKey}>
                         <FontAwesomeIcon icon={buttonConfig[socialKey].faIcon} />
                     </a>
                     : <a
                         href={buttonConfig[socialKey].link(member.social[socialKey])}
                         target='_blank' rel='noopener noreferrer'
-                        className={`${buttonStyle} bg-blue-200`}
+                        className={`${buttonStyle} bg-zinc-200 hover:bg-zinc-300`}
                         key={socialKey}>
                         <FontAwesomeIcon icon={buttonConfig[socialKey].faIcon} />
                     </a>

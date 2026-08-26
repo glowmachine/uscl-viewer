@@ -7,7 +7,7 @@ import sortRows from "./sortRows";
 import filterData from "./filterData";
 import ColumnSelector from "./ColumnSelector";
 
-const buttonStyle = 'h-10 w-10 flex items-center justify-center rounded-full hover:bg-gray-200';
+const buttonStyle = 'h-10 w-10 flex items-center justify-center rounded-full hover:bg-zinc-200';
 
 export default function Table() {
     const { legislators, isLoading, error } = useDataContext();
@@ -60,15 +60,15 @@ export default function Table() {
                 →</button>
         </div> */}
         {isLoading && <div className='h-full grid place-content-center
-                text-3xl text-gray-400'>Loading Database</div>}
+                text-3xl text-zinc-400'>Loading Database</div>}
         {error && <div className='h-full grid place-content-center
                 text-2xl text-red-300'>{error.message}</div>}
-        {(!isLoading && !error) && <div className='min-w-0 h-full overflow-auto p-5'>
-            <div className='sticky left-0 w-full bg-white h-12 pl-2 flex items-center gap-1 text-gray-600'>
+        {(!isLoading && !error) && <div className='min-w-0 h-full overflow-auto px-5 pb-5'>
+            <div className='sticky left-0 w-full bg-white h-12 pl-2 flex items-center gap-1 text-zinc-600'>
                 <h1 className='text-3xl'>Legislators</h1>
                 <span>({rows.length})</span>
                 <div className='ml-auto'>
-                    <button className={`${buttonStyle} ${colSelectOpen ? 'bg-gray-200' : ''}`}
+                    <button className={`${buttonStyle} ${colSelectOpen ? 'bg-zinc-200' : ''}`}
                         onClick={() => setColSelectOpen(prev => !prev)}
                     >
                         <span className='material-symbols-outlined'
@@ -85,7 +85,7 @@ export default function Table() {
                         <th colSpan={index === 0 ? 2 : 1} key={col.key}>
                             <button
                                 className='h-12 flex items-center gap-1 whitespace-nowrap w-full p-2
-                                        text-gray-400 hover:text-black border-b-1 border-gray-300'
+                                        text-zinc-400 font-medium hover:text-black border-b-1 border-zinc-300'
                                 onClick={() => setSortBy((prev) => {
                                     return (col.key === prev.key)
                                         ? { ...prev, asc: !prev.asc }

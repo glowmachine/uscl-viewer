@@ -75,10 +75,10 @@ function isDateKey(str: string): boolean {
 
 function styleMissing(obj: unknown) {
     return (obj === undefined)
-        ? 'text-gray-400'
+        ? 'text-zinc-400'
         : ''
 }
-const styleHover = 'hover:bg-gray-300';
+const styleHover = 'hover:bg-zinc-300';
 
 //YAML formatting reconstructed from json data, an absolute mess, needs refactoring
 export function renderLegislatorData(member: LegislatorCurrent) {
