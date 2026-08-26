@@ -4,7 +4,6 @@ import { DataProvider } from './contexts/DataContext';
 import { TableProvider } from './contexts/TableContext';
 import { SettingsProvider } from './contexts/SettingsContext';
 import Header from './components/Header';
-import Footer from './components/Footer';
 
 export default function App() {
   return (
@@ -21,7 +20,6 @@ export default function App() {
               </div>
             </div>
           </main>
-          <Footer />
         </div>
       </TableProvider>
     </SettingsProvider>
