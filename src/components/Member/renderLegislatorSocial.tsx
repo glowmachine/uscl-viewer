@@ -36,10 +36,12 @@ export function renderLegislatorSocial(member: Legislator) {
             <li><ul>
                 <li className='font-bold'>- id:</li>
                 <li className={styleHover}><ul>
-                    {idKeys.map(key =>
-                        <li className={styleMissing(member?.id[key])} key={key}>
-                            {indent(4)}{key}: {member?.id[key]}
-                        </li>)}
+                    {idKeys.map(key => <li className={styleMissing(member.id[key])} key={key}>
+                        {indent(4)}{key}: {key === 'thomas' && member.id[key] !== undefined
+                            ? `'${member.id[key]}'`
+                            : member.id[key]}
+                    </li>
+                    )}
                 </ul></li>
             </ul></li>
             <li><ul>
