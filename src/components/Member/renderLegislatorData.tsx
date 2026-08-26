@@ -3,8 +3,8 @@ import type { Bio, ID, LeadershipRole, LegislatorCurrent, Name, PartyAffiliation
 const idKeys: Array<keyof ID> = [
     'bioguide',
     'thomas',
-    'lis',
     'govtrack',
+    'lis',
     'opensecrets',
     'votesmart',
     'fec',
@@ -83,7 +83,7 @@ const styleHover = 'hover:bg-zinc-300 dark:hover:bg-zinc-600';
 //YAML formatting reconstructed from json data, an absolute mess, needs refactoring
 export function renderLegislatorData(member: LegislatorCurrent) {
     return (<>
-        <p className='mb-5 italic'>from legislators-current.json</p>
+        <p className='mb-5 italic'>from legislators-current.yaml</p>
         <ul>
             <li><ul>
                 <li className='font-bold'>- id:</li>

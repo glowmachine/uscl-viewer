@@ -34,7 +34,7 @@ const styleHover = 'hover:bg-zinc-300 dark:hover:bg-zinc-600';
 
 export default function renderLegislatorOffice(member: Legislator) {
     return (<>
-        <p className='mb-5 italic'>from legislators-district-offices.json</p>
+        <p className='mb-5 italic'>from legislators-district-offices.yaml</p>
         <ul>
             <li><ul>
                 <li className='font-bold'>- id:</li>

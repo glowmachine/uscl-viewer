@@ -31,7 +31,7 @@ const styleHover = 'hover:bg-zinc-300 dark:hover:bg-zinc-600';
 
 export function renderLegislatorSocial(member: Legislator) {
     return (<>
-        <p className='mb-5 italic'>from legislators-social-media.json</p>
+        <p className='mb-5 italic'>from legislators-social-media.yaml</p>
         <ul>
             <li><ul>
                 <li className='font-bold'>- id:</li>
