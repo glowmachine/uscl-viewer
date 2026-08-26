@@ -6,7 +6,7 @@ export type RowData = {
 
     bioguide: string | undefined,
     lis: string | undefined,
-    thomas: string | undefined | undefined,
+    thomas: string | undefined,
     govtrack: string | undefined,
     opensecrets: string | undefined,
     votesmart: string | undefined,
