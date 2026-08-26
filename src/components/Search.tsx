@@ -9,6 +9,7 @@ export default function Search() {
     const { setFilterOptions, searchInput, setSearchInput } = useTableContext();
     const [showFilters, setShowFilters] = useState(false);
     const inputRef = useRef<HTMLInputElement>(null);
+    const searchRef = useRef<HTMLDivElement>(null);
 
     // const [waitingIndicator, setWaitingIndicator] = useState(false);
     const debouceTimeMs = 300;
@@ -47,8 +48,27 @@ export default function Search() {
         return () => document.removeEventListener('keydown', handleEnter);
     }, []);
 
+    useEffect(() => {
+        function handleEsc(e: KeyboardEvent): void {
+            if (e.key === 'Escape') setShowFilters(false);
+        };
+        function handleClickOutside(e: MouseEvent): void {
+            if (searchRef.current && !searchRef.current.contains(e.target as Node)) {
+                setShowFilters(false);
+            }
+        };
+
+        document.addEventListener('keydown', handleEsc);
+        document.addEventListener('mousedown', handleClickOutside);
+        return () => {
+            document.removeEventListener('keydown', handleEsc);
+            document.removeEventListener('mousedown', handleClickOutside);
+        }
+    }, []);
+
     return (
-        <div className={`relative flex-1 ${showFilters ? 'rounded-t-xl' : 'rounded-full'} bg-zinc-100 dark:bg-zinc-700`}>
+        <div className={`relative flex-1 ${showFilters ? 'rounded-t-xl' : 'rounded-full'} bg-zinc-100 dark:bg-zinc-700`}
+            ref={searchRef}>
             <label className='sr-only'>Search</label>
             <input className={`w-full px-5 h-12 text-lg ${showFilters ? 'rounded-t-xl' : 'rounded-full'}`}
                 type='text'
