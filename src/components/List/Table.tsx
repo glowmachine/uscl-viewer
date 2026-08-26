@@ -38,80 +38,75 @@ export default function Table() {
 
     return (<>
         {colSelectOpen && <ColumnSelector colSelectOpen={colSelectOpen} setColSelectOpen={setColSelectOpen} />}
-
-        <div className='bg-gray-300 p-4 flex flex-col min-w-0 max-h-full h-screen'>
-            {/* <div id='page-controls' className='self-end m-1 flex items-center gap-1'>
-                {rows.length === 0
-                    ? <span>0-0 of 0</span>
-                    : <span>
-                        {pageStart}-{pageEnd} of {rows.length}
-                    </span>}
-                <button
-                    className='w-5 h-5 border rounded-full
-                    hover:bg-gray-200 active:bg-gray-400'
-                    disabled={pageSettings.index === 0}
-                    onClick={() => setPageSettings(p =>
-                        ({ ...p, index: p.index - p.rowsPerPage }))}>
-                    ←</button>
-                <button
-                    className='w-5 h-5 border rounded-full
-                    hover:bg-gray-200 active:bg-gray-400'
-                    disabled={pageSettings.index + pageSettings.rowsPerPage >= rows.length}
-                    onClick={() => setPageSettings(p =>
-                        ({ ...p, index: p.index + p.rowsPerPage }))}>
-                    →</button>
-            </div> */}
-            {isLoading && <div className='h-full grid place-content-center
-                    text-3xl text-gray-400'>Loading Database</div>}
-            {error && <div className='h-full grid place-content-center
-                    text-2xl text-red-300'>{error.message}</div>}
-            {(!isLoading && !error) && <div className='relative bg-white rounded-xl h-full pt-3'>
-                <div className='min-w-0 h-full overflow-auto px-3'>
-                    <div className='sticky left-0 w-full bg-white h-12 pl-2 flex items-center gap-1 text-gray-600'>
-                        <h1 className='text-3xl'>Legislators</h1>
-                        <span>({rows.length})</span>
-                        <div className='ml-auto'>
-                            <button className={`${buttonStyle} ${colSelectOpen ? 'bg-gray-200' : ''}`}
-                                onClick={() => setColSelectOpen(prev => !prev)}
-                            >
-                                <span className='material-symbols-outlined'
-                                    style={{ fontVariationSettings: `'FILL' ${colSelectOpen ? 1 : 0}` }}
-                                >
-                                    view_column
-                                </span>
-                            </button>
-                        </div>
-                    </div>
-                    <table className='min-w-full'>
-                        <thead className='sticky z-10 top-0 bg-white text-left'>
-                            <tr>{columns.filter((c) => (c.selected)).map((col, index) =>
-                                <th colSpan={index === 0 ? 2 : 1} key={col.key}>
-                                    <button
-                                        className='h-12 flex items-center gap-1 whitespace-nowrap w-full p-2
-                                            text-gray-400 hover:text-black border-b-1 border-gray-300'
-                                        onClick={() => setSortBy((prev) => {
-                                            return (col.key === prev.key)
-                                                ? { ...prev, asc: !prev.asc }
-                                                : { key: col.key, asc: true }
-                                        })}
-                                    >
-                                        <span>{col.label}</span>
-                                        <span className={col.key !== sortBy.key ? 'invisible' : ''}>
-                                            {sortBy.asc ? '▲' : '▼'}</span>
-                                    </button>
-                                </th>)
-                            }</tr>
-                        </thead>
-                        <tbody>
-                            {rows &&
-                                rows.map(row =>
-                                    // (index >= pageSettings.index && index < pageSettings.index + pageSettings.rowsPerPage)
-                                    <TableRow row={row} key={row.bioguide} />
-                                )}
-                        </tbody>
-                    </table>
+        {/* <div id='page-controls' className='self-end m-1 flex items-center gap-1'>
+            {rows.length === 0
+                ? <span>0-0 of 0</span>
+                : <span>
+                    {pageStart}-{pageEnd} of {rows.length}
+                </span>}
+            <button
+                className='w-5 h-5 border rounded-full
+                hover:bg-gray-200 active:bg-gray-400'
+                disabled={pageSettings.index === 0}
+                onClick={() => setPageSettings(p =>
+                    ({ ...p, index: p.index - p.rowsPerPage }))}>
+                ←</button>
+            <button
+                className='w-5 h-5 border rounded-full
+                hover:bg-gray-200 active:bg-gray-400'
+                disabled={pageSettings.index + pageSettings.rowsPerPage >= rows.length}
+                onClick={() => setPageSettings(p =>
+                    ({ ...p, index: p.index + p.rowsPerPage }))}>
+                →</button>
+        </div> */}
+        {isLoading && <div className='h-full grid place-content-center
+                text-3xl text-gray-400'>Loading Database</div>}
+        {error && <div className='h-full grid place-content-center
+                text-2xl text-red-300'>{error.message}</div>}
+        {(!isLoading && !error) && <div className='min-w-0 h-full overflow-auto p-5'>
+            <div className='sticky left-0 w-full bg-white h-12 pl-2 flex items-center gap-1 text-gray-600'>
+                <h1 className='text-3xl'>Legislators</h1>
+                <span>({rows.length})</span>
+                <div className='ml-auto'>
+                    <button className={`${buttonStyle} ${colSelectOpen ? 'bg-gray-200' : ''}`}
+                        onClick={() => setColSelectOpen(prev => !prev)}
+                    >
+                        <span className='material-symbols-outlined'
+                            style={{ fontVariationSettings: `'FILL' ${colSelectOpen ? 1 : 0}` }}
+                        >
+                            view_column
+                        </span>
+                    </button>
                 </div>
-            </div>}
-        </div>
+            </div>
+            <table className='min-w-full'>
+                <thead className='sticky -top-3 z-10 bg-white text-left'>
+                    <tr>{columns.filter((c) => (c.selected)).map((col, index) =>
+                        <th colSpan={index === 0 ? 2 : 1} key={col.key}>
+                            <button
+                                className='h-12 flex items-center gap-1 whitespace-nowrap w-full p-2
+                                        text-gray-400 hover:text-black border-b-1 border-gray-300'
+                                onClick={() => setSortBy((prev) => {
+                                    return (col.key === prev.key)
+                                        ? { ...prev, asc: !prev.asc }
+                                        : { key: col.key, asc: true }
+                                })}
+                            >
+                                <span>{col.label}</span>
+                                <span className={col.key !== sortBy.key ? 'invisible' : ''}>
+                                    {sortBy.asc ? '▲' : '▼'}</span>
+                            </button>
+                        </th>)
+                    }</tr>
+                </thead>
+                <tbody>
+                    {rows &&
+                        rows.map(row =>
+                            // (index >= pageSettings.index && index < pageSettings.index + pageSettings.rowsPerPage)
+                            <TableRow row={row} key={row.bioguide} />
+                        )}
+                </tbody>
+            </table>
+        </div>}
     </>);
 }

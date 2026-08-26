@@ -12,16 +12,18 @@ export default function App() {
       <TableProvider>
         <div className='h-screen flex flex-col'>
           <Header />
-          <main className='min-h-0 flex flex-row'>
-            <div className='flex-1 min-w-0'>
-              <DataProvider>
-                <Outlet />
-              </DataProvider>
+          <main className='min-h-0 w-full bg-gray-300'>
+            <div className='p-6 flex flex-col min-w-0 max-h-full h-screen'>
+              <div className='relative bg-white rounded-3xl h-full'>
+                <DataProvider>
+                  <Outlet />
+                </DataProvider>
+              </div>
             </div>
           </main>
           <Footer />
         </div>
       </TableProvider>
-    </SettingsProvider >
+    </SettingsProvider>
   )
 }
