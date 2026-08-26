@@ -77,11 +77,11 @@ export default function Page({ bioguide }: PageProps) {
                     </div>
                 </div>
             </section>
-            <section className='flex flex-row justify-center'>
+            <section className='flex flex-row justify-center w-1/2'>
                 <ContactButtons member={member} />
                 <div className='hidden sm:block flex-1 ml-5 mr-1 border-t translate-y-[50%]'></div>
             </section>
-            <section className='m-1'>
+            <section className='m-1 flex flex-col w-1/2'>
                 <nav className='ml-2 flex gap-1'>
                     {tabs.map(tab =>
                         <button

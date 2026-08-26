@@ -16,12 +16,12 @@ export default function TableFilters() {
     return (
         <div id='filters_container'
             className='w-full flex flex-row flex-wrap items-center justify-evenly gap-1
-                *:border *:rounded *:px-2 *:pt-2 *:pb-4 *:flex *:gap-1'>
+                *:border *:rounded *:px-2 *:pt-2 *:pb-4 *:flex *:gap-1 *:flex *:flex-col *:items-center'>
             <fieldset>
                 <legend>State</legend>
                 <label className='sr-only' htmlFor='filterState'>State</label>
                 <select id='filterState'
-                    className='border rounded px-1'
+                    className='border rounded px-1 w-full'
                     value={filterOptions.state}
                     onChange={(e) => setFilterOptions(prev => ({ ...prev, state: e.target.value }))}>
                     <option value='' key=''>ALL</option>
@@ -41,6 +41,28 @@ export default function TableFilters() {
                         )}
                     </optgroup>
                 </select>
+            </fieldset>
+            <fieldset>
+                <legend>Type</legend>
+                <label>
+                    <input
+                        className='peer sr-only' type='checkbox'
+                        checked={filterOptions.types.rep}
+                        onChange={(e) => setFilterOptions((prev) =>
+                            ({ ...prev, types: { ...prev.types, rep: e.target.checked } }))
+                        }
+                    />
+                    <span className={styleCheckboxButton}>Representatives</span>
+                </label>
+                <label>
+                    <input className='peer sr-only' type='checkbox'
+                        checked={filterOptions.types.sen}
+                        onChange={(e) => setFilterOptions((prev) =>
+                            ({ ...prev, types: { ...prev.types, sen: e.target.checked } }))
+                        }
+                    />
+                    <span className={styleCheckboxButton}>Senators</span>
+                </label>
             </fieldset>
             <fieldset>
                 <legend>Party</legend>
@@ -73,28 +95,6 @@ export default function TableFilters() {
                         }
                     />
                     <span className={styleCheckboxButton}>Republicans</span>
-                </label>
-            </fieldset>
-            <fieldset>
-                <legend>Type</legend>
-                <label>
-                    <input
-                        className='peer sr-only' type='checkbox'
-                        checked={filterOptions.types.rep}
-                        onChange={(e) => setFilterOptions((prev) =>
-                            ({ ...prev, types: { ...prev.types, rep: e.target.checked } }))
-                        }
-                    />
-                    <span className={styleCheckboxButton}>Representatives</span>
-                </label>
-                <label>
-                    <input className='peer sr-only' type='checkbox'
-                        checked={filterOptions.types.sen}
-                        onChange={(e) => setFilterOptions((prev) =>
-                            ({ ...prev, types: { ...prev.types, sen: e.target.checked } }))
-                        }
-                    />
-                    <span className={styleCheckboxButton}>Senators</span>
                 </label>
             </fieldset>
         </div>
