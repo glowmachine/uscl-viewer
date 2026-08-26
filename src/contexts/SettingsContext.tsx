@@ -1,4 +1,4 @@
-import { createContext, useContext, useState, type PropsWithChildren } from "react";
+import { createContext, useContext, useEffect, useState, type PropsWithChildren } from "react";
 
 const SettingsContext = createContext<SettingsContextValue | undefined>(undefined);
 
@@ -10,11 +10,21 @@ type SettingsContextValue = {
     setSavedColKeys: React.Dispatch<React.SetStateAction<string[]>>,
     readSavedColKeys: () => string[],
     writeSavedColKeys: (keys: string[]) => void,
+    darkMode: boolean,
+    toggleDarkMode: () => void,
 }
 export function SettingsProvider({ children }: PropsWithChildren) {
-    const [savedColKeys, setSavedColKeys] = useState<string[]>(
-        readSavedColKeys()
-    );
+    const [savedColKeys, setSavedColKeys] = useState<string[]>(readSavedColKeys());
+    const [darkMode, setDarkMode] = useState<boolean>(() => {
+        const stored = localStorage.getItem('darkMode');
+        if (stored !== null) return stored === 'true';
+        else return window.matchMedia('(prefers-color-scheme:dark').matches;
+    });
+
+    useEffect(() => {
+        document.documentElement.classList.toggle('dark', darkMode);
+        localStorage.setItem('darkMode', String(darkMode));
+    }, [darkMode]);
 
     function readSavedColKeys(): string[] {
         try {
@@ -31,10 +41,15 @@ export function SettingsProvider({ children }: PropsWithChildren) {
         localStorage.setItem('columns', JSON.stringify(keys));
     }
 
+    function toggleDarkMode(): void {
+        setDarkMode(!darkMode);
+    }
+
     return (
         <SettingsContext value={{
             savedColKeys, setSavedColKeys,
             readSavedColKeys, writeSavedColKeys,
+            darkMode, toggleDarkMode,
         }}>
             {children}
         </SettingsContext>

@@ -5,6 +5,12 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>uscl-viewer</title>
+  <script>
+    const stored = localStorage.getItem('darkMode');
+    document.documentElement.classList.toggle('dark', stored !== null
+      ? stored === 'true'
+      : window.matchMedia('(prefers-color-sceheme: dark)').matches)
+  </script>
 </head>
 
 <body>
