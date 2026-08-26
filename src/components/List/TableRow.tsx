@@ -12,7 +12,7 @@ export default function TableRow({ row }: TableRowProps) {
                 *:p-2 *:whitespace-nowrap'
             key={row.bioguide}>
             <td className='w-0'>
-                <NavLink to={`/member/${row.bioguide}`}>
+                <NavLink to={`/details/${row.bioguide}`}>
                     <div className='bg-black object-cover w-10 aspect-square rounded-full overflow-hidden'>
                         <img alt={`Flag of ${row.state}`}
                             loading='lazy'
