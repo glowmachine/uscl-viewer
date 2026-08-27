@@ -1,48 +1,48 @@
-# United States Congress Legislators Dashboard
-An easy to navigate tool for viewing information about members of the United States Congress.
+# United States Congress Legislators Viewer
+A webapp for quickly looking up information on members of the US Congress.
 
 ## Screenshots
 *upcoming*
 
 ## Live Demo:
-[congress-search-v3.netlify.app](https://congress-search-v3.netlify.app/)
+[uscl-viewer.netlify.app](https://uscl-viewer.netlify.app/)
 
 ## Overview
 
-The database at https://github.com/unitedstates/congress-legislators is mantained through a combination of automated imports and manual edits. Stored in YAML, the text-based format can make it difficult for people to browse. This project makes exploring the information easier with a user-friendly interface. It is simple a tool for volunteers, researchers, and anyone interested in congressional data.
+The database at [unitedstates/congress-legislators](https://github.com/unitedstates/congress-legislators) is mantained through a combination of automated imports and manual edits. Their large text-based records can be intimidating or difficult for regular people to browse. This project makes exploring that information easier with a user-friendly interface. It's a webapp for volunteers, researchers, and anyone interested in congressional data.
 
 ## Features / To Do List
 
 - [x] load data
 - [x] profile pages
-- [ ] responsive layout
-- [ ] dark/light mode
-- [ ] card view
+- [x] responsive layout
+- [x] dark/light mode
 - [x] search field
 - [x] filters menu
-- [ ] dashboard
-- [ ] pinned profiles
 - [x] portrait images
-- [ ] state flags
+- [x] state flags
+- [ ] card view
+- [ ] pinned profiles
 - [ ] notes
+- [ ] dashboard
 
 ## Tech Stack
 
-| Category    | Technologies                           |
-|-------------|----------------------------------------|
-| Frontend    | React, TypeScript, Tailwind CSS        |
-| Tooling     | Vite, Vitest                           |
-| Persistence | LocalStorage                           |
-| Data Source | Congress Legislators                   |
-| Icons       | Google Fonts, Font Awesome             |
-| Deployment  | Netlify                                |
+| Area             | Technologies                    |
+|------------------|---------------------------------|
+| Frontend         | React, TypeScript, Tailwind CSS |
+| Build & Testing  | Vite, Vitest                    |
+| Data Persistence | LocalStorage                    |
+| Data Source      | Congress Legislators            |
+| Icons            | Google Fonts, Font Awesome      |
+| Deployment       | Netlify                         |
 
 ## Getting Started
 
 ```bash
 # Clone the repo
-git clone https://github.com/glowmachine/congress-search-v3.git
-cd congress-search-v3
+git clone https://github.com/glowmachine/uscl-viewer.git
+cd uscl-viewer
 
 # Install dependencies
 npm install
