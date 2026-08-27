@@ -65,7 +65,7 @@ export default function getRowData(data: Legislator[]): Row[] {
             twitter_id: member.social?.twitter_id,
             facebook: member.social?.facebook,
             youtube: member.social?.youtube,
-            youtube_id: member.social?.youtube,
+            youtube_id: member.social?.youtube_id,
             instagram: member.social?.instagram,
             instagram_id: member.social?.instagram_id,
             mastodon: member.social?.mastodon,
