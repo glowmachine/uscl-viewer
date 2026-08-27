@@ -63,10 +63,9 @@ export default function Table() {
                 text-3xl text-zinc-400'>Loading Database</div>}
         {error && <div className='h-full grid place-content-center
                 text-2xl text-red-300'>{error.message}</div>}
-        {(!isLoading && !error) && <div className='min-w-0 h-full overflow-auto px-5 pb-5'>
-            <div className='sticky left-0 w-full h-12 pl-2 flex items-center gap-1
-                bg-white dark:bg-zinc-800
-                text-zinc-600 dark:text-zinc-400'>
+        {(!isLoading && !error) && <div className='min-w-0 h-full overflow-auto px-5 pb-5
+            bg-white dark:bg-zinc-800 text-zinc-600 dark:text-zinc-400'>
+            <div className='sticky left-0 w-full h-12 pl-2 flex items-center gap-1'>
                 <h1 className='text-3xl'>Legislators</h1>
                 <span>({rows.length})</span>
                 <div className='ml-auto'>
@@ -82,14 +81,15 @@ export default function Table() {
                 </div>
             </div>
             <table className='min-w-full'>
-                <thead className='sticky -top-3 z-10 bg-white dark:bg-zinc-800 text-left'>
+                <thead className='sticky -top-3 z-10 bg-white dark:bg-zinc-800'>
                     <tr>{columns.filter((c) => (c.selected)).map((col, index) =>
                         <th colSpan={index === 0 ? 2 : 1} key={col.key}>
                             <button
                                 className='h-12 flex items-center gap-1 whitespace-nowrap w-full p-2
-                                    font-medium border-b-1 border-zinc-300
-                                    text-zinc-400 hover:text-black
-                                    dark:text-zinc-500 dark:hover:text-zinc-300'
+                                    border-b-1 font-medium
+                                    border-zinc-400 dark:border-zinc-400
+                                    text-zinc-400 dark:text-zinc-500
+                                    hover:text-black dark:hover:text-zinc-300'
                                 onClick={() => setSortBy((prev) => {
                                     return (col.key === prev.key)
                                         ? { ...prev, asc: !prev.asc }
