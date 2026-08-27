@@ -53,7 +53,8 @@ export default function Page({ bioguide }: PageProps) {
     const currentTerm = member.terms[member.terms.length - 1];
 
     return (
-        <div className='min-w-0 h-full overflow-auto px-5 pb-5 flex flex-col gap-4 sm:gap-8'>
+        <div className='min-w-0 h-full overflow-auto flex flex-col
+            px-2 sm:px-5 pb-2 sm:pb-5 gap-4 sm:gap-8'>
             <NavLink to='/' className='mt-2 shrink-0 w-10 h-10 rounded-full grid place-items-center
                 hover:bg-zinc-200 active:bg-zinc-300
                 dark:hover:bg-zinc-700 dark:active:bg-zinc-600'>
@@ -94,7 +95,7 @@ export default function Page({ bioguide }: PageProps) {
                         </button>
                     )}
                 </nav>
-                <article className='font-mono rounded p-5 bg-zinc-200 dark:bg-zinc-700'>
+                <article className='font-mono overflow-x-auto rounded p-5 bg-zinc-200 dark:bg-zinc-700'>
                     {activeTab === 'current' && renderLegislatorData(member)}
                     {activeTab === 'social' && renderLegislatorSocial(member)}
                     {activeTab === 'offices' && renderLegislatorOffice(member)}

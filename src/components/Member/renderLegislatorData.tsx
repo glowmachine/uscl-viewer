@@ -84,7 +84,7 @@ const styleHover = 'hover:bg-zinc-300 dark:hover:bg-zinc-600';
 export function renderLegislatorData(member: LegislatorCurrent) {
     return (<>
         <p className='mb-5 italic'>from legislators-current.yaml</p>
-        <ul>
+        <ul className='whitespace-nowrap w-fit'>
             <li><ul>
                 <li className='font-bold'>- id:</li>
                 <li className={styleHover}><ul>
