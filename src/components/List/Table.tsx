@@ -60,11 +60,11 @@ export default function Table() {
                 →</button>
         </div> */}
         {isLoading && <div className='h-full grid place-content-center
-                text-3xl text-zinc-400'>Loading Database</div>}
+                text-3xl text-zinc-600 dark:text-zinc-300'>Loading Database</div>}
         {error && <div className='h-full grid place-content-center
-                text-2xl text-red-300'>{error.message}</div>}
+                text-2xl text-red-500'>{error.message}</div>}
         {(!isLoading && !error) && <div className='min-w-0 h-full overflow-auto px-5 pb-5
-            bg-white dark:bg-zinc-800 text-zinc-600 dark:text-zinc-400'>
+            bg-white dark:bg-zinc-800 text-zinc-600 dark:text-zinc-300'>
             <div className='sticky left-0 w-full h-12 pl-2 flex items-center gap-1'>
                 <h1 className='text-3xl'>Legislators</h1>
                 <span>({rows.length})</span>
