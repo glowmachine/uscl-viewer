@@ -10,7 +10,7 @@ const socials = [
     'twitter',
     'facebook',
     'youtube_id',
-    'twitter_id',
+    // 'twitter_id',
     'youtube',
     'instagram',
     'instagram_id',
